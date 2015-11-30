@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='ISO-8859-1'  ?>
+<toc version="2.0">
+    <tocitem text="Help" image="icon_help">
+        <tocitem text="Welcome" target="Welcome" expand="true" image="openbook">
+            <tocitem text="System" target="System" image="chapter">
+                <tocitem text="Home" target="Home" image="topic"/>
+                <tocitem text="About" target="About" image="topic"/>
+                <tocitem text="Login" target="Login" image="topic"/>
+                <tocitem text="Sign Up" target="SignUp" image="topic"/>
+                
+            </tocitem>
+         
+            <tocitem text="Task" target="Task" image="chapter">
+                <tocitem text="Account" target="Account" image="topic">
+                    <tocitem text="Account Management" target="AccountManager" image="open"/>
+                    <tocitem text="RoleFunction Management" target="RoleFunctionManager" image="open"/>
+                </tocitem>
+                <tocitem text="Product" target="Product" image="topic">
+                    <tocitem text="Product Management" target="ProductManager" image="open"/>
+                </tocitem>
+                <tocitem text="Payment" target="Payment" image="topic">
+                    <tocitem text="View Bill" target="ViewBillManager" image="open"/>
+                    <tocitem text="Category Management" target="CategoryManager" image="open"/>
+                    <tocitem text="Customer Management" target="CustomerManager" image="open"/>
+                    <tocitem text="Payment Management" target="PaymentManager" image="open"/>
+                </tocitem>
+                <tocitem text="Statistics" target="Statistics" image="topic">
+                    <tocitem text="Report By Month" target="ReportMonth" image="open"/>
+                    <tocitem text="Report By Year" target="ReportYear" image="open"/>
+                    <tocitem text="Report By Day" target="ReportDay" image="open"/>
+                </tocitem>
+                <tocitem text="System Data" target="System Data" image="topic">
+                    <tocitem text="Backup" target="BackupManager" image="open"/>
+                    <tocitem text="Restore" target="RestoreManager" image="open"/>
+                    <tocitem text="Diary Management" target="DiaryManager" image="open"/>
+                </tocitem>
+            </tocitem>
+        </tocitem>
+        <!--
+           <tocitem text="Beans In IDE" target="bean.story"/>
+           <tocitem text="Beans In IDE - in SecondaryWindow" target="bean.story" //
+        presentationtype="javax.help.SecondaryWindow" presentationname="main"/>
+           <tocitem text="Beans In IDE - in Popup" target="bean.story" presentationtype="javax.help.Popup"/>
+        </tocitem>
+        -->
+    </tocitem>
+</toc>

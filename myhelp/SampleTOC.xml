@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='ISO-8859-1'  ?>
+<!DOCTYPE toc
+  PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp TOC Version 2.0//EN"
+         "../dtd/toc_2_0.dtd">
+<toc version="2.0">
+<tocitem text="My Sample Help" image="openbook">
+
+   <tocitem text="Introduction to Sample Online Help" target="intro" image="topic"/>
+
+   <tocitem text="Tutorial" target="start" expand="true" image="chapter">
+       <tocitem text="Welcome" target="overview" image="topic"/>
+       <tocitem text="Guide" target="one" image="topic"/>
+       
+   </tocitem>
+<!--
+   <tocitem text="Beans In IDE" target="bean.story"/>
+   <tocitem text="Beans In IDE - in SecondaryWindow" target="bean.story" //
+presentationtype="javax.help.SecondaryWindow" presentationname="main"/>
+   <tocitem text="Beans In IDE - in Popup" target="bean.story" presentationtype="javax.help.Popup"/>
+</tocitem>
+-->
+</tocitem>
+</toc>

@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="38a5625d-cc86-4872-9e72-0e0c423cbea2">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Fill" uuid="af555358-ee9b-4902-b722-bba8f168439f">
+		<parameter name="year" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[SELECT
+     CONVERT(VARCHAR, RestaurantBill."Date",103) AS OrderDate,
+SUM(OrderedDishes."Quantity"*Products."Price") AS Product_Total,  
+
+  OrderedDishes."ID" AS OrderedDishes_ID,
+     OrderedDishes."BillID" AS OrderedDishes_BillID,
+     OrderedDishes."ProductID" AS OrderedDishes_ProductID,
+     OrderedDishes."Quantity" AS OrderedDishes_Quantity,
+
+     Products."ProductID" AS Products_ProductID,
+     Products."ProductName" AS Products_ProductName,
+     Products."Quantity" AS Products_Quantity,
+     Products."ImportDate" AS Products_ImportDate,
+     Products."CateID" AS Products_CateID,
+     Products."SupplierID" AS Products_SupplierID,
+     Products."UnitID" AS Products_UnitID,
+     Products."isActive" AS Products_isActive,
+     Products."Price" AS Products_Price,
+
+     RestaurantBill."ID" AS RestaurantBill_ID,
+     RestaurantBill."StaffID" AS RestaurantBill_StaffID,
+     RestaurantBill."TableID" AS RestaurantBill_TableID,
+     RestaurantBill."CustomerName" AS RestaurantBill_CustomerName,
+     RestaurantBill."Date" AS RestaurantBill_Date,
+     RestaurantBill."Total" AS RestaurantBill_Total
+FROM
+     
+     "dbo"."Products" Products INNER JOIN "dbo"."OrderedDishes" OrderedDishes ON Products."ProductID" = OrderedDishes."ProductID"
+     INNER JOIN "dbo"."RestaurantBill" RestaurantBill ON OrderedDishes."BillID" = RestaurantBill."ID"
+WHERE YEAR(RestaurantBill."Date")=$P{year}
+GROUP BY
+      Products."ProductName",
+RestaurantBill."Date",
+ OrderedDishes."ID",
+OrderedDishes."BillID",
+OrderedDishes."ProductID",
+  OrderedDishes."Quantity",
+
+     Products."ProductID" ,
+     Products."ProductName" ,
+     Products."Quantity",
+     Products."ImportDate",
+     Products."CateID",
+     Products."SupplierID",
+     Products."UnitID",
+     Products."isActive" ,
+     Products."Price" ,
+RestaurantBill."ID" ,
+     RestaurantBill."StaffID",
+     RestaurantBill."TableID",
+     RestaurantBill."CustomerName" ,
+     RestaurantBill."Date",
+     RestaurantBill."Total"
+ORDER BY
+     Products."ProductName" ASC
+
+]]>
+		</queryString>
+		<field name="OrderDate" class="java.lang.String"/>
+		<field name="Product_Total" class="java.math.BigDecimal"/>
+		<field name="OrderedDishes_ID" class="java.lang.Integer"/>
+		<field name="OrderedDishes_BillID" class="java.lang.Integer"/>
+		<field name="OrderedDishes_ProductID" class="java.lang.Integer"/>
+		<field name="OrderedDishes_Quantity" class="java.lang.Integer"/>
+		<field name="Products_ProductID" class="java.lang.Integer"/>
+		<field name="Products_ProductName" class="java.lang.String"/>
+		<field name="Products_Quantity" class="java.lang.Integer"/>
+		<field name="Products_ImportDate" class="java.sql.Timestamp"/>
+		<field name="Products_CateID" class="java.lang.Integer"/>
+		<field name="Products_SupplierID" class="java.lang.Integer"/>
+		<field name="Products_UnitID" class="java.lang.Integer"/>
+		<field name="Products_isActive" class="java.lang.Boolean"/>
+		<field name="Products_Price" class="java.math.BigDecimal"/>
+		<field name="RestaurantBill_ID" class="java.lang.Integer"/>
+		<field name="RestaurantBill_StaffID" class="java.lang.Integer"/>
+		<field name="RestaurantBill_TableID" class="java.lang.Integer"/>
+		<field name="RestaurantBill_CustomerName" class="java.lang.String"/>
+		<field name="RestaurantBill_Date" class="java.sql.Timestamp"/>
+		<field name="RestaurantBill_Total" class="java.math.BigDecimal"/>
+		<variable name="Total" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{Product_Total}]]></variableExpression>
+		</variable>
+	</subDataset>
+	<parameter name="year" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     CONVERT(VARCHAR, RestaurantBill."Date",103) AS OrderDate,
+SUM(OrderedDishes."Quantity"*Products."Price") AS Product_Total,  
+
+  OrderedDishes."ID" AS OrderedDishes_ID,
+     OrderedDishes."BillID" AS OrderedDishes_BillID,
+     OrderedDishes."ProductID" AS OrderedDishes_ProductID,
+     OrderedDishes."Quantity" AS OrderedDishes_Quantity,
+
+     Products."ProductID" AS Products_ProductID,
+     Products."ProductName" AS Products_ProductName,
+     Products."Quantity" AS Products_Quantity,
+     Products."ImportDate" AS Products_ImportDate,
+     Products."CateID" AS Products_CateID,
+     Products."SupplierID" AS Products_SupplierID,
+     Products."UnitID" AS Products_UnitID,
+     Products."isActive" AS Products_isActive,
+     Products."Price" AS Products_Price,
+
+     RestaurantBill."ID" AS RestaurantBill_ID,
+     RestaurantBill."StaffID" AS RestaurantBill_StaffID,
+     RestaurantBill."TableID" AS RestaurantBill_TableID,
+     RestaurantBill."CustomerName" AS RestaurantBill_CustomerName,
+     RestaurantBill."Date" AS RestaurantBill_Date,
+     RestaurantBill."Total" AS RestaurantBill_Total
+FROM
+     
+     "dbo"."Products" Products INNER JOIN "dbo"."OrderedDishes" OrderedDishes ON Products."ProductID" = OrderedDishes."ProductID"
+     INNER JOIN "dbo"."RestaurantBill" RestaurantBill ON OrderedDishes."BillID" = RestaurantBill."ID"
+WHERE YEAR(RestaurantBill."Date")=$P{year}
+GROUP BY
+      Products."ProductName",
+RestaurantBill."Date",
+ OrderedDishes."ID",
+OrderedDishes."BillID",
+OrderedDishes."ProductID",
+  OrderedDishes."Quantity",
+
+     Products."ProductID" ,
+     Products."ProductName" ,
+     Products."Quantity",
+     Products."ImportDate",
+     Products."CateID",
+     Products."SupplierID",
+     Products."UnitID",
+     Products."isActive" ,
+     Products."Price" ,
+RestaurantBill."ID" ,
+     RestaurantBill."StaffID",
+     RestaurantBill."TableID",
+     RestaurantBill."CustomerName" ,
+     RestaurantBill."Date",
+     RestaurantBill."Total"
+ORDER BY
+     Products."ProductName" ASC
+
+]]>
+	</queryString>
+	<field name="OrderDate" class="java.lang.String"/>
+	<field name="Product_Total" class="java.math.BigDecimal"/>
+	<field name="OrderedDishes_ID" class="java.lang.Integer"/>
+	<field name="OrderedDishes_BillID" class="java.lang.Integer"/>
+	<field name="OrderedDishes_ProductID" class="java.lang.Integer"/>
+	<field name="OrderedDishes_Quantity" class="java.lang.Integer"/>
+	<field name="Products_ProductID" class="java.lang.Integer"/>
+	<field name="Products_ProductName" class="java.lang.String"/>
+	<field name="Products_Quantity" class="java.lang.Integer"/>
+	<field name="Products_ImportDate" class="java.sql.Timestamp"/>
+	<field name="Products_CateID" class="java.lang.Integer"/>
+	<field name="Products_SupplierID" class="java.lang.Integer"/>
+	<field name="Products_UnitID" class="java.lang.Integer"/>
+	<field name="Products_isActive" class="java.lang.Boolean"/>
+	<field name="Products_Price" class="java.math.BigDecimal"/>
+	<field name="RestaurantBill_ID" class="java.lang.Integer"/>
+	<field name="RestaurantBill_StaffID" class="java.lang.Integer"/>
+	<field name="RestaurantBill_TableID" class="java.lang.Integer"/>
+	<field name="RestaurantBill_CustomerName" class="java.lang.String"/>
+	<field name="RestaurantBill_Date" class="java.sql.Timestamp"/>
+	<field name="RestaurantBill_Total" class="java.math.BigDecimal"/>
+	<variable name="total list" class="java.lang.String" calculation="Sum">
+		<variableExpression><![CDATA[$F{Product_Total}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="184" splitType="Stretch">
+			<staticText>
+				<reportElement x="295" y="12" width="236" height="29" forecolor="#4A4A4A" uuid="98095ee2-32b8-4b44-a824-373942a0ee79"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Statistic Annual Report]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="339" y="41" width="161" height="20" forecolor="#4A4A4A" uuid="dc537b33-754c-4925-948b-2000a4004dcc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Furniture Store _ Fair Deal]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement key="table 2" style="table 2" positionType="Float" x="51" y="100" width="483" height="80" uuid="b0499d7b-7482-484e-927e-3317443cca4e"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Fill" uuid="a199d864-e3a0-4a03-a134-b2b16b212d4e">
+						<datasetParameter name="year">
+							<datasetParameterExpression><![CDATA[$P{year}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="37" uuid="bf16212b-e827-49d2-9f80-e8f5089eb3b9">
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="37" height="30" uuid="200fe294-94af-4068-844b-848c8c3613b4"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Stt]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 2_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="37" height="20" uuid="8372e20a-6ee9-4b9d-a66a-559e96056dda"/>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="1b3dd3bb-5528-4fcc-8335-13d5c797c43d">
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="7f0d8540-0bd4-40ab-adf6-9513d7ef385d"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Product Name]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 2_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="f9726df2-bc9e-4f92-a315-df5477d6445b"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{Products_ProductName}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="46a3ec3b-3a74-47d1-b760-0acf3871c2f7">
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="0f26fa19-76b9-4cb3-8bf1-45085f32c1fa"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Order Date]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 2_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="88f05a65-fc7e-4974-85c2-e4b0844fbfb1"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{OrderDate}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="65" uuid="c62f45e4-4d75-42ad-b3e7-5b65d871584a">
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="65" height="30" uuid="571fea46-625f-4bbb-91e3-cc695a898d61"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Quantity]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 2_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="65" height="20" uuid="5088b4fa-5e6c-4468-a6c4-f32ac77742ac"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{OrderedDishes_Quantity}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="7c340732-697d-42f6-ac33-518dac71f679">
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="b177ba39-cc05-4bea-a543-cb0115b093a4"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Price]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="314519ce-5fb2-4250-9545-993d4920f8e8"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="14" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total: ]]></text>
+							</staticText>
+						</jr:columnFooter>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="9debad83-3712-4ddc-9675-4c1d8c6dea48"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{Products_Price}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="4edc546f-71e2-4a0e-ab88-6a6c58e2123f">
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="d97333a2-dd5d-49c5-ba15-1e8db81d7475"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total Price]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 2_CH" height="30" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="30" uuid="daab091d-4fcb-4177-b3a9-f6088bf5c699"/>
+								<textFieldExpression><![CDATA[$V{Total}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="c8d3dbf6-8bab-4a49-a332-a19f085f6042"/>
+								<textElement textAlignment="Center"/>
+								<textFieldExpression><![CDATA[$F{Product_Total}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<line>
+				<reportElement x="51" y="79" width="458" height="1" uuid="d1371237-c13e-472c-9dc9-32b94d1a0a46"/>
+			</line>
+			<textField>
+				<reportElement x="51" y="80" width="260" height="20" uuid="9c0ee61f-1e0b-4423-b318-aa7a6472211d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Report Year: " + $P{year}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="53" splitType="Stretch">
+			<staticText>
+				<reportElement x="239" y="0" width="100" height="20" uuid="43295c2b-b231-491e-ae5c-5c0cd2c86e10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Thank You !]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

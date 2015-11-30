@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="Hotel"/>
+  <type-mapping>
+        <sql-type jdbc-type="NVARCHAR" hibernate-type="java.lang.String"/>
+        <sql-type jdbc-type="NCHAR" hibernate-type="java.lang.String" />
+        <sql-type jdbc-type="VARCHAR" hibernate-type="java.lang.String"/>
+    </type-mapping>
+    <table-filter match-name="Role_Function"/>
+    <table-filter match-name="CategoryOfRoom"/>
+    <table-filter match-name="Customers"/>
+    <table-filter match-name="OrderedService"/>
+    <table-filter match-name="OrderForSupplier"/>
+    <table-filter match-name="CategoryOfProduct"/>
+    <table-filter match-name="Products"/>
+    <table-filter match-name="Suppliers"/>
+    <table-filter match-name="RestaurantTable"/>
+    <table-filter match-name="BookingRoom"/>
+    <table-filter match-name="Units"/>
+    <table-filter match-name="HotelOrderService"/>
+    <table-filter match-name="CustomerOrderTable"/>
+    <table-filter match-name="OrderTable"/>
+    <table-filter match-name="RestaurantBill"/>
+    <table-filter match-name="Functions"/>
+    <table-filter match-name="Rooms"/>
+    <table-filter match-name="OrderedDishes"/>
+    <table-filter match-name="BookedRooms"/>
+    <table-filter match-name="Roles"/>
+    <table-filter match-name="Accounts"/>
+    <table-filter match-name="Services"/>
+    <table-filter match-name="OrderLineForSupplier"/>
+    <table-filter match-name="CustomerOrderService"/>
+    <table-filter match-name="Diary"/>
+    <table-filter match-name="HotelOrderDish"/>
+    
+    <table name="BookingRoom" catalog="Hotel" schema="dbo">
+        <primary-key>
+            <generator class="identity"></generator>
+            <key-column name="ID" property="id" />
+        </primary-key>
+    </table> 
+    <table name="Roles" catalog="Hotel" schema="dbo">
+        <primary-key>
+            <generator class="identity"></generator>
+            <key-column name="ID" property="id" />
+        </primary-key>
+    </table> 
+    <table name="Suppliers" catalog="Hotel" schema="dbo">
+        <primary-key>
+            <generator class="identity"></generator>
+            <key-column name="ID" property="id" />
+        </primary-key>
+    </table>
+    <table name="Rooms" catalog="Hotel" schema="dbo">
+        <primary-key>
+            <generator class="identity"></generator>
+            <key-column name="ID" property="id" />
+        </primary-key>
+    </table> 
+    <table name="RestaurantTable" catalog="Hotel" schema="dbo">
+        <primary-key>
+            <generator class="identity"></generator>
+            <key-column name="ID" property="id" />
+        </primary-key>
+    </table> 
+    <table name="OrderedDishes" catalog="Hotel" schema="dbo">
+        <primary-key>
+            <generator class="identity"></generator>
+            <key-column name="ID" property="id" />
+        </primary-key>
+    </table>
+    <table name="Units" catalog="Hotel" schema="dbo">
+        <primary-key>
+            <generator class="identity"></generator>
+            <key-column name="ID" property="id" />
+        </primary-key>
+    </table>
+    <table name="Products" catalog="Hotel" schema="dbo">
+        <primary-key>
+            <generator class="identity"></generator>
+            <key-column name="ID" property="id" />
+        </primary-key>
+    </table>
+    
+    <table name="CategoryOfProduct" catalog="Hotel" schema="dbo">
+        <primary-key>
+            <generator class="identity"></generator>
+            <key-column name="ID" property="id" />
+        </primary-key>
+    </table>
+    <table name="OrderForSupplier" catalog="Hotel" schema="dbo">
+        <primary-key>
+            <generator class="identity"></generator>
+            <key-column name="ID" property="id" />
+        </primary-key>
+    </table>
+    <table name="OrderTable" catalog="Hotel" schema="dbo">
+        <primary-key>
+            <generator class="identity"></generator>
+            <key-column name="ID" property="id" />
+        </primary-key>
+    </table>
+    <table name="Role_Function" catalog="Hotel" schema="dbo">
+        <primary-key>
+            <generator class="identity"></generator>
+            <key-column name="ID" property="id" />
+        </primary-key>
+    </table>
+    <table name="HotelOrderDish" catalog="Hotel" schema="dbo">
+        <primary-key>
+            <generator class="identity"></generator>
+            <key-column name="ID" property="id" />
+        </primary-key>
+    </table>
+    <table name="OrderLineForSupplier" catalog="Hotel" schema="dbo">
+        <primary-key>
+            <generator class="identity"></generator>
+            <key-column name="ID" property="id" />
+        </primary-key>
+    </table>
+    <table name="Services" catalog="Hotel" schema="dbo">
+        <primary-key>
+            <generator class="identity"></generator>
+            <key-column name="ID" property="id" />
+        </primary-key>
+    </table>
+    <table name="BookedRooms" catalog="Hotel" schema="dbo">
+        <primary-key>
+            <generator class="identity"></generator>
+            <key-column name="ID" property="id" />
+        </primary-key>
+    </table> 
+    <table name="HotelOrderService" catalog="Hotel" schema="dbo">
+        <primary-key>
+            <generator class="identity"></generator>
+            <key-column name="ID" property="id" />
+        </primary-key>
+    </table>
+    <table name="CustomerOrderService" catalog="Hotel" schema="dbo">
+        <primary-key>
+            <generator class="identity"></generator>
+            <key-column name="ID" property="id" />
+        </primary-key>
+    </table>
+    <table name="CategoryOfRoom" catalog="Hotel" schema="dbo">
+        <primary-key>
+            <generator class="identity"></generator>
+            <key-column name="ID" property="id" />
+        </primary-key>
+    </table>
+    <table name="CustomerOrderTable" catalog="Hotel" schema="dbo">
+        <primary-key>
+            <generator class="identity"></generator>
+            <key-column name="ID" property="id" />
+        </primary-key>
+    </table> 
+    <table name="RestaurantBill" catalog="Hotel" schema="dbo">
+        <primary-key>
+            <generator class="identity"></generator>
+            <key-column name="ID" property="id" />
+        </primary-key>
+    </table> 
+    <table name="OrderedService" catalog="Hotel" schema="dbo">
+        <primary-key>
+            <generator class="identity"></generator>
+            <key-column name="ID" property="id" />
+        </primary-key>
+    </table> 
+    <table name="Functions" catalog="Hotel" schema="dbo">
+        <primary-key>
+            <generator class="identity"></generator>
+            <key-column name="ID" property="id" />
+        </primary-key>
+    </table>
+    <table name="Diary" catalog="Hotel" schema="dbo">
+        <primary-key>
+            <generator class="identity"></generator>
+            <key-column name="ID" property="id" />
+        </primary-key>
+    </table> 
+    <table name="Customers" catalog="Hotel" schema="dbo">
+        <primary-key>
+            <generator class="identity"></generator>
+            <key-column name="ID" property="id" />
+        </primary-key>
+    </table> 
+    <table name="Accounts" catalog="Hotel" schema="dbo">
+        <primary-key>
+            <generator class="identity"></generator>
+            <key-column name="ID" property="id" />
+        </primary-key>
+    </table>
+</hibernate-reverse-engineering>

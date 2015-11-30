@@ -1,0 +1,1530 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package view;
+
+import entities.Functions;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.font.TextAttribute;
+import java.beans.PropertyVetoException;
+import java.net.URL;
+import java.util.Date;
+import java.util.Map;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.help.HelpBroker;
+import javax.help.HelpSet;
+import javax.swing.ImageIcon;
+import javax.swing.JInternalFrame;
+import models.ActionEntityManager;
+import models.EmployeeEntityManager;
+import models.ProductEntityManager;
+import models.RoleEntityManager;
+import utils.Converter;
+
+/**
+ *
+ * @author ADMIN
+ */
+public class HomeFormDB extends javax.swing.JInternalFrame {
+
+    /**
+     * Creates new form HomeFormDB
+     */
+    static HomeFormDB instance = null;
+    ProductEntityManager proModel = new ProductEntityManager();
+
+    public HomeFormDB() {
+        initComponents();
+        setIcon();
+        grantPermission();
+    }
+
+    public static HomeFormDB getIns() {
+        if (instance == null) {
+            instance = new HomeFormDB();
+        }
+        return instance;
+
+    }
+
+    void grantPermission() {
+        RoleEntityManager roleModel = new RoleEntityManager();
+        ActionEntityManager funModel = new ActionEntityManager();
+        Set<Functions> list = roleModel.getFunctionList(EmployeeEntityManager.currentEmployee.getRoles());
+
+        //Manage account
+        if (list.contains(funModel.find(ActionEntityManager.ACCOUNT_MANAGEMENT))) {
+            lblAcc.setVisible(true);
+        } else {
+            lblAcc.setVisible(false);
+        }
+        //Give role
+        if (list.contains(funModel.find(ActionEntityManager.ACCOUNT_PERMISSION))) {
+            lblPermission.setVisible(true);
+        } else {
+            lblPermission.setVisible(false);
+        }
+        //Manage stock
+        if (list.contains(funModel.find(ActionEntityManager.PRODUCT_MANAGEMENT))) {
+            lblProduc_item.setVisible(true);
+        } else {
+            lblProduc_item.setVisible(false);
+        }
+        //View bills
+        if (list.contains(funModel.find(ActionEntityManager.BILL_OVERVIEW))) {
+            lblBill.setVisible(true);
+        } else {
+            lblBill.setVisible(false);
+        }
+        //Manage supplier
+        if (list.contains(funModel.find(ActionEntityManager.CUSTOMER_MANAGEMENT))) {
+            lblCustomer.setVisible(true);
+        } else {
+            lblCustomer.setVisible(false);
+        }
+        //Payment
+        if (list.contains(funModel.find(ActionEntityManager.RES_CHECKOUT))) {
+            lblPay.setVisible(true);
+        } else {
+            lblPay.setVisible(false);
+        }
+        //Manage category
+        if (list.contains(funModel.find(ActionEntityManager.CATEGORY_MANAGEMENT))) {
+            lblCategory.setVisible(true);
+        } else {
+            lblCategory.setVisible(false);
+        }
+        //statistics
+        if (!list.contains(funModel.find(ActionEntityManager.REPORT))) {
+            lblDay.setVisible(false);
+            lblMonth.setVisible(false);
+            lblYear.setVisible(false);
+        } else {
+            lblDay.setVisible(true);
+            lblMonth.setVisible(true);
+            lblYear.setVisible(true);
+        }
+        //Backup
+        if (list.contains(funModel.find(ActionEntityManager.BACKUP))) {
+            lblBack.setVisible(true);
+        } else {
+            lblBack.setVisible(false);
+        }
+        //Restore
+        if (list.contains(funModel.find(ActionEntityManager.RESTORE))) {
+            lblRes.setVisible(true);
+        } else {
+            lblRes.setVisible(false);
+        }
+        //View diary
+        if (list.contains(funModel.find(ActionEntityManager.DIARY))) {
+            lblDiary.setVisible(true);
+        } else {
+            lblDiary.setVisible(false);
+        }
+    }
+
+    public void setIcon() {
+        this.setFrameIcon(new ImageIcon(getClass().getResource("/image/logoTitle.png")));
+    }
+
+    public void help() {
+        String FILE_HELP = "myhelp/sample.hs";
+        HelpSet helpset;
+        HelpBroker helpbroker = null;
+        ClassLoader cl = getClass().getClassLoader();
+        try {
+            URL url = HelpSet.findHelpSet(cl, FILE_HELP);
+            helpset = new HelpSet(null, url);
+            helpbroker = helpset.createHelpBroker();
+            helpbroker.setDisplayed(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
+
+        pnlTime = new javax.swing.JPanel();
+        pnlSmile = new javax.swing.JPanel();
+        lblSmile = new javax.swing.JLabel();
+        pnlBill = new javax.swing.JPanel();
+        pnlBill_item = new javax.swing.JPanel();
+        lblBill = new javax.swing.JLabel();
+        pnlCategory_item = new javax.swing.JPanel();
+        lblCategory = new javax.swing.JLabel();
+        pnlCustomer_item = new javax.swing.JPanel();
+        lblCustomer = new javax.swing.JLabel();
+        pnlPay_item = new javax.swing.JPanel();
+        lblPay = new javax.swing.JLabel();
+        pnlHelp = new javax.swing.JPanel();
+        pnlHelp_item = new javax.swing.JPanel();
+        lblHelp = new javax.swing.JLabel();
+        pnlAccount = new javax.swing.JPanel();
+        pnlAccoun_item = new javax.swing.JPanel();
+        lblAcc = new javax.swing.JLabel();
+        pnlPermission_item = new javax.swing.JPanel();
+        lblPermission = new javax.swing.JLabel();
+        pnlReport = new javax.swing.JPanel();
+        pnlDay_item = new javax.swing.JPanel();
+        lblDay = new javax.swing.JLabel();
+        pnlMonth_item = new javax.swing.JPanel();
+        lblMonth = new javax.swing.JLabel();
+        pnlYear_item = new javax.swing.JPanel();
+        lblYear = new javax.swing.JLabel();
+        pnlSystem = new javax.swing.JPanel();
+        pnlBack = new javax.swing.JPanel();
+        lblBack = new javax.swing.JLabel();
+        pnlRes = new javax.swing.JPanel();
+        lblRes = new javax.swing.JLabel();
+        pndliary = new javax.swing.JPanel();
+        lblDiary = new javax.swing.JLabel();
+        pnlProduct = new javax.swing.JPanel();
+        pnlProduct_item = new javax.swing.JPanel();
+        lblProduc_item = new javax.swing.JLabel();
+        lblShorcut = new javax.swing.JLabel();
+
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(175, 175, 175), 4));
+        setClosable(true);
+        setTitle("Home");
+        setMinimumSize(new java.awt.Dimension(0, 0));
+        setPreferredSize(new java.awt.Dimension(0, 0));
+        getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        pnlTime.setBackground(new java.awt.Color(175, 175, 175));
+        pnlTime.setMinimumSize(new java.awt.Dimension(300, 405));
+        pnlTime.setPreferredSize(new java.awt.Dimension(300, 405));
+        pnlTime.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlTimeMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnlTimeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnlTimeMouseExited(evt);
+            }
+        });
+        pnlTime.setLayout(new java.awt.GridBagLayout());
+
+        pnlSmile.setBackground(new java.awt.Color(175, 175, 175));
+        pnlSmile.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlSmile.setMinimumSize(new java.awt.Dimension(300, 405));
+        pnlSmile.setPreferredSize(new java.awt.Dimension(300, 405));
+        pnlSmile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnlSmileMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnlSmileMouseExited(evt);
+            }
+        });
+        pnlSmile.setLayout(new java.awt.GridBagLayout());
+
+        lblSmile.setBackground(new java.awt.Color(175, 175, 175));
+        lblSmile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/logoIndo.png"))); // NOI18N
+        lblSmile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblSmileMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblSmileMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblSmileMouseExited(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        pnlSmile.add(lblSmile, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        pnlTime.add(pnlSmile, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 5);
+        getContentPane().add(pnlTime, gridBagConstraints);
+
+        pnlBill.setBackground(new java.awt.Color(175, 175, 175));
+        pnlBill.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlBill.setToolTipText("");
+        pnlBill.setMaximumSize(new java.awt.Dimension(200, 200));
+        pnlBill.setMinimumSize(new java.awt.Dimension(200, 200));
+        pnlBill.setPreferredSize(new java.awt.Dimension(200, 200));
+        pnlBill.setLayout(new java.awt.GridBagLayout());
+
+        pnlBill_item.setBackground(new java.awt.Color(175, 175, 175));
+        pnlBill_item.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlBill_item.setToolTipText("Bill");
+        pnlBill_item.setMinimumSize(new java.awt.Dimension(100, 100));
+        pnlBill_item.setPreferredSize(new java.awt.Dimension(100, 100));
+        pnlBill_item.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnlBill_itemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnlBill_itemMouseExited(evt);
+            }
+        });
+        pnlBill_item.setLayout(new java.awt.GridBagLayout());
+
+        lblBill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/bill_item_1.png"))); // NOI18N
+        lblBill.setToolTipText("Bill");
+        lblBill.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBillMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblBillMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblBillMouseExited(evt);
+            }
+        });
+        pnlBill_item.add(lblBill, new java.awt.GridBagConstraints());
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        pnlBill.add(pnlBill_item, gridBagConstraints);
+
+        pnlCategory_item.setBackground(new java.awt.Color(175, 175, 175));
+        pnlCategory_item.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlCategory_item.setToolTipText("Category Management");
+        pnlCategory_item.setMinimumSize(new java.awt.Dimension(100, 100));
+        pnlCategory_item.setPreferredSize(new java.awt.Dimension(100, 100));
+        pnlCategory_item.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnlCategory_itemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnlCategory_itemMouseExited(evt);
+            }
+        });
+        pnlCategory_item.setLayout(new java.awt.GridBagLayout());
+
+        lblCategory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Category_item_1.png"))); // NOI18N
+        lblCategory.setToolTipText("Category Management");
+        lblCategory.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCategoryMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblCategoryMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblCategoryMouseExited(evt);
+            }
+        });
+        pnlCategory_item.add(lblCategory, new java.awt.GridBagConstraints());
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        pnlBill.add(pnlCategory_item, gridBagConstraints);
+
+        pnlCustomer_item.setBackground(new java.awt.Color(175, 175, 175));
+        pnlCustomer_item.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlCustomer_item.setToolTipText("Customer Management");
+        pnlCustomer_item.setMinimumSize(new java.awt.Dimension(100, 100));
+        pnlCustomer_item.setPreferredSize(new java.awt.Dimension(100, 100));
+        pnlCustomer_item.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnlCustomer_itemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnlCustomer_itemMouseExited(evt);
+            }
+        });
+        pnlCustomer_item.setLayout(new java.awt.GridBagLayout());
+
+        lblCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/customer_item_1.png"))); // NOI18N
+        lblCustomer.setToolTipText("Customer Management");
+        lblCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCustomerMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblCustomerMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblCustomerMouseExited(evt);
+            }
+        });
+        pnlCustomer_item.add(lblCustomer, new java.awt.GridBagConstraints());
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        pnlBill.add(pnlCustomer_item, gridBagConstraints);
+
+        pnlPay_item.setBackground(new java.awt.Color(175, 175, 175));
+        pnlPay_item.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlPay_item.setToolTipText("Payment");
+        pnlPay_item.setMinimumSize(new java.awt.Dimension(100, 100));
+        pnlPay_item.setPreferredSize(new java.awt.Dimension(100, 100));
+        pnlPay_item.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnlPay_itemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnlPay_itemMouseExited(evt);
+            }
+        });
+        pnlPay_item.setLayout(new java.awt.GridBagLayout());
+
+        lblPay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/pay.png"))); // NOI18N
+        lblPay.setToolTipText("Payment");
+        lblPay.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPayMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblPayMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblPayMouseExited(evt);
+            }
+        });
+        pnlPay_item.add(lblPay, new java.awt.GridBagConstraints());
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        pnlBill.add(pnlPay_item, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 5);
+        getContentPane().add(pnlBill, gridBagConstraints);
+
+        pnlHelp.setBackground(new java.awt.Color(175, 175, 175));
+        pnlHelp.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlHelp.setToolTipText("");
+        pnlHelp.setMinimumSize(new java.awt.Dimension(200, 200));
+        pnlHelp.setPreferredSize(new java.awt.Dimension(200, 200));
+        pnlHelp.setLayout(new java.awt.GridBagLayout());
+
+        pnlHelp_item.setBackground(new java.awt.Color(175, 175, 175));
+        pnlHelp_item.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlHelp_item.setToolTipText("Help");
+        pnlHelp_item.setMaximumSize(new java.awt.Dimension(200, 200));
+        pnlHelp_item.setMinimumSize(new java.awt.Dimension(200, 200));
+        pnlHelp_item.setPreferredSize(new java.awt.Dimension(200, 200));
+        pnlHelp_item.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnlHelp_itemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnlHelp_itemMouseExited(evt);
+            }
+        });
+        pnlHelp_item.setLayout(new java.awt.GridBagLayout());
+
+        lblHelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Help-icon (1).png"))); // NOI18N
+        lblHelp.setToolTipText("Help");
+        lblHelp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblHelpMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblHelpMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblHelpMouseExited(evt);
+            }
+        });
+        pnlHelp_item.add(lblHelp, new java.awt.GridBagConstraints());
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        pnlHelp.add(pnlHelp_item, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 5);
+        getContentPane().add(pnlHelp, gridBagConstraints);
+
+        pnlAccount.setBackground(new java.awt.Color(175, 175, 175));
+        pnlAccount.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlAccount.setToolTipText("");
+        pnlAccount.setMinimumSize(new java.awt.Dimension(200, 200));
+        pnlAccount.setPreferredSize(new java.awt.Dimension(200, 200));
+        pnlAccount.setLayout(new java.awt.GridBagLayout());
+
+        pnlAccoun_item.setBackground(new java.awt.Color(175, 175, 175));
+        pnlAccoun_item.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlAccoun_item.setToolTipText("Account Management");
+        pnlAccoun_item.setMaximumSize(new java.awt.Dimension(200, 100));
+        pnlAccoun_item.setMinimumSize(new java.awt.Dimension(200, 100));
+        pnlAccoun_item.setPreferredSize(new java.awt.Dimension(200, 100));
+        pnlAccoun_item.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlAccoun_itemMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnlAccoun_itemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnlAccoun_itemMouseExited(evt);
+            }
+        });
+        pnlAccoun_item.setLayout(new java.awt.GridBagLayout());
+
+        lblAcc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/account.png"))); // NOI18N
+        lblAcc.setToolTipText("Account Management");
+        lblAcc.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAccMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblAccMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblAccMouseExited(evt);
+            }
+        });
+        pnlAccoun_item.add(lblAcc, new java.awt.GridBagConstraints());
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        pnlAccount.add(pnlAccoun_item, gridBagConstraints);
+
+        pnlPermission_item.setBackground(new java.awt.Color(175, 175, 175));
+        pnlPermission_item.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlPermission_item.setToolTipText("Permission Management");
+        pnlPermission_item.setMaximumSize(new java.awt.Dimension(200, 100));
+        pnlPermission_item.setMinimumSize(new java.awt.Dimension(200, 100));
+        pnlPermission_item.setPreferredSize(new java.awt.Dimension(200, 100));
+        pnlPermission_item.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlPermission_itemMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnlPermission_itemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnlPermission_itemMouseExited(evt);
+            }
+        });
+        pnlPermission_item.setLayout(new java.awt.GridBagLayout());
+
+        lblPermission.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/permission.png"))); // NOI18N
+        lblPermission.setToolTipText("Permission Management");
+        lblPermission.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPermissionMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblPermissionMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblPermissionMouseExited(evt);
+            }
+        });
+        pnlPermission_item.add(lblPermission, new java.awt.GridBagConstraints());
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        pnlAccount.add(pnlPermission_item, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        getContentPane().add(pnlAccount, gridBagConstraints);
+
+        pnlReport.setBackground(new java.awt.Color(175, 175, 175));
+        pnlReport.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlReport.setToolTipText("");
+        pnlReport.setMaximumSize(new java.awt.Dimension(200, 200));
+        pnlReport.setMinimumSize(new java.awt.Dimension(200, 200));
+        pnlReport.setPreferredSize(new java.awt.Dimension(200, 200));
+        pnlReport.setLayout(new java.awt.GridBagLayout());
+
+        pnlDay_item.setBackground(new java.awt.Color(175, 175, 175));
+        pnlDay_item.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlDay_item.setToolTipText("Statistic Daily");
+        pnlDay_item.setMinimumSize(new java.awt.Dimension(200, 100));
+        pnlDay_item.setPreferredSize(new java.awt.Dimension(200, 100));
+        pnlDay_item.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnlDay_itemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnlDay_itemMouseExited(evt);
+            }
+        });
+        pnlDay_item.setLayout(new java.awt.GridBagLayout());
+
+        lblDay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/reportday.png"))); // NOI18N
+        lblDay.setToolTipText("Statistic Daily");
+        lblDay.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblDayMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblDayMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblDayMouseExited(evt);
+            }
+        });
+        pnlDay_item.add(lblDay, new java.awt.GridBagConstraints());
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        pnlReport.add(pnlDay_item, gridBagConstraints);
+
+        pnlMonth_item.setBackground(new java.awt.Color(175, 175, 175));
+        pnlMonth_item.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlMonth_item.setToolTipText("Statistic Monthly");
+        pnlMonth_item.setMinimumSize(new java.awt.Dimension(100, 100));
+        pnlMonth_item.setPreferredSize(new java.awt.Dimension(100, 100));
+        pnlMonth_item.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnlMonth_itemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnlMonth_itemMouseExited(evt);
+            }
+        });
+        pnlMonth_item.setLayout(new java.awt.GridBagLayout());
+
+        lblMonth.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/reportmonth.png"))); // NOI18N
+        lblMonth.setToolTipText("Statistic Monthly");
+        lblMonth.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblMonthMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblMonthMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblMonthMouseExited(evt);
+            }
+        });
+        pnlMonth_item.add(lblMonth, new java.awt.GridBagConstraints());
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        pnlReport.add(pnlMonth_item, gridBagConstraints);
+
+        pnlYear_item.setBackground(new java.awt.Color(175, 175, 175));
+        pnlYear_item.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlYear_item.setToolTipText("Statistic Annual");
+        pnlYear_item.setMinimumSize(new java.awt.Dimension(100, 100));
+        pnlYear_item.setPreferredSize(new java.awt.Dimension(100, 100));
+        pnlYear_item.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnlYear_itemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnlYear_itemMouseExited(evt);
+            }
+        });
+        pnlYear_item.setLayout(new java.awt.GridBagLayout());
+
+        lblYear.setBackground(new java.awt.Color(175, 175, 175));
+        lblYear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/reportyear.png"))); // NOI18N
+        lblYear.setToolTipText("Statistic Annual");
+        lblYear.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblYearMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblYearMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblYearMouseExited(evt);
+            }
+        });
+        pnlYear_item.add(lblYear, new java.awt.GridBagConstraints());
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        pnlReport.add(pnlYear_item, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        getContentPane().add(pnlReport, gridBagConstraints);
+
+        pnlSystem.setBackground(new java.awt.Color(175, 175, 175));
+        pnlSystem.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlSystem.setToolTipText("");
+        pnlSystem.setMinimumSize(new java.awt.Dimension(200, 200));
+        pnlSystem.setPreferredSize(new java.awt.Dimension(200, 200));
+        pnlSystem.setLayout(new java.awt.GridBagLayout());
+
+        pnlBack.setBackground(new java.awt.Color(175, 175, 175));
+        pnlBack.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlBack.setToolTipText("Backup");
+        pnlBack.setMinimumSize(new java.awt.Dimension(100, 100));
+        pnlBack.setPreferredSize(new java.awt.Dimension(100, 100));
+        pnlBack.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnlBackMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnlBackMouseExited(evt);
+            }
+        });
+        pnlBack.setLayout(new java.awt.GridBagLayout());
+
+        lblBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/backup.png"))); // NOI18N
+        lblBack.setToolTipText("Backup");
+        lblBack.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBackMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblBackMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblBackMouseExited(evt);
+            }
+        });
+        pnlBack.add(lblBack, new java.awt.GridBagConstraints());
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        pnlSystem.add(pnlBack, gridBagConstraints);
+
+        pnlRes.setBackground(new java.awt.Color(175, 175, 175));
+        pnlRes.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlRes.setToolTipText("Restore");
+        pnlRes.setMinimumSize(new java.awt.Dimension(100, 100));
+        pnlRes.setPreferredSize(new java.awt.Dimension(100, 100));
+        pnlRes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnlResMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnlResMouseExited(evt);
+            }
+        });
+        pnlRes.setLayout(new java.awt.GridBagLayout());
+
+        lblRes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/restore.png"))); // NOI18N
+        lblRes.setToolTipText("Restore");
+        lblRes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblResMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblResMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblResMouseExited(evt);
+            }
+        });
+        pnlRes.add(lblRes, new java.awt.GridBagConstraints());
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        pnlSystem.add(pnlRes, gridBagConstraints);
+
+        pndliary.setBackground(new java.awt.Color(175, 175, 175));
+        pndliary.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pndliary.setToolTipText("Category Management");
+        pndliary.setMinimumSize(new java.awt.Dimension(200, 100));
+        pndliary.setPreferredSize(new java.awt.Dimension(200, 100));
+        pndliary.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pndliaryMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pndliaryMouseExited(evt);
+            }
+        });
+        pndliary.setLayout(new java.awt.GridBagLayout());
+
+        lblDiary.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/diary.png"))); // NOI18N
+        lblDiary.setToolTipText("Category Management");
+        lblDiary.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblDiaryMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblDiaryMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblDiaryMouseExited(evt);
+            }
+        });
+        pndliary.add(lblDiary, new java.awt.GridBagConstraints());
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        pnlSystem.add(pndliary, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        getContentPane().add(pnlSystem, gridBagConstraints);
+
+        pnlProduct.setBackground(new java.awt.Color(175, 175, 175));
+        pnlProduct.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlProduct.setToolTipText("");
+        pnlProduct.setMaximumSize(new java.awt.Dimension(200, 200));
+        pnlProduct.setMinimumSize(new java.awt.Dimension(200, 200));
+        pnlProduct.setPreferredSize(new java.awt.Dimension(200, 200));
+        pnlProduct.setLayout(new java.awt.GridBagLayout());
+
+        pnlProduct_item.setBackground(new java.awt.Color(175, 175, 175));
+        pnlProduct_item.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlProduct_item.setToolTipText("Product Management");
+        pnlProduct_item.setMaximumSize(new java.awt.Dimension(200, 200));
+        pnlProduct_item.setMinimumSize(new java.awt.Dimension(200, 200));
+        pnlProduct_item.setPreferredSize(new java.awt.Dimension(200, 200));
+        pnlProduct_item.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlProduct_itemMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pnlProduct_itemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnlProduct_itemMouseExited(evt);
+            }
+        });
+        pnlProduct_item.setLayout(new java.awt.GridBagLayout());
+
+        lblProduc_item.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Red-Seat-icon.png"))); // NOI18N
+        lblProduc_item.setToolTipText("Product Management");
+        lblProduc_item.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblProduc_itemMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblProduc_itemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblProduc_itemMouseExited(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        pnlProduct_item.add(lblProduc_item, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        pnlProduct.add(pnlProduct_item, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+        getContentPane().add(pnlProduct, gridBagConstraints);
+
+        lblShorcut.setBackground(new java.awt.Color(84, 84, 84));
+        lblShorcut.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        lblShorcut.setForeground(new java.awt.Color(84, 84, 84));
+        lblShorcut.setText("Shorcut: ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 0);
+        getContentPane().add(lblShorcut, gridBagConstraints);
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void lblAccMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAccMouseClicked
+        // TODO add your handling code here:
+        AccountFormDB ac = AccountFormDB.getIns();
+
+        JInternalFrame[] frmList = InternalMain.dtpProgram.getAllFrames();
+        boolean found = false;
+        for (JInternalFrame fr : frmList) {
+            if (fr == ac) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            InternalMain.dtpProgram.add(ac);
+        }
+        InternalMain.dtpProgram.getDesktopManager().maximizeFrame(ac);
+        ac.show();
+    }//GEN-LAST:event_lblAccMouseClicked
+
+    private void lblPermissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPermissionMouseClicked
+        // TODO add your handling code here:
+        RoleFormDB rf = RoleFormDB.getIns();
+
+        JInternalFrame[] frmList = InternalMain.dtpProgram.getAllFrames();
+        boolean found = false;
+
+        for (JInternalFrame fr : frmList) {
+            if (fr == rf) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            //            System.out.println("adding new ");
+            InternalMain.dtpProgram.add(rf);
+        }
+        InternalMain.dtpProgram.getDesktopManager().maximizeFrame(rf);
+        rf.show();
+        try {
+            rf.setSelected(true);
+            rf.requestFocus();
+            rf.grabFocus();
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(InternalMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_lblPermissionMouseClicked
+
+    private void lblProduc_itemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProduc_itemMouseClicked
+        // TODO add your handling code here:
+        ProductFormDB pd = ProductFormDB.getIns();
+
+        JInternalFrame[] frmList = InternalMain.dtpProgram.getAllFrames();
+        boolean found = false;
+        for (JInternalFrame fr : frmList) {
+            if (fr == pd) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            InternalMain.dtpProgram.add(pd);
+            pd.fillCbb();
+        } else {
+            pd.fillCbb();
+        }
+        InternalMain.dtpProgram.getDesktopManager().maximizeFrame(pd);
+        pd.show();
+    }
+
+    private void mniCategoryActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+        CategoryFormDB cf = CategoryFormDB.getIns();
+
+        JInternalFrame[] frmList = InternalMain.dtpProgram.getAllFrames();
+        boolean found = false;
+        for (JInternalFrame fr : frmList) {
+            if (fr == cf) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            InternalMain.dtpProgram.add(cf);
+        }
+        InternalMain.dtpProgram.getDesktopManager().maximizeFrame(cf);
+        cf.show();
+    }//GEN-LAST:event_lblProduc_itemMouseClicked
+
+    private void lblBillMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBillMouseClicked
+        // TODO add your handling code here:
+        BillFormDB bf = BillFormDB.getIns();
+
+        JInternalFrame[] frmList = InternalMain.dtpProgram.getAllFrames();
+        boolean found = false;
+        for (JInternalFrame fr : frmList) {
+            if (fr == bf) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            InternalMain.dtpProgram.add(bf);
+        }
+        InternalMain.dtpProgram.getDesktopManager().maximizeFrame(bf);
+        bf.show();
+    }//GEN-LAST:event_lblBillMouseClicked
+
+    private void lblCategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCategoryMouseClicked
+        // TODO add your handling code here:
+        CategoryFormDB cf = CategoryFormDB.getIns();
+
+        JInternalFrame[] frmList = InternalMain.dtpProgram.getAllFrames();
+        boolean found = false;
+        for (JInternalFrame fr : frmList) {
+            if (fr == cf) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            InternalMain.dtpProgram.add(cf);
+        }
+        InternalMain.dtpProgram.getDesktopManager().maximizeFrame(cf);
+        cf.show();
+    }//GEN-LAST:event_lblCategoryMouseClicked
+
+    private void lblCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCustomerMouseClicked
+        // TODO add your handling code here:
+        CustomerFormDB plf = CustomerFormDB.getIns();
+
+        JInternalFrame[] frmList = InternalMain.dtpProgram.getAllFrames();
+        boolean found = false;
+        for (JInternalFrame fr : frmList) {
+            if (fr == plf) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            InternalMain.dtpProgram.add(plf);
+        }
+        InternalMain.dtpProgram.getDesktopManager().maximizeFrame(plf);
+        plf.show();
+    }//GEN-LAST:event_lblCustomerMouseClicked
+
+    private void lblPayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPayMouseClicked
+        // TODO add your handling code here:
+        CheckOutForm pf = CheckOutForm.getIns();
+
+        JInternalFrame[] frmList = InternalMain.dtpProgram.getAllFrames();
+        boolean found = false;
+        for (JInternalFrame fr : frmList) {
+            if (fr == pf) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            InternalMain.dtpProgram.add(pf);
+            pf.loadProductListToTable(proModel.getAll());
+            pf.loadCustomers();
+        } else {
+            pf.loadProductListToTable(proModel.getAll());
+            pf.loadCustomers();
+        }
+        InternalMain.dtpProgram.getDesktopManager().maximizeFrame(pf);
+        pf.show();
+    }//GEN-LAST:event_lblPayMouseClicked
+
+    private void lblDayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDayMouseClicked
+        // TODO add your handling code here:
+        ReportDay rm = ReportDay.getIns();
+        rm.setVisible(true);
+    }//GEN-LAST:event_lblDayMouseClicked
+
+    private void lblMonthMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMonthMouseClicked
+        // TODO add your handling code here:
+        ReportMonth rm = ReportMonth.getIns();
+        rm.setVisible(true);
+    }//GEN-LAST:event_lblMonthMouseClicked
+
+    private void lblYearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblYearMouseClicked
+        // TODO add your handling code here:
+        ReportYear ry = ReportYear.getIns();
+        ry.setVisible(true);
+    }//GEN-LAST:event_lblYearMouseClicked
+
+    private void lblBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBackMouseClicked
+        // TODO add your handling code here:
+        BackupForm bk = BackupForm.getIns();
+        bk.setVisible(true);
+    }//GEN-LAST:event_lblBackMouseClicked
+
+    private void lblResMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblResMouseClicked
+        // TODO add your handling code here:
+        RecoveryForm bk = RecoveryForm.getIns();
+        bk.setVisible(true);
+    }//GEN-LAST:event_lblResMouseClicked
+
+    private void lblDiaryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDiaryMouseClicked
+        // TODO add your handling code here:
+        DiaryFormDB drf = DiaryFormDB.getIns();
+
+        JInternalFrame[] frmList = InternalMain.dtpProgram.getAllFrames();
+        boolean found = false;
+        for (JInternalFrame fr : frmList) {
+            if (fr == drf) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            InternalMain.dtpProgram.add(drf);
+        }
+        InternalMain.dtpProgram.getDesktopManager().maximizeFrame(drf);
+        drf.show();
+    }//GEN-LAST:event_lblDiaryMouseClicked
+
+    private void lblHelpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHelpMouseClicked
+        // TODO add your handling code here:
+        help();
+    }//GEN-LAST:event_lblHelpMouseClicked
+
+    private void pnlAccoun_itemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlAccoun_itemMouseEntered
+        // TODO add your handling code here:
+        evt.getComponent().setBackground(getBackground());
+    }//GEN-LAST:event_pnlAccoun_itemMouseEntered
+
+    private void pnlAccoun_itemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlAccoun_itemMouseExited
+        // TODO add your handling code here:
+        pnlAccoun_item.setBackground(Color.getColor("FFFFFF"));
+    }//GEN-LAST:event_pnlAccoun_itemMouseExited
+
+    private void pnlPermission_itemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlPermission_itemMouseEntered
+        // TODO add your handling code here:
+        evt.getComponent().setBackground(getBackground());
+    }//GEN-LAST:event_pnlPermission_itemMouseEntered
+
+    private void pnlProduct_itemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlProduct_itemMouseEntered
+        // TODO add your handling code here:
+        evt.getComponent().setBackground(getBackground());
+    }//GEN-LAST:event_pnlProduct_itemMouseEntered
+
+    private void pnlBill_itemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlBill_itemMouseEntered
+        // TODO add your handling code here:
+        evt.getComponent().setBackground(getBackground());
+    }//GEN-LAST:event_pnlBill_itemMouseEntered
+
+    private void pnlCategory_itemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlCategory_itemMouseEntered
+        // TODO add your handling code here:
+        evt.getComponent().setBackground(getBackground());
+    }//GEN-LAST:event_pnlCategory_itemMouseEntered
+
+    private void pnlCustomer_itemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlCustomer_itemMouseEntered
+        // TODO add your handling code here:
+        evt.getComponent().setBackground(getBackground());
+    }//GEN-LAST:event_pnlCustomer_itemMouseEntered
+
+    private void lblPayMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPayMouseEntered
+        // TODO add your handling code here:
+        pnlPay_item.setBackground(getBackground());
+    }//GEN-LAST:event_lblPayMouseEntered
+
+    private void pnlPay_itemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlPay_itemMouseEntered
+        // TODO add your handling code here:
+        evt.getComponent().setBackground(getBackground());
+    }//GEN-LAST:event_pnlPay_itemMouseEntered
+
+    private void lblCustomerMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCustomerMouseEntered
+        // TODO add your handling code here:
+       pnlCustomer_item.setBackground(getBackground());
+    }//GEN-LAST:event_lblCustomerMouseEntered
+
+    private void lblBillMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBillMouseEntered
+        // TODO add your handling code here:
+       pnlBill_item.setBackground(getBackground());
+    }//GEN-LAST:event_lblBillMouseEntered
+
+    private void lblProduc_itemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProduc_itemMouseEntered
+        // TODO add your handling code here:
+        pnlProduct_item.setBackground(getBackground());
+
+    }//GEN-LAST:event_lblProduc_itemMouseEntered
+
+    private void lblAccMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAccMouseEntered
+        // TODO add your handling code here:
+        pnlAccoun_item.setBackground(getBackground());
+    }//GEN-LAST:event_lblAccMouseEntered
+
+    private void lblPermissionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPermissionMouseEntered
+        // TODO add your handling code here:
+        pnlPermission_item.setBackground(getBackground());
+    }//GEN-LAST:event_lblPermissionMouseEntered
+
+    private void lblDayMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDayMouseEntered
+        // TODO add your handling code here:
+        pnlDay_item.setBackground(getBackground());
+    }//GEN-LAST:event_lblDayMouseEntered
+
+    private void pnlDay_itemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlDay_itemMouseEntered
+        // TODO add your handling code here:
+        evt.getComponent().setBackground(getBackground());
+    }//GEN-LAST:event_pnlDay_itemMouseEntered
+
+    private void lblMonthMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMonthMouseEntered
+        // TODO add your handling code here:
+        pnlMonth_item.setBackground(getBackground());
+    }//GEN-LAST:event_lblMonthMouseEntered
+
+    private void pnlMonth_itemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMonth_itemMouseEntered
+        // TODO add your handling code here:
+        evt.getComponent().setBackground(getBackground());
+    }//GEN-LAST:event_pnlMonth_itemMouseEntered
+
+    private void pnlYear_itemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlYear_itemMouseEntered
+        // TODO add your handling code here:
+        evt.getComponent().setBackground(getBackground());
+    }//GEN-LAST:event_pnlYear_itemMouseEntered
+
+    private void lblYearMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblYearMouseEntered
+        // TODO add your handling code here:
+        pnlYear_item.setBackground(getBackground());
+    }//GEN-LAST:event_lblYearMouseEntered
+
+    private void lblDiaryMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDiaryMouseEntered
+        // TODO add your handling code here:
+        pndliary.setBackground(getBackground());
+    }//GEN-LAST:event_lblDiaryMouseEntered
+
+    private void pndliaryMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pndliaryMouseEntered
+        // TODO add your handling code here:
+        evt.getComponent().setBackground(getBackground());
+    }//GEN-LAST:event_pndliaryMouseEntered
+
+    private void lblBackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBackMouseEntered
+        // TODO add your handling code here:
+        pnlBack.setBackground(getBackground());
+    }//GEN-LAST:event_lblBackMouseEntered
+
+    private void pnlBackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlBackMouseEntered
+        // TODO add your handling code here:
+        evt.getComponent().setBackground(getBackground());
+    }//GEN-LAST:event_pnlBackMouseEntered
+
+    private void lblResMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblResMouseEntered
+        // TODO add your handling code here:
+        pnlRes.setBackground(getBackground());
+    }//GEN-LAST:event_lblResMouseEntered
+
+    private void pnlHelp_itemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlHelp_itemMouseEntered
+        // TODO add your handling code here:
+        evt.getComponent().setBackground(getBackground());
+    }//GEN-LAST:event_pnlHelp_itemMouseEntered
+
+    private void lblHelpMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHelpMouseEntered
+        // TODO add your handling code here:
+        pnlHelp_item.setBackground(getBackground());
+    }//GEN-LAST:event_lblHelpMouseEntered
+
+    private void pnlResMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlResMouseEntered
+        // TODO add your handling code here:
+        evt.getComponent().setBackground(getBackground());
+    }//GEN-LAST:event_pnlResMouseEntered
+
+    private void pnlPermission_itemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlPermission_itemMouseExited
+        // TODO add your handling code here:
+        evt.getComponent().setBackground(Color.getColor("FFFFFF"));
+    }//GEN-LAST:event_pnlPermission_itemMouseExited
+
+    private void lblPermissionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPermissionMouseExited
+        // TODO add your handling code here:
+        pnlPermission_item.setBackground(Color.getColor("FFFFFF"));
+    }//GEN-LAST:event_lblPermissionMouseExited
+
+    private void pnlProduct_itemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlProduct_itemMouseExited
+        // TODO add your handling code here:
+        evt.getComponent().setBackground(Color.getColor("FFFFFF"));
+    }//GEN-LAST:event_pnlProduct_itemMouseExited
+
+    private void lblProduc_itemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProduc_itemMouseExited
+        // TODO add your handling code here:
+        pnlProduct_item.setBackground(Color.getColor("FFFFFF"));
+    }//GEN-LAST:event_lblProduc_itemMouseExited
+
+    private void pnlBill_itemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlBill_itemMouseExited
+        // TODO add your handling code here:
+        evt.getComponent().setBackground(Color.getColor("FFFFFF"));
+    }//GEN-LAST:event_pnlBill_itemMouseExited
+
+    private void lblBillMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBillMouseExited
+        // TODO add your handling code here:
+        pnlBill_item.setBackground(Color.getColor("FFFFFF"));
+    }//GEN-LAST:event_lblBillMouseExited
+
+    private void lblCategoryMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCategoryMouseExited
+        // TODO add your handling code here:
+        pnlCategory_item.setBackground(Color.getColor("FFFFFF"));
+    }//GEN-LAST:event_lblCategoryMouseExited
+
+    private void pnlCategory_itemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlCategory_itemMouseExited
+        // TODO add your handling code here:
+        evt.getComponent().setBackground(Color.getColor("FFFFFF"));
+    }//GEN-LAST:event_pnlCategory_itemMouseExited
+
+    private void lblCustomerMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCustomerMouseExited
+        // TODO add your handling code here:
+        pnlCustomer_item.setBackground(Color.getColor("FFFFFF"));
+    }//GEN-LAST:event_lblCustomerMouseExited
+
+    private void pnlCustomer_itemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlCustomer_itemMouseExited
+        // TODO add your handling code here:
+        evt.getComponent().setBackground(Color.getColor("FFFFFF"));
+    }//GEN-LAST:event_pnlCustomer_itemMouseExited
+
+    private void lblPayMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPayMouseExited
+        // TODO add your handling code here:
+        pnlPay_item.setBackground(Color.getColor("FFFFFF"));
+    }//GEN-LAST:event_lblPayMouseExited
+
+    private void pnlPay_itemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlPay_itemMouseExited
+        // TODO add your handling code here:
+        evt.getComponent().setBackground(Color.getColor("FFFFFF"));
+    }//GEN-LAST:event_pnlPay_itemMouseExited
+
+    private void pnlDay_itemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlDay_itemMouseExited
+        // TODO add your handling code here:
+        evt.getComponent().setBackground(Color.getColor("FFFFFF"));
+    }//GEN-LAST:event_pnlDay_itemMouseExited
+
+    private void lblDayMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDayMouseExited
+        // TODO add your handling code here:
+        pnlDay_item.setBackground(Color.getColor("FFFFFF"));
+    }//GEN-LAST:event_lblDayMouseExited
+
+    private void lblYearMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblYearMouseExited
+        // TODO add your handling code here:
+        pnlYear_item.setBackground(Color.getColor("FFFFFF"));
+    }//GEN-LAST:event_lblYearMouseExited
+
+    private void pnlYear_itemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlYear_itemMouseExited
+        // TODO add your handling code here:
+        evt.getComponent().setBackground(Color.getColor("FFFFFF"));
+    }//GEN-LAST:event_pnlYear_itemMouseExited
+
+    private void lblMonthMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMonthMouseExited
+        // TODO add your handling code here:
+        pnlMonth_item.setBackground(Color.getColor("FFFFFF"));
+    }//GEN-LAST:event_lblMonthMouseExited
+
+    private void pnlMonth_itemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlMonth_itemMouseExited
+        // TODO add your handling code here:
+        evt.getComponent().setBackground(Color.getColor("FFFFFF"));
+    }//GEN-LAST:event_pnlMonth_itemMouseExited
+
+    private void lblDiaryMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDiaryMouseExited
+        // TODO add your handling code here:
+        pndliary.setBackground(Color.getColor("FFFFFF"));
+    }//GEN-LAST:event_lblDiaryMouseExited
+
+    private void pndliaryMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pndliaryMouseExited
+        // TODO add your handling code here:
+        evt.getComponent().setBackground(Color.getColor("FFFFFF"));
+    }//GEN-LAST:event_pndliaryMouseExited
+
+    private void lblBackMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBackMouseExited
+        // TODO add your handling code here:
+       pnlBack.setBackground(Color.getColor("FFFFFF"));
+    }//GEN-LAST:event_lblBackMouseExited
+
+    private void pnlBackMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlBackMouseExited
+        // TODO add your handling code here:
+        evt.getComponent().setBackground(Color.getColor("FFFFFF"));
+    }//GEN-LAST:event_pnlBackMouseExited
+
+    private void lblResMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblResMouseExited
+        // TODO add your handling code here:
+        pnlRes.setBackground(Color.getColor("FFFFFF"));
+    }//GEN-LAST:event_lblResMouseExited
+
+    private void pnlResMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlResMouseExited
+        // TODO add your handling code here:
+        evt.getComponent().setBackground(Color.getColor("FFFFFF"));
+    }//GEN-LAST:event_pnlResMouseExited
+
+    private void pnlHelp_itemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlHelp_itemMouseExited
+        // TODO add your handling code here:
+        evt.getComponent().setBackground(Color.getColor("FFFFFF"));
+    }//GEN-LAST:event_pnlHelp_itemMouseExited
+
+    private void lblHelpMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHelpMouseExited
+        // TODO add your handling code here:
+        pnlHelp_item.setBackground(Color.getColor("FFFFFF"));
+
+    }//GEN-LAST:event_lblHelpMouseExited
+
+    private void pnlTimeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlTimeMouseExited
+        // TODO add your handling code here:
+        evt.getComponent().setBackground(Color.getColor("FFFFFF"));
+    }//GEN-LAST:event_pnlTimeMouseExited
+
+    private void pnlTimeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlTimeMouseEntered
+        // TODO add your handling code here:
+        evt.getComponent().setBackground(getBackground());
+    }//GEN-LAST:event_pnlTimeMouseEntered
+
+    private void pnlTimeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlTimeMouseClicked
+        // TODO add your handling code here:
+        AboutForm af = AboutForm.getInstan();
+        af.setVisible(true);
+    }//GEN-LAST:event_pnlTimeMouseClicked
+
+    private void lblSmileMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSmileMouseExited
+        // TODO add your handling code here:
+        pnlSmile.setBackground(Color.getColor("FFFFFF"));
+    }//GEN-LAST:event_lblSmileMouseExited
+
+    private void lblSmileMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSmileMouseEntered
+        // TODO add your handling code here:
+        pnlSmile.setBackground(getBackground());
+    }//GEN-LAST:event_lblSmileMouseEntered
+
+    private void lblSmileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSmileMouseClicked
+        // TODO add your handling code here:
+        AboutForm af = AboutForm.getInstan();
+        af.setVisible(true);
+    }//GEN-LAST:event_lblSmileMouseClicked
+
+    private void pnlSmileMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlSmileMouseEntered
+        // TODO add your handling code here:
+        evt.getComponent().setBackground(getBackground());
+    }//GEN-LAST:event_pnlSmileMouseEntered
+
+    private void pnlSmileMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlSmileMouseExited
+        // TODO add your handling code here:
+        evt.getComponent().setBackground(Color.getColor("FFFFFF"));
+    }//GEN-LAST:event_pnlSmileMouseExited
+
+    private void lblAccMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAccMouseExited
+        // TODO add your handling code here:
+        pnlAccoun_item.setBackground(Color.getColor("FFFFFF"));
+    }//GEN-LAST:event_lblAccMouseExited
+
+    private void lblCategoryMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCategoryMouseEntered
+        // TODO add your handling code here:
+        pnlCategory_item.setBackground(getBackground());
+    }//GEN-LAST:event_lblCategoryMouseEntered
+
+    private void pnlAccoun_itemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlAccoun_itemMouseClicked
+        // TODO add your handling code here:
+         AccountFormDB ac = AccountFormDB.getIns();
+
+        JInternalFrame[] frmList = InternalMain.dtpProgram.getAllFrames();
+        boolean found = false;
+        for (JInternalFrame fr : frmList) {
+            if (fr == ac) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            InternalMain.dtpProgram.add(ac);
+        }
+        InternalMain.dtpProgram.getDesktopManager().maximizeFrame(ac);
+        ac.show();
+    }//GEN-LAST:event_pnlAccoun_itemMouseClicked
+
+    private void pnlPermission_itemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlPermission_itemMouseClicked
+        // TODO add your handling code here:
+        RoleFormDB rf = RoleFormDB.getIns();
+
+        JInternalFrame[] frmList = InternalMain.dtpProgram.getAllFrames();
+        boolean found = false;
+
+        for (JInternalFrame fr : frmList) {
+            if (fr == rf) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            //            System.out.println("adding new ");
+            InternalMain.dtpProgram.add(rf);
+        }
+        InternalMain.dtpProgram.getDesktopManager().maximizeFrame(rf);
+        rf.show();
+        try {
+            rf.setSelected(true);
+            rf.requestFocus();
+            rf.grabFocus();
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(InternalMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_pnlPermission_itemMouseClicked
+
+    private void pnlProduct_itemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlProduct_itemMouseClicked
+        // TODO add your handling code here:
+         ProductFormDB pd = ProductFormDB.getIns();
+
+        JInternalFrame[] frmList = InternalMain.dtpProgram.getAllFrames();
+        boolean found = false;
+        for (JInternalFrame fr : frmList) {
+            if (fr == pd) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            InternalMain.dtpProgram.add(pd);
+            pd.fillCbb();
+        } else {
+            pd.fillCbb();
+        }
+        InternalMain.dtpProgram.getDesktopManager().maximizeFrame(pd);
+        pd.show();
+    }//GEN-LAST:event_pnlProduct_itemMouseClicked
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel lblAcc;
+    private javax.swing.JLabel lblBack;
+    private javax.swing.JLabel lblBill;
+    private javax.swing.JLabel lblCategory;
+    private javax.swing.JLabel lblCustomer;
+    private javax.swing.JLabel lblDay;
+    private javax.swing.JLabel lblDiary;
+    private javax.swing.JLabel lblHelp;
+    private javax.swing.JLabel lblMonth;
+    private javax.swing.JLabel lblPay;
+    private javax.swing.JLabel lblPermission;
+    private javax.swing.JLabel lblProduc_item;
+    private javax.swing.JLabel lblRes;
+    private javax.swing.JLabel lblShorcut;
+    private javax.swing.JLabel lblSmile;
+    private javax.swing.JLabel lblYear;
+    private javax.swing.JPanel pndliary;
+    private javax.swing.JPanel pnlAccoun_item;
+    private javax.swing.JPanel pnlAccount;
+    private javax.swing.JPanel pnlBack;
+    private javax.swing.JPanel pnlBill;
+    private javax.swing.JPanel pnlBill_item;
+    private javax.swing.JPanel pnlCategory_item;
+    private javax.swing.JPanel pnlCustomer_item;
+    private javax.swing.JPanel pnlDay_item;
+    private javax.swing.JPanel pnlHelp;
+    private javax.swing.JPanel pnlHelp_item;
+    private javax.swing.JPanel pnlMonth_item;
+    private javax.swing.JPanel pnlPay_item;
+    private javax.swing.JPanel pnlPermission_item;
+    private javax.swing.JPanel pnlProduct;
+    private javax.swing.JPanel pnlProduct_item;
+    private javax.swing.JPanel pnlReport;
+    private javax.swing.JPanel pnlRes;
+    private javax.swing.JPanel pnlSmile;
+    private javax.swing.JPanel pnlSystem;
+    private javax.swing.JPanel pnlTime;
+    private javax.swing.JPanel pnlYear_item;
+    // End of variables declaration//GEN-END:variables
+}

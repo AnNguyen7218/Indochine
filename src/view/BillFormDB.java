@@ -1,0 +1,357 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package view;
+
+import entities.RestaurantBill;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import models.OrderEntityManager;
+import models.RestaurantBillEntityManager;
+import utils.Converter;
+
+/**
+ *
+ * @author ADMIN
+ */
+public final class BillFormDB extends javax.swing.JInternalFrame {
+
+    /**
+     * Creates new form AccountFormDB
+     */
+    static BillFormDB instance = null;
+    RestaurantBillEntityManager billModel = new RestaurantBillEntityManager();
+    final String searchTextPlaceHolder = "Type in any keyword...";
+
+    public BillFormDB() {
+        initComponents();
+        setIcon();
+        loadBillListToTable(billModel.getAll());
+        txtSearch.getDocument().addDocumentListener(new DocumentListener() {
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                filterBillList();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                filterBillList();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                filterBillList();
+            }
+        });
+
+        //update form data each time chang record in table
+        tblBill.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                int selectedIndex = tblBill.getSelectedRow();
+                if (selectedIndex != -1) {
+                    RestaurantBill b = billModel.find(Integer.valueOf(tblBill.getValueAt(selectedIndex, 0).toString()));
+                    txtSeller.setText(b.getAccounts().getAccountName());
+                    txtBuyer.setText(b.getCustomerName());
+//                    txtTotal.setText(b.getTotal().toString());
+                    txtDate.setText(b.getDate().toString());
+                }
+            }
+        });
+    }
+
+    public void setIcon() {
+        this.setFrameIcon(new ImageIcon(getClass().getResource("/image/logoTitle.png")));
+    }
+
+    public static BillFormDB getIns() {
+        if (instance == null) {
+            instance = new BillFormDB();
+        }
+        return instance;
+
+    }
+
+    //set text to center 
+    void centerTextCell(JTable table) {
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+    }
+
+    //auto-complete bill data by search
+    void filterBillList() {
+        String searchText = txtSearch.getText().toLowerCase();
+        if (searchText.equalsIgnoreCase(searchTextPlaceHolder)) {
+            return;
+        }
+        List<RestaurantBill> l = new ArrayList<>();
+        for (RestaurantBill ins : billModel.getAll()) {
+            if ((ins.getCustomerName() != null && ins.getCustomerName().toLowerCase().contains(searchText))
+                    || ins.getAccounts().getAccountName().toLowerCase().contains(searchText)
+                    || searchText.contains(ins.getId().toString())) {
+                l.add(ins);
+            }
+        }
+
+        loadBillListToTable(l);
+    }
+
+    //load bill data to table
+    void loadBillListToTable(List<RestaurantBill> list) {
+        DefaultTableModel dtm = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int i, int i1) {
+                return false; //To change body of generated methods, choose Tools | Templates.
+            }
+        };
+
+        dtm.addColumn("ID");
+        dtm.addColumn("Table");
+        dtm.addColumn("Date");
+        dtm.addColumn("Seller");
+
+        for (RestaurantBill bill : list) {
+            dtm.addRow(new Object[]{
+                bill.getId(),
+                bill.getRestaurantTable().getTableId(),
+                bill.getDate(),
+                bill.getAccounts().getAccountName(),});
+        }
+
+        tblBill.setModel(dtm);
+        tblBill.getColumn("ID").setMinWidth(0);
+        tblBill.getColumn("ID").setMaxWidth(0);
+
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
+
+        pnlInput = new javax.swing.JPanel();
+        lblName = new javax.swing.JLabel();
+        lblPassword = new javax.swing.JLabel();
+        txtSeller = new javax.swing.JTextField();
+        txtBuyer = new javax.swing.JTextField();
+        lblDate = new javax.swing.JLabel();
+        txtDate = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        pnlOutput = new javax.swing.JPanel();
+        scrBill = new javax.swing.JScrollPane();
+        tblBill = new javax.swing.JTable();
+        lblSearch = new javax.swing.JLabel();
+        txtSearch = new javax.swing.JTextField();
+        lblSearchIcon = new javax.swing.JLabel();
+
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(175, 175, 175), 4));
+        setClosable(true);
+        setTitle("Bill Manager");
+        setMinimumSize(new java.awt.Dimension(0, 0));
+        setNormalBounds(new java.awt.Rectangle(0, 0, 126, 0));
+        setPreferredSize(new java.awt.Dimension(0, 0));
+        getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        pnlInput.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Bill Control"));
+        pnlInput.setMinimumSize(new java.awt.Dimension(402, 479));
+        pnlInput.setPreferredSize(new java.awt.Dimension(402, 479));
+        pnlInput.setLayout(new java.awt.GridBagLayout());
+
+        lblName.setText("Seller: ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        pnlInput.add(lblName, gridBagConstraints);
+
+        lblPassword.setText("Customer:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        pnlInput.add(lblPassword, gridBagConstraints);
+
+        txtSeller.setEnabled(false);
+        txtSeller.setPreferredSize(new java.awt.Dimension(200, 25));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        pnlInput.add(txtSeller, gridBagConstraints);
+
+        txtBuyer.setEnabled(false);
+        txtBuyer.setPreferredSize(new java.awt.Dimension(200, 25));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        pnlInput.add(txtBuyer, gridBagConstraints);
+
+        lblDate.setText("Date: ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        pnlInput.add(lblDate, gridBagConstraints);
+
+        txtDate.setEnabled(false);
+        txtDate.setPreferredSize(new java.awt.Dimension(200, 25));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        pnlInput.add(txtDate, gridBagConstraints);
+
+        jLabel1.setText("Table:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        pnlInput.add(jLabel1, gridBagConstraints);
+
+        jTextField1.setEditable(false);
+        jTextField1.setPreferredSize(new java.awt.Dimension(200, 25));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.insets = new java.awt.Insets(10, 12, 10, 12);
+        pnlInput.add(jTextField1, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(5, 3, 5, 3);
+        getContentPane().add(pnlInput, gridBagConstraints);
+
+        pnlOutput.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Bill Data"));
+        pnlOutput.setMinimumSize(new java.awt.Dimension(472, 477));
+        pnlOutput.setPreferredSize(new java.awt.Dimension(472, 477));
+        pnlOutput.setLayout(new java.awt.GridBagLayout());
+
+        scrBill.setPreferredSize(new java.awt.Dimension(440, 400));
+
+        tblBill.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        tblBill.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblBill.getTableHeader().setReorderingAllowed(false);
+        scrBill.setViewportView(tblBill);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        pnlOutput.add(scrBill, gridBagConstraints);
+
+        lblSearch.setText("Search: ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        pnlOutput.add(lblSearch, gridBagConstraints);
+
+        txtSearch.setPreferredSize(new java.awt.Dimension(200, 25));
+        txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtSearchFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtSearchFocusLost(evt);
+            }
+        });
+        txtSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 120);
+        pnlOutput.add(txtSearch, gridBagConstraints);
+
+        lblSearchIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/search.png"))); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 145);
+        pnlOutput.add(lblSearchIcon, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
+        getContentPane().add(pnlOutput, gridBagConstraints);
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void txtSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusGained
+        // TODO add your handling code here:
+        if (txtSearch.getText().equalsIgnoreCase(searchTextPlaceHolder)) {
+            txtSearch.setText("");
+        }
+    }//GEN-LAST:event_txtSearchFocusGained
+
+    private void txtSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusLost
+        // TODO add your handling code here:
+        if (txtSearch.getText().isEmpty()) {
+            txtSearch.setText(searchTextPlaceHolder);
+        }
+    }//GEN-LAST:event_txtSearchFocusLost
+
+    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchActionPerformed
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblDate;
+    private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblPassword;
+    private javax.swing.JLabel lblSearch;
+    private javax.swing.JLabel lblSearchIcon;
+    private javax.swing.JPanel pnlInput;
+    private javax.swing.JPanel pnlOutput;
+    private javax.swing.JScrollPane scrBill;
+    private javax.swing.JTable tblBill;
+    private javax.swing.JTextField txtBuyer;
+    private javax.swing.JTextField txtDate;
+    private javax.swing.JTextField txtSearch;
+    private javax.swing.JTextField txtSeller;
+    // End of variables declaration//GEN-END:variables
+}

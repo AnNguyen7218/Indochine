@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+    <property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;databaseName=Hotel</property>
+    <property name="hibernate.connection.username">sa</property>
+    <property name="hibernate.connection.password">123456</property>
+    <property name="hibernate.current_session_context_class">thread</property>
+    <mapping class="entities.Suppliers"/>
+    <mapping class="entities.Accounts"/>
+    <mapping class="entities.BookedRooms"/>
+    <mapping class="entities.OrderedDishes"/>
+    <mapping class="entities.RestaurantTable"/>
+    <mapping class="entities.RoleFunction"/>
+    <mapping class="entities.CategoryOfProduct"/>
+    <mapping class="entities.OrderTable"/>
+    <mapping class="entities.CustomerOrderTable"/>
+    <mapping class="entities.OrderForSupplier"/>
+    <mapping class="entities.Diary"/>
+    <mapping class="entities.BookingRoom"/>
+    <mapping class="entities.Products"/>
+    <mapping class="entities.CategoryOfRoom"/>
+    <mapping class="entities.OrderedService"/>
+    <mapping class="entities.OrderLineForSupplier"/>
+    <mapping class="entities.HotelOrderService"/>
+    <mapping class="entities.CustomerOrderService"/>
+    <mapping class="entities.Customers"/>
+    <mapping class="entities.Rooms"/>
+    <mapping class="entities.HotelOrderDish"/>
+    <mapping class="entities.Services"/>
+    <mapping class="entities.Functions"/>
+    <mapping class="entities.Units"/>
+    <mapping class="entities.RestaurantBill"/>
+    <mapping class="entities.Roles"/>
+  </session-factory>
+</hibernate-configuration>

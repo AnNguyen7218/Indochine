@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE map
+  PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp Map Version 1.0//EN"
+         "http://java.sun.com/javase/technologies/desktop/javahelp/map_1_0.dtd">
+
+<map version="1.0">
+    <mapID target="toplevelfolder" url="images/toplevel.gif" />
+    <mapID target="top" url="help/start.html" />
+    <!-- icon -->
+    <mapID target="topic" url="image/topic.gif" />
+    <mapID target="icon_help" url="image/icon_help.gif" />
+    <mapID target="chapter" url="image/chapTopic.gif" />
+    <mapID target="openbook" url="image/openbook.gif" />
+    <mapID target="open" url="image/open.gif" />
+    
+    <!-- map file html -->
+    <mapID target="Welcomee" url="help/Welcome.html" />
+    <mapID target="Login" url="help/Login.html" />
+    <mapID target="Home" url="help/Home.html" />
+    <mapID target="About" url="help/About.html" />
+    <mapID target="SignUp" url="help/SignUp.html" />
+    <!---Task-->
+    <mapID target="AccountManager" url="help/AccountManager.html" />
+    <mapID target="RoleFunctionManager" url="help/RoleFunctionManager.html" />
+    <mapID target="ProductManager" url="help/ProductManager.html" />
+    <mapID target="ViewBillManager" url="help/ViewBillManager.html" />
+    <mapID target="CategoryManager" url="help/CategoryManager.html" />
+    <mapID target="CustomerManager" url="help/CustomerManager.html" />
+    <mapID target="PaymentManager" url="help/PaymentManager.html" />
+    <mapID target="ReportMonth" url="help/ReportMonth.html" />
+    <mapID target="ReportYear" url="help/ReportYear.html" />
+    <mapID target="ReportDay" url="help/ReportDay.html" />
+    <mapID target="BackupManager" url="help/BackupManager.html" />
+    <mapID target="RestoreManager" url="help/RestoreManager.html" />
+    <mapID target="DiaryManager" url="help/DiaryManager.html" />
+  
+</map>

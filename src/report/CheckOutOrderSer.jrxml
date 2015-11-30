@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7409c04e-5702-4333-bfa4-09ded7c6b7d0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="48"/>
+	<parameter name="billID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     OrderedService."ID" AS OrderedService_ID,
+     OrderedService."OrderID" AS OrderedService_OrderID,
+     OrderedService."ServiceID" AS OrderedService_ServiceID,
+     OrderedService."Quantity" AS OrderedService_Quantity,
+     OrderedService."SellerID" AS OrderedService_SellerID,
+     OrderedService."CustomerID" AS OrderedService_CustomerID,
+     OrderedService."DateOrder" AS OrderedService_DateOrder,
+     Services."ServiceID" AS Services_ServiceID,
+     Services."ServiceName" AS Services_ServiceName,
+     Services."isActive" AS Services_isActive,
+     Services."Price" AS Services_Price,
+     CustomerOrderService."ID" AS CustomerOrderService_ID,
+     CustomerOrderService."CustomerName" AS CustomerOrderService_CustomerName,
+     CustomerOrderService."CustomerNumber" AS CustomerOrderService_CustomerNumber
+FROM
+     "dbo"."Services" Services INNER JOIN "dbo"."OrderedService" OrderedService ON Services."ServiceID" = OrderedService."ServiceID"
+     INNER JOIN "dbo"."CustomerOrderService" CustomerOrderService ON OrderedService."CustomerID" = CustomerOrderService."ID"
+WHERE OrderedService."ID"=$P{billID}]]>
+	</queryString>
+	<field name="OrderedService_ID" class="java.lang.Integer"/>
+	<field name="OrderedService_OrderID" class="java.lang.Integer"/>
+	<field name="OrderedService_ServiceID" class="java.lang.Integer"/>
+	<field name="OrderedService_Quantity" class="java.lang.Integer"/>
+	<field name="OrderedService_SellerID" class="java.lang.Integer"/>
+	<field name="OrderedService_CustomerID" class="java.lang.Integer"/>
+	<field name="OrderedService_DateOrder" class="java.sql.Timestamp"/>
+	<field name="Services_ServiceID" class="java.lang.Integer"/>
+	<field name="Services_ServiceName" class="java.lang.String"/>
+	<field name="Services_isActive" class="java.lang.Boolean"/>
+	<field name="Services_Price" class="java.math.BigDecimal"/>
+	<field name="CustomerOrderService_ID" class="java.lang.Integer"/>
+	<field name="CustomerOrderService_CustomerName" class="java.lang.String"/>
+	<field name="CustomerOrderService_CustomerNumber" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="69" y="0" width="424" height="79" uuid="ce1b1c03-0acc-4cee-9c96-46c383294ee8"/>
+				<textElement textAlignment="Center">
+					<font fontName="Georgia" size="30" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INDOCHINE PALACE HOTEL]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="58" splitType="Stretch">
+			<staticText>
+				<reportElement x="116" y="0" width="38" height="20" uuid="e69094a6-d13e-4b4d-ae3e-3c5882b68b76"/>
+				<textElement>
+					<font size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Bill ID:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="311" y="0" width="38" height="20" uuid="9fa8e993-d4c7-4311-8659-5b18190e7854"/>
+				<textElement>
+					<font size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="75" y="38" width="79" height="20" uuid="32bffae0-d7d1-4a9a-9aaa-6db6a8afe528"/>
+				<textElement>
+					<font size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Customer:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="174" y="38" width="255" height="20" uuid="1bb06fa8-692c-4c25-aba6-b25ff69250cf"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CustomerOrderService_CustomerName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="357" y="0" width="136" height="20" uuid="8c819be5-86d4-448b-b4a1-3270540aca2d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OrderedService_DateOrder}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="174" y="0" width="100" height="20" uuid="6481f768-7645-4b30-a578-3fa92bb28749"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{billID}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="157" splitType="Stretch">
+			<componentElement>
+				<reportElement key="table 1" style="table 1" x="97" y="17" width="360" height="140" uuid="acedf167-1209-44a3-bab3-a278a9cece6a"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Table Dataset 2" uuid="e38bba71-7778-4bf8-aed8-28b4a88a53e4">
+						<datasetParameter name="billID">
+							<datasetParameterExpression><![CDATA[$P{billID}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="64085aa9-c45d-4980-849b-4f435c411e6d">
+						<jr:tableHeader style="table 1_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="table 1_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="16fb062e-f293-4e11-88c8-c3ebe37f3013"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[STT]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 1_CH" height="37" rowSpan="1"/>
+						<jr:detailCell style="table 1_TD" height="43" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="43" uuid="fa109d6c-14e6-48ac-afb1-aacbd261e57c"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="00297077-6cbd-4baf-9a64-2be37e98e44f">
+						<jr:tableHeader style="table 1_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="table 1_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="78ed0147-ecdb-4012-879e-1ab6f457e1d3"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Service]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 1_CH" height="37" rowSpan="1"/>
+						<jr:detailCell style="table 1_TD" height="43" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="43" uuid="d9c0c9a7-8aaf-4481-97cc-84a7cf85edd6"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{Products_ProductName}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="7cb35d9a-6903-4668-a820-58768d8b7333">
+						<jr:tableHeader style="table 1_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="table 1_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="935a5e2e-a059-46a3-8230-c0e07e36a275"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Quantity]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 1_CH" height="37" rowSpan="1"/>
+						<jr:detailCell style="table 1_TD" height="43" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="43" uuid="99ddfca1-f5c2-4e97-91cb-0f35fc5c59bc"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{OrderedDishes_Quantity}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="93" uuid="77df5da4-0776-46c6-838d-ba668237d907">
+						<jr:tableHeader style="table 1_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="table 1_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="93" height="30" uuid="72c6feff-ce70-43e9-8503-518288b9afe5"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Price]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 1_CH" height="37" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="93" height="37" uuid="1d0ed024-dc22-45c3-adb9-fedaf17a258a"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[TOTAL]]></text>
+							</staticText>
+						</jr:columnFooter>
+						<jr:detailCell style="table 1_TD" height="43" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="93" height="43" uuid="11383d1c-2604-4a6a-841f-4f524fa3a128"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{Products_Price}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="126ecb6e-9baf-411c-957b-78f49aa432f3">
+						<jr:tableHeader style="table 1_TH" height="30" rowSpan="1"/>
+						<jr:tableFooter style="table 1_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="ea9c74b9-0048-4ecf-afef-5893e964ae1b"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total Price]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 1_CH" height="37" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="37" uuid="a78a3174-91f5-4f37-9bf8-b535d8072cc6"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$V{variable1}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell height="43" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="43" uuid="98278908-7c7c-4aed-a9dd-48c117065467"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{Price}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

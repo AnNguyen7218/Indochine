@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='ISO-8859-1'  ?>
+<!DOCTYPE index
+  PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp Index Version 1.0//EN"
+         "http://java.sun.com/javase/technologies/desktop/javahelp/index_1_0.dtd">
+
+<index version="1.0">
+   <indexitem text="Gioi Thieu" target="prof.profile"/>
+   <indexitem text="Home" expand="false">
+       <indexitem text="" target="proj.importdirectory"/>
+   </indexitem>
+   
+   <indexitem text="Accounts" expand="false">
+      <indexitem text="Mannage accounts" target="proj.importdirectory"/>
+      <indexitem text="Mannage roles" target="proj.importdirectory"/>
+      
+   </indexitem>
+   
+   <indexitem text="Products" expand="false">
+      <indexitem text="Manage products" target="debug.arguments"/>
+      
+   </indexitem>
+   <indexitem text="Payment" expand="false">
+      <indexitem text="View bills" target="debug.arguments"/>
+      <indexitem text="Manage unti" target="debug.arguments"/>
+      <indexitem text="Manage category" target="debug.arguments"/>
+      <indexitem text="Manage customer" target="debug.arguments"/>
+      <indexitem text="Payment" target="debug.arguments"/>
+      
+   </indexitem>
+   <indexitem text="Statistics" expand="false">
+      <indexitem text="Report by month" target="debug.arguments"/>
+      <indexitem text="Report by year" target="debug.arguments"/>
+      
+   </indexitem>
+    <indexitem text="Symtem" expand="false">
+      <indexitem text="Backup data" target="debug.arguments"/>
+      <indexitem text="Restore data" target="debug.arguments"/>
+      <indexitem text="View diary" target="debug.arguments"/>
+      
+   
+   </indexitem>
+    <indexitem text="Help" expand="false">
+      <indexitem text="" target="debug.arguments"/>
+      
+      
+   </indexitem>
+
+   <indexitem text="Exit" expand="false">
+      <indexitem text="" target="proj.existingbeans"/>
+     
+   </indexitem>
+   
+</index>

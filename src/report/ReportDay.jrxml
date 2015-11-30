@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4d3b877b-9499-406a-bc11-8ac3d45308fb">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="Fill" uuid="ac0c134a-cee6-4c14-b95b-a1025a3ba70f">
+		<parameter name="datego" class="java.lang.String"/>
+		<parameter name="dateto" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[SELECT
+     CONVERT(VARCHAR,RestaurantBill."Date",103) AS OrderDate,
+     SUM(OrderedDishes."Quantity"*Products."Price") AS Product_Total,
+     OrderedDishes."ID" AS OrderedDishes_ID,
+     OrderedDishes."BillID" AS OrderedDishes_BillID,
+     OrderedDishes."ProductID" AS OrderedDishes_ProductID,
+     OrderedDishes."Quantity" AS OrderedDishes_Quantity,
+     Products."ProductID" AS Products_ProductID,
+     Products."ProductName" AS Products_ProductName,
+     Products."Quantity" AS Products_Quantity,
+     Products."ImportDate" AS Products_ImportDate,
+     Products."CateID" AS Products_CateID,
+     Products."SupplierID" AS Products_SupplierID,
+     Products."UnitID" AS Products_UnitID,
+     Products."isActive" AS Products_isActive,
+     Products."Price" AS Products_Price,
+     RestaurantBill."ID" AS RestaurantBill_ID,
+     RestaurantBill."StaffID" AS RestaurantBill_StaffID,
+     RestaurantBill."TableID" AS RestaurantBill_TableID,
+     RestaurantBill."CustomerName" AS RestaurantBill_CustomerName,
+     RestaurantBill."Date" AS RestaurantBill_Date,
+     RestaurantBill."Total" AS RestaurantBill_Total
+FROM
+     "dbo"."Products" Products INNER JOIN "dbo"."OrderedDishes" OrderedDishes ON Products."ProductID" = OrderedDishes."ProductID"
+     INNER JOIN "dbo"."RestaurantBill" RestaurantBill ON OrderedDishes."BillID" = RestaurantBill."ID"
+WHERE
+     CONVERT(VARCHAR,RestaurantBill."Date",103) BETWEEN CONVERT(VARCHAR,$P{datego},103)AND CONVERT(VARCHAR,$P{dateto},103)
+GROUP BY
+     Products."ProductName",
+     RestaurantBill."Date",
+     OrderedDishes."ID",
+     OrderedDishes."BillID",
+     OrderedDishes."ProductID",
+     OrderedDishes."Quantity",
+     Products."ProductID",
+     Products."ProductName",
+     Products."Quantity",
+     Products."ImportDate",
+     Products."CateID",
+     Products."SupplierID",
+     Products."UnitID",
+     Products."isActive",
+     Products."Price",
+     RestaurantBill."ID",
+     RestaurantBill."StaffID",
+     RestaurantBill."TableID",
+     RestaurantBill."CustomerName",
+     RestaurantBill."Date",
+     RestaurantBill."Total"
+ORDER BY
+     Products."ProductName" ASC]]>
+		</queryString>
+		<field name="OrderDate" class="java.lang.String"/>
+		<field name="Product_Total" class="java.math.BigDecimal"/>
+		<field name="OrderedDishes_ID" class="java.lang.Integer"/>
+		<field name="OrderedDishes_BillID" class="java.lang.Integer"/>
+		<field name="OrderedDishes_ProductID" class="java.lang.Integer"/>
+		<field name="OrderedDishes_Quantity" class="java.lang.Integer"/>
+		<field name="Products_ProductID" class="java.lang.Integer"/>
+		<field name="Products_ProductName" class="java.lang.String"/>
+		<field name="Products_Quantity" class="java.lang.Integer"/>
+		<field name="Products_ImportDate" class="java.sql.Timestamp"/>
+		<field name="Products_CateID" class="java.lang.Integer"/>
+		<field name="Products_SupplierID" class="java.lang.Integer"/>
+		<field name="Products_UnitID" class="java.lang.Integer"/>
+		<field name="Products_isActive" class="java.lang.Boolean"/>
+		<field name="Products_Price" class="java.math.BigDecimal"/>
+		<field name="RestaurantBill_ID" class="java.lang.Integer"/>
+		<field name="RestaurantBill_StaffID" class="java.lang.Integer"/>
+		<field name="RestaurantBill_TableID" class="java.lang.Integer"/>
+		<field name="RestaurantBill_CustomerName" class="java.lang.String"/>
+		<field name="RestaurantBill_Date" class="java.sql.Timestamp"/>
+		<field name="RestaurantBill_Total" class="java.math.BigDecimal"/>
+		<variable name="Total" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{Product_Total}]]></variableExpression>
+		</variable>
+	</subDataset>
+	<parameter name="datego" class="java.lang.String"/>
+	<parameter name="dateto" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     CONVERT(VARCHAR, RestaurantBill."Date",103) AS OrderDate,
+SUM(OrderedDishes."Quantity"*Products."Price") AS Product_Total,  
+
+  OrderedDishes."ID" AS OrderedDishes_ID,
+     OrderedDishes."BillID" AS OrderedDishes_BillID,
+     OrderedDishes."ProductID" AS OrderedDishes_ProductID,
+     OrderedDishes."Quantity" AS OrderedDishes_Quantity,
+
+     Products."ProductID" AS Products_ProductID,
+     Products."ProductName" AS Products_ProductName,
+     Products."Quantity" AS Products_Quantity,
+     Products."ImportDate" AS Products_ImportDate,
+     Products."CateID" AS Products_CateID,
+     Products."SupplierID" AS Products_SupplierID,
+     Products."UnitID" AS Products_UnitID,
+     Products."isActive" AS Products_isActive,
+     Products."Price" AS Products_Price,
+
+     RestaurantBill."ID" AS RestaurantBill_ID,
+     RestaurantBill."StaffID" AS RestaurantBill_StaffID,
+     RestaurantBill."TableID" AS RestaurantBill_TableID,
+     RestaurantBill."CustomerName" AS RestaurantBill_CustomerName,
+     RestaurantBill."Date" AS RestaurantBill_Date,
+     RestaurantBill."Total" AS RestaurantBill_Total
+FROM
+     
+     "dbo"."Products" Products INNER JOIN "dbo"."OrderedDishes" OrderedDishes ON Products."ProductID" = OrderedDishes."ProductID"
+     INNER JOIN "dbo"."RestaurantBill" RestaurantBill ON OrderedDishes."BillID" = RestaurantBill."ID"
+WHERE CONVERT(VARCHAR,RestaurantBill."Date",103) BETWEEN CONVERT(VARCHAR,$P{datego},103) AND CONVERT(VARCHAR,$P{dateto},103)
+GROUP BY
+      Products."ProductName",
+RestaurantBill."Date",
+ OrderedDishes."ID",
+OrderedDishes."BillID",
+OrderedDishes."ProductID",
+  OrderedDishes."Quantity",
+
+     Products."ProductID" ,
+     Products."ProductName" ,
+     Products."Quantity",
+     Products."ImportDate",
+     Products."CateID",
+     Products."SupplierID",
+     Products."UnitID",
+     Products."isActive" ,
+     Products."Price" ,
+RestaurantBill."ID" ,
+     RestaurantBill."StaffID",
+     RestaurantBill."TableID",
+     RestaurantBill."CustomerName" ,
+     RestaurantBill."Date",
+     RestaurantBill."Total"
+ORDER BY
+     Products."ProductName" ASC
+
+]]>
+	</queryString>
+	<field name="OrderDate" class="java.lang.String"/>
+	<field name="Product_Total" class="java.math.BigDecimal"/>
+	<field name="OrderedDishes_ID" class="java.lang.Integer"/>
+	<field name="OrderedDishes_BillID" class="java.lang.Integer"/>
+	<field name="OrderedDishes_ProductID" class="java.lang.Integer"/>
+	<field name="OrderedDishes_Quantity" class="java.lang.Integer"/>
+	<field name="Products_ProductID" class="java.lang.Integer"/>
+	<field name="Products_ProductName" class="java.lang.String"/>
+	<field name="Products_Quantity" class="java.lang.Integer"/>
+	<field name="Products_ImportDate" class="java.sql.Timestamp"/>
+	<field name="Products_CateID" class="java.lang.Integer"/>
+	<field name="Products_SupplierID" class="java.lang.Integer"/>
+	<field name="Products_UnitID" class="java.lang.Integer"/>
+	<field name="Products_isActive" class="java.lang.Boolean"/>
+	<field name="Products_Price" class="java.math.BigDecimal"/>
+	<field name="RestaurantBill_ID" class="java.lang.Integer"/>
+	<field name="RestaurantBill_StaffID" class="java.lang.Integer"/>
+	<field name="RestaurantBill_TableID" class="java.lang.Integer"/>
+	<field name="RestaurantBill_CustomerName" class="java.lang.String"/>
+	<field name="RestaurantBill_Date" class="java.sql.Timestamp"/>
+	<field name="RestaurantBill_Total" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="193" splitType="Stretch">
+			<staticText>
+				<reportElement x="302" y="26" width="236" height="29" forecolor="#4A4A4A" uuid="0280e331-5dd2-4ba8-a121-b20dac83e549"/>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Statistic Daily Report]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement key="table" style="table" x="42" y="109" width="479" height="80" uuid="b3686948-1117-4932-b32c-a1585bdc76d3"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Fill" uuid="ac7c3c98-8a7b-4913-923c-f4ca2c06f348">
+						<datasetParameter name="datego">
+							<datasetParameterExpression><![CDATA[$P{datego}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="dateto">
+							<datasetParameterExpression><![CDATA[$P{dateto}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="48" uuid="b3919f0c-bb39-4c1d-87e4-707f0938b59d">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="47" height="30" uuid="711587ed-a306-41c5-aa31-9f8710844162"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Stt]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="47" height="20" uuid="6faa8dff-51db-4198-92f3-6e9b89d2453e"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="985dd426-5eab-4ccc-8500-f626ddc9ee51">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="98da9c60-0309-42b4-b6c7-99e01c1b9f7b"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Product Name]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="12c053f3-add5-458a-8e1e-0e510fba6aba"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{Products_ProductName}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="54768aff-3d27-402d-a04f-023fdcde2bd0">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="85a3173c-72f0-493a-8f79-bb0ef86da06b"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Order Date]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="4ddbb094-6567-4a61-8d25-46b723b5013f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{OrderDate}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="66" uuid="010df0f8-ef3f-4861-8ec0-8504c20efb30">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="66" height="30" uuid="b4f38ad7-9270-4bda-889d-6394d040bf4d"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Quantity]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="66" height="20" uuid="09f35a44-c702-44c8-8fcf-1d220b08e4ed"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{OrderedDishes_Quantity}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="83166c94-ecf8-4175-9bc4-774520b92341">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="414fdab7-75d5-4657-8367-d142affeab62"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Price]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="977d84fe-e4cf-48ec-8c83-bbdd0278b6fe"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="14" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total: ]]></text>
+							</staticText>
+						</jr:columnFooter>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="658c87ca-de79-4210-adf7-0709771fdc05"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{Products_Price}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="0c932ca2-b87d-409c-a541-30d83af25920">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="e397bfce-144a-4202-96ed-fa9f51c5ba52"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total Price]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="30" uuid="67b35a40-9f02-43ef-a0b4-661ec6da3fbb"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$V{Total}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="81768642-41a7-4e62-aee0-a5dbb76dad22"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{RestaurantBill_Total}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<line>
+				<reportElement x="42" y="88" width="469" height="1" uuid="907c8e13-3949-4122-9300-19281d3f87d7"/>
+			</line>
+			<textField>
+				<reportElement x="42" y="89" width="260" height="20" uuid="743b8708-76cd-4c59-b5bf-fadc628f47e1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Report Time:  " +"From "+$P{datego}+ " To " + $P{dateto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="350" y="55" width="161" height="20" forecolor="#4A4A4A" uuid="22472760-eae8-4d4b-8957-131ebb3d0fff"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[INDOCHINE PALACE]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="262" y="0" width="100" height="20" uuid="455a384c-6005-493d-9d3a-ce7f3944a29a"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Thank You !]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

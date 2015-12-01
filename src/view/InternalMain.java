@@ -1104,6 +1104,7 @@ public final class InternalMain extends javax.swing.JFrame {
             cf.loadSerListToTable(serModel.getAllFromDB());
             cf.loadCbbSer();
             cf.setButonCartSer();
+
         }
         this.dtpProgram.getDesktopManager().maximizeFrame(cf);
         cf.show();
@@ -1167,10 +1168,12 @@ public final class InternalMain extends javax.swing.JFrame {
         if (!found) {
             InternalMain.dtpProgram.add(cf);
             cf.loadSerListToTable(serModel.getAllFromDB());
+      
         }
         InternalMain.dtpProgram.getDesktopManager().maximizeFrame(cf);
         cf.show();
         cf.loadSerListToTable(serModel.getAllFromDB());
+     
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     /**

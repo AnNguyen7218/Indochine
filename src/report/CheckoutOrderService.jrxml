@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="328e1d7a-3b4e-4c6c-bdcd-a5db318e171d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     CustomerOrderService."ID" AS CustomerOrderService_ID,
+     CustomerOrderService."CustomerName" AS CustomerOrderService_CustomerName,
+     CustomerOrderService."CustomerNumber" AS CustomerOrderService_CustomerNumber,
+     OrderedService."ID" AS OrderedService_ID,
+     OrderedService."OrderID" AS OrderedService_OrderID,
+     OrderedService."ServiceID" AS OrderedService_ServiceID,
+     OrderedService."Quantity" AS OrderedService_Quantity,
+     OrderedService."SellerID" AS OrderedService_SellerID,
+     OrderedService."CustomerID" AS OrderedService_CustomerID,
+     OrderedService."DateOrder" AS OrderedService_DateOrder,
+     Services."ServiceID" AS Services_ServiceID,
+     Services."ServiceName" AS Services_ServiceName,
+     Services."isActive" AS Services_isActive,
+     Services."Price" AS Services_Price
+FROM
+     "dbo"."CustomerOrderService" CustomerOrderService INNER JOIN "dbo"."OrderedService" OrderedService ON CustomerOrderService."ID" = OrderedService."CustomerID"
+     INNER JOIN "dbo"."Services" Services ON OrderedService."ServiceID" = Services."ServiceID"]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="30" y="9" width="506" height="57" uuid="352963bf-ee96-46e6-93b6-754827fdb465"/>
+				<textElement textAlignment="Center">
+					<font fontName="Georgia" size="36" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BWP INDOCHINE PALACE]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

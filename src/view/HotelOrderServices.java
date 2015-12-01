@@ -58,7 +58,6 @@ public class HotelOrderServices extends javax.swing.JInternalFrame {
 
         cbbType.addItem("Services");
         cbbType.addItem("Restaurant");
-        
 
         cbbType.addActionListener(new ActionListener() {
 
@@ -66,6 +65,7 @@ public class HotelOrderServices extends javax.swing.JInternalFrame {
             public void actionPerformed(ActionEvent e) {
                 if (cbbType.getSelectedItem().equals("Restaurant")) {
                     loadDishistToTable(promodel.getAllFromDB());
+                    loadResListStructure();
                     tblProduct.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
                         @Override
@@ -89,8 +89,8 @@ public class HotelOrderServices extends javax.swing.JInternalFrame {
                         @Override
                         public void valueChanged(ListSelectionEvent e) {
                             int selectedDefIndex = tblDefault.getSelectedRow();
-                            if(selectedDefIndex<0){
-                                   System.out.println("zzzzzzzz");
+                            if (selectedDefIndex < 0) {
+                                System.out.println("zzzzzzzz");
                                 return;
                             }
                             if (cbbType.getSelectedItem().equals("Restaurant")) {
@@ -106,8 +106,8 @@ public class HotelOrderServices extends javax.swing.JInternalFrame {
                         @Override
                         public void valueChanged(ListSelectionEvent e) {
                             int selectedDetailsInx = tblDetails.getSelectedRow();
-                             if(selectedDetailsInx<0){
-                                   System.out.println("zzz");
+                            if (selectedDetailsInx < 0) {
+                                System.out.println("zzz");
                                 return;
                             }
                             if (cbbType.getSelectedItem().equals("Restaurant")) {
@@ -118,6 +118,7 @@ public class HotelOrderServices extends javax.swing.JInternalFrame {
                         }
                     });
                 } else {
+                    loadSerListStructure();
                     loadSerListToTable(serModel.getAllFromDB());
                     tblProduct.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
@@ -142,7 +143,7 @@ public class HotelOrderServices extends javax.swing.JInternalFrame {
                         @Override
                         public void valueChanged(ListSelectionEvent e) {
                             int selectedDefIndex = tblDefault.getSelectedRow();
-                            if(selectedDefIndex<0){
+                            if (selectedDefIndex < 0) {
                                 System.out.println("zzzzzzz");
                                 return;
                             }
@@ -159,6 +160,10 @@ public class HotelOrderServices extends javax.swing.JInternalFrame {
                         @Override
                         public void valueChanged(ListSelectionEvent e) {
                             int selectedDetailsInx = tblDetails.getSelectedRow();
+                             if (selectedDetailsInx < 0) {
+                                System.out.println("zzzzzzz");
+                                return;
+                            }
                             if (cbbType.getSelectedItem().equals("Restaurant")) {
                                 p = promodel.find(tblDetails.getValueAt(selectedDetailsInx, 0));
                             } else {
@@ -219,7 +224,6 @@ public class HotelOrderServices extends javax.swing.JInternalFrame {
     }
 
     //load ds phong
-
     void loadProductListToTable(List<Rooms> list) {
 
         //Disable inline editing in the table
@@ -318,7 +322,28 @@ public class HotelOrderServices extends javax.swing.JInternalFrame {
     void changeModel(JTable table) {
         DefaultTableModel currentModel = (DefaultTableModel) table.getModel();
         currentModel.fireTableStructureChanged();
-        
+
+    }
+
+    void loadSerListStructure() {
+        changeModel(tblDefault);
+        //Disable inline editing in the table
+        DefaultTableModel dtm1 = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int i, int i1) {
+                return false;
+            }
+        };
+
+        //Populate the data
+        dtm1.addColumn("ID");
+        dtm1.addColumn("Service");
+        dtm1.addColumn("Quantity");
+        dtm1.addColumn("Price");
+
+        tblDefault.setModel(dtm1);
+        tblDefault.getColumn("ID").setMinWidth(0);
+        tblDefault.getColumn("ID").setMaxWidth(0);
     }
 
     //load bang dich vu cua phong
@@ -355,7 +380,30 @@ public class HotelOrderServices extends javax.swing.JInternalFrame {
         tblDefault.getColumn("ID").setMaxWidth(0);
     }
 
+    void loadResListStructure() {
+        changeModel(tblDefault);
+        //Disable inline editing in the table
+        DefaultTableModel dtm1 = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int i, int i1) {
+                return false;
+            }
+        };
+
+        //Populate the data
+        dtm1.addColumn("ID");
+        dtm1.addColumn("Product");
+        dtm1.addColumn("Quantity");
+        dtm1.addColumn("Price");
+
+        tblDefault.setModel(dtm1);
+        tblDefault.getColumn("ID").setMinWidth(0);
+        tblDefault.getColumn("ID").setMaxWidth(0);
+
+    }
+
     //load bang res cua phong
+
     void loadDetailsResListToTable(List<HotelOrderDish> list) {
         changeModel(tblDefault);
         //Disable inline editing in the table
@@ -651,7 +699,7 @@ public class HotelOrderServices extends javax.swing.JInternalFrame {
             hdObj.setQuantity(Integer.valueOf(txtQuan.getText()));
 
             if (hdModel.edit(hdObj)) {
-                
+
                 //chỗ ni nò
                 loadDetailsResListToTable(hdModel.getByRoomId(selectedRoom.getRoomId()));
                 JOptionPane.showMessageDialog(rootPane, "Edited", "Success", JOptionPane.INFORMATION_MESSAGE);

@@ -30,6 +30,18 @@ public class OrderLineEntityManager extends AbstractEntityManager<BookedRooms> {
         return list;
     }
 
+    /**
+     * Get all active obj
+     */
+    public List<BookedRooms> getAllActive() {
+        List<BookedRooms> list = new ArrayList<BookedRooms>();
+        for(BookedRooms b:getAllFromDB()){
+            if(b.getIsActive()==true) list.add(b);
+        }
+        return list;
+    }
+
+    /*Get obj by bill id*/
     public List<BookedRooms> getByBillID(int billID) {
         ArrayList<BookedRooms> list = new ArrayList<>();
         for(BookedRooms a : getAllFromDB()){
@@ -38,5 +50,31 @@ public class OrderLineEntityManager extends AbstractEntityManager<BookedRooms> {
             }
         }
         return list;
+    }
+    /**
+     * get by room id
+     */
+    public BookedRooms getByRoomID(int roomID){
+        
+        for(BookedRooms b : getAllActive()){
+            if(b.getRooms().getRoomId().equals(roomID)) return b;
+        }
+        return null;
+    }
+    
+     @Override
+    public boolean delete(BookedRooms instance) {
+        try {
+
+            if (super.delete(instance)) {
+                DiaryEntityManager.createLog("Deleted booked room \"" + String.valueOf(instance.getId()) + "\"");
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception ex) {
+            System.out.println("Failed to disable instance: " + ex.getMessage());
+            return false;
+        }
     }
 }

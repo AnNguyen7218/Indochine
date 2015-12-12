@@ -39,6 +39,7 @@ public class ActionEntityManager extends AbstractEntityManager<Functions> {
     final public static int HOTEL_CHECKIN = 17;
     final public static int HOTEL_CHECKOUT = 18;
     final public static int HOTEL_CUS = 19;
+    final public static int HOTEL_ORDER_SER = 20;
     
     /**
      * Get all object in active status (isActive=true)

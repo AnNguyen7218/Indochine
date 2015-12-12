@@ -118,7 +118,7 @@ public class SupplierForm extends javax.swing.JInternalFrame {
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(175, 175, 175), 4));
         setClosable(true);
-        setTitle("Category Manager");
+        setTitle("Supplier Manager");
         setMinimumSize(new java.awt.Dimension(0, 0));
         setPreferredSize(new java.awt.Dimension(0, 0));
         getContentPane().setLayout(new java.awt.GridBagLayout());

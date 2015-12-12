@@ -18,8 +18,11 @@ public class MD5Encryption {
 
     public static String encryptWithMD5(String pass) {
         try {
+            //lấy thuật toán MD5
             md = MessageDigest.getInstance("MD5");
+            //chuyển đổi pass dữ liệu thành dãy byte tương ứng
             byte[] passBytes = pass.getBytes();
+            
             md.reset();
             byte[] digested = md.digest(passBytes);
             StringBuilder sb = new StringBuilder();

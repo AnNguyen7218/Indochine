@@ -1,0 +1,865 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="14d432f0-a0ab-4a42-a86a-4a8c8d6395a8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="46eb679c-4c2a-4bbd-9a18-b774c891f302">
+		<parameter name="RoomID" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="BKID" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT
+     BookingRoom."ID" AS BookingRoom_ID,
+     BookingRoom."SellerID" AS BookingRoom_SellerID,
+     BookingRoom."CustomerID" AS BookingRoom_CustomerID,
+     BookingRoom."NumOfChildren" AS BookingRoom_NumOfChildren,
+     BookingRoom."NumOfAdult" AS BookingRoom_NumOfAdult,
+     BookingRoom."DateIn" AS BookingRoom_DateIn,
+     BookingRoom."DateOut" AS BookingRoom_DateOut,
+     BookingRoom."Advance" AS BookingRoom_Advance,
+     BookedRooms."ID" AS BookedRooms_ID,
+     BookedRooms."BookingID" AS BookedRooms_BookingID,
+     BookedRooms."RoomID" AS BookedRooms_RoomID,
+     Customers."CustomerID" AS Customers_CustomerID,
+     Customers."CustomerName" AS Customers_CustomerName,
+     Customers."CustomerAddress" AS Customers_CustomerAddress,
+     Customers."IdentityCard" AS Customers_IdentityCard,
+     Rooms."RoomID" AS Rooms_RoomID,
+     Rooms."RoomName" AS Rooms_RoomName,
+     Rooms."Floor" AS Rooms_Floor,
+     Rooms."CateID" AS Rooms_CateID,
+     Rooms."Status" AS Rooms_Status,
+     Rooms."isActive" AS Rooms_isActive,
+     Services."ServiceID" AS Services_ServiceID,
+     Services."ServiceName" AS Services_ServiceName,
+     Services."isActive" AS Services_isActive,
+     Services."Price" AS Services_Price,
+     Products."ProductID" AS Products_ProductID,
+     Products."ProductName" AS Products_ProductName,
+     Products."Quantity" AS Products_Quantity,
+     Products."ImportDate" AS Products_ImportDate,
+     Products."CateID" AS Products_CateID,
+     Products."SupplierID" AS Products_SupplierID,
+     Products."UnitID" AS Products_UnitID,
+     Products."isActive" AS Products_isActive,
+     Products."Price" AS Products_Price,
+     HotelOrderService."ID" AS HotelOrderService_ID,
+     HotelOrderService."ServiceID" AS HotelOrderService_ServiceID,
+     HotelOrderService."Quantity" AS HotelOrderService_Quantity,
+     HotelOrderService."RoomID" AS HotelOrderService_RoomID,
+     HotelOrderDish."ID" AS HotelOrderDish_ID,
+     HotelOrderDish."RoomID" AS HotelOrderDish_RoomID,
+     HotelOrderDish."ProductID" AS HotelOrderDish_ProductID,
+     HotelOrderDish."Quantity" AS HotelOrderDish_Quantity,
+     CategoryOfRoom."ID" AS CategoryOfRoom_ID,
+     CategoryOfRoom."CateRoomName" AS CategoryOfRoom_CateRoomName,
+     CategoryOfRoom."NumOfBed" AS CategoryOfRoom_NumOfBed,
+     CategoryOfRoom."Size" AS CategoryOfRoom_Size,
+     CategoryOfRoom."Price" AS CategoryOfRoom_Price,
+     CategoryOfRoom."isActive" AS CategoryOfRoom_isActive
+FROM
+     "dbo"."BookingRoom" BookingRoom INNER JOIN "dbo"."BookedRooms" BookedRooms ON BookingRoom."ID" = BookedRooms."BookingID"
+     INNER JOIN "dbo"."Customers" Customers ON BookingRoom."CustomerID" = Customers."CustomerID"
+     INNER JOIN "dbo"."Rooms" Rooms ON BookedRooms."RoomID" = Rooms."RoomID"
+     INNER JOIN "dbo"."HotelOrderService" HotelOrderService ON Rooms."RoomID" = HotelOrderService."RoomID"
+     INNER JOIN "dbo"."HotelOrderDish" HotelOrderDish ON Rooms."RoomID" = HotelOrderDish."RoomID"
+     INNER JOIN "dbo"."CategoryOfRoom" CategoryOfRoom ON Rooms."CateID" = CategoryOfRoom."ID"
+     INNER JOIN "dbo"."Products" Products ON HotelOrderDish."ProductID" = Products."ProductID"
+     INNER JOIN "dbo"."Services" Services ON HotelOrderService."ServiceID" = Services."ServiceID"
+WHERE
+     (BookedRooms."RoomID" =$P{RoomID}) AND (BookingRoom."ID"=$P{BKID})]]>
+		</queryString>
+		<field name="BookingRoom_ID" class="java.lang.Integer"/>
+		<field name="BookingRoom_SellerID" class="java.lang.Integer"/>
+		<field name="BookingRoom_CustomerID" class="java.lang.Integer"/>
+		<field name="BookingRoom_NumOfChildren" class="java.lang.Integer"/>
+		<field name="BookingRoom_NumOfAdult" class="java.lang.Integer"/>
+		<field name="BookingRoom_DateIn" class="java.sql.Timestamp"/>
+		<field name="BookingRoom_DateOut" class="java.sql.Timestamp"/>
+		<field name="BookingRoom_Advance" class="java.math.BigDecimal"/>
+		<field name="BookedRooms_ID" class="java.lang.Integer"/>
+		<field name="BookedRooms_BookingID" class="java.lang.Integer"/>
+		<field name="BookedRooms_RoomID" class="java.lang.Integer"/>
+		<field name="Customers_CustomerID" class="java.lang.Integer"/>
+		<field name="Customers_CustomerName" class="java.lang.String"/>
+		<field name="Customers_CustomerAddress" class="java.lang.String"/>
+		<field name="Customers_IdentityCard" class="java.lang.String"/>
+		<field name="Rooms_RoomID" class="java.lang.Integer"/>
+		<field name="Rooms_RoomName" class="java.lang.String"/>
+		<field name="Rooms_Floor" class="java.lang.Integer"/>
+		<field name="Rooms_CateID" class="java.lang.Integer"/>
+		<field name="Rooms_Status" class="java.lang.Integer"/>
+		<field name="Rooms_isActive" class="java.lang.Boolean"/>
+		<field name="Services_ServiceID" class="java.lang.Integer"/>
+		<field name="Services_ServiceName" class="java.lang.String"/>
+		<field name="Services_isActive" class="java.lang.Boolean"/>
+		<field name="Services_Price" class="java.math.BigDecimal"/>
+		<field name="Products_ProductID" class="java.lang.Integer"/>
+		<field name="Products_ProductName" class="java.lang.String"/>
+		<field name="Products_Quantity" class="java.lang.Integer"/>
+		<field name="Products_ImportDate" class="java.sql.Timestamp"/>
+		<field name="Products_CateID" class="java.lang.Integer"/>
+		<field name="Products_SupplierID" class="java.lang.Integer"/>
+		<field name="Products_UnitID" class="java.lang.Integer"/>
+		<field name="Products_isActive" class="java.lang.Boolean"/>
+		<field name="Products_Price" class="java.math.BigDecimal"/>
+		<field name="HotelOrderService_ID" class="java.lang.Integer"/>
+		<field name="HotelOrderService_ServiceID" class="java.lang.Integer"/>
+		<field name="HotelOrderService_Quantity" class="java.lang.Integer"/>
+		<field name="HotelOrderService_RoomID" class="java.lang.Integer"/>
+		<field name="HotelOrderDish_ID" class="java.lang.Integer"/>
+		<field name="HotelOrderDish_RoomID" class="java.lang.Integer"/>
+		<field name="HotelOrderDish_ProductID" class="java.lang.Integer"/>
+		<field name="HotelOrderDish_Quantity" class="java.lang.Integer"/>
+		<field name="CategoryOfRoom_ID" class="java.lang.Integer"/>
+		<field name="CategoryOfRoom_CateRoomName" class="java.lang.String"/>
+		<field name="CategoryOfRoom_NumOfBed" class="java.lang.Integer"/>
+		<field name="CategoryOfRoom_Size" class="java.math.BigDecimal"/>
+		<field name="CategoryOfRoom_Price" class="java.math.BigDecimal"/>
+		<field name="CategoryOfRoom_isActive" class="java.lang.Boolean"/>
+		<variable name="TOT2" class="java.lang.Double" calculation="Sum">
+			<variableExpression><![CDATA[$F{Services_Price}.doubleValue()]]></variableExpression>
+		</variable>
+	</subDataset>
+	<subDataset name="Table Dataset 2" uuid="8de1358d-701a-4e2d-ab9a-5fed7ff74434">
+		<parameter name="RoomID" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="BKID" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT
+     BookingRoom."ID" AS BookingRoom_ID,
+     BookingRoom."SellerID" AS BookingRoom_SellerID,
+     BookingRoom."CustomerID" AS BookingRoom_CustomerID,
+     BookingRoom."NumOfChildren" AS BookingRoom_NumOfChildren,
+     BookingRoom."NumOfAdult" AS BookingRoom_NumOfAdult,
+     BookingRoom."DateIn" AS BookingRoom_DateIn,
+     BookingRoom."DateOut" AS BookingRoom_DateOut,
+     BookingRoom."Advance" AS BookingRoom_Advance,
+     BookedRooms."ID" AS BookedRooms_ID,
+     BookedRooms."BookingID" AS BookedRooms_BookingID,
+     BookedRooms."RoomID" AS BookedRooms_RoomID,
+     Customers."CustomerID" AS Customers_CustomerID,
+     Customers."CustomerName" AS Customers_CustomerName,
+     Customers."CustomerAddress" AS Customers_CustomerAddress,
+     Customers."IdentityCard" AS Customers_IdentityCard,
+     Rooms."RoomID" AS Rooms_RoomID,
+     Rooms."RoomName" AS Rooms_RoomName,
+     Rooms."Floor" AS Rooms_Floor,
+     Rooms."CateID" AS Rooms_CateID,
+     Rooms."Status" AS Rooms_Status,
+     Rooms."isActive" AS Rooms_isActive,
+     Services."ServiceID" AS Services_ServiceID,
+     Services."ServiceName" AS Services_ServiceName,
+     Services."isActive" AS Services_isActive,
+     Services."Price" AS Services_Price,
+     Products."ProductID" AS Products_ProductID,
+     Products."ProductName" AS Products_ProductName,
+     Products."Quantity" AS Products_Quantity,
+     Products."ImportDate" AS Products_ImportDate,
+     Products."CateID" AS Products_CateID,
+     Products."SupplierID" AS Products_SupplierID,
+     Products."UnitID" AS Products_UnitID,
+     Products."isActive" AS Products_isActive,
+     Products."Price" AS Products_Price,
+     HotelOrderService."ID" AS HotelOrderService_ID,
+     HotelOrderService."ServiceID" AS HotelOrderService_ServiceID,
+     HotelOrderService."Quantity" AS HotelOrderService_Quantity,
+     HotelOrderService."RoomID" AS HotelOrderService_RoomID,
+     HotelOrderDish."ID" AS HotelOrderDish_ID,
+     HotelOrderDish."RoomID" AS HotelOrderDish_RoomID,
+     HotelOrderDish."ProductID" AS HotelOrderDish_ProductID,
+     HotelOrderDish."Quantity" AS HotelOrderDish_Quantity,
+     CategoryOfRoom."ID" AS CategoryOfRoom_ID,
+     CategoryOfRoom."CateRoomName" AS CategoryOfRoom_CateRoomName,
+     CategoryOfRoom."NumOfBed" AS CategoryOfRoom_NumOfBed,
+     CategoryOfRoom."Size" AS CategoryOfRoom_Size,
+     CategoryOfRoom."Price" AS CategoryOfRoom_Price,
+     CategoryOfRoom."isActive" AS CategoryOfRoom_isActive
+FROM
+     "dbo"."BookingRoom" BookingRoom INNER JOIN "dbo"."BookedRooms" BookedRooms ON BookingRoom."ID" = BookedRooms."BookingID"
+     INNER JOIN "dbo"."Customers" Customers ON BookingRoom."CustomerID" = Customers."CustomerID"
+     INNER JOIN "dbo"."Rooms" Rooms ON BookedRooms."RoomID" = Rooms."RoomID"
+     INNER JOIN "dbo"."HotelOrderService" HotelOrderService ON Rooms."RoomID" = HotelOrderService."RoomID"
+     INNER JOIN "dbo"."HotelOrderDish" HotelOrderDish ON Rooms."RoomID" = HotelOrderDish."RoomID"
+     INNER JOIN "dbo"."CategoryOfRoom" CategoryOfRoom ON Rooms."CateID" = CategoryOfRoom."ID"
+     INNER JOIN "dbo"."Products" Products ON HotelOrderDish."ProductID" = Products."ProductID"
+     INNER JOIN "dbo"."Services" Services ON HotelOrderService."ServiceID" = Services."ServiceID"
+WHERE
+     (BookedRooms."RoomID" =$P{RoomID}) AND (BookingRoom."ID" = $P{BKID})]]>
+		</queryString>
+		<field name="BookingRoom_ID" class="java.lang.Integer"/>
+		<field name="BookingRoom_SellerID" class="java.lang.Integer"/>
+		<field name="BookingRoom_CustomerID" class="java.lang.Integer"/>
+		<field name="BookingRoom_NumOfChildren" class="java.lang.Integer"/>
+		<field name="BookingRoom_NumOfAdult" class="java.lang.Integer"/>
+		<field name="BookingRoom_DateIn" class="java.sql.Timestamp"/>
+		<field name="BookingRoom_DateOut" class="java.sql.Timestamp"/>
+		<field name="BookingRoom_Advance" class="java.math.BigDecimal"/>
+		<field name="BookedRooms_ID" class="java.lang.Integer"/>
+		<field name="BookedRooms_BookingID" class="java.lang.Integer"/>
+		<field name="BookedRooms_RoomID" class="java.lang.Integer"/>
+		<field name="Customers_CustomerID" class="java.lang.Integer"/>
+		<field name="Customers_CustomerName" class="java.lang.String"/>
+		<field name="Customers_CustomerAddress" class="java.lang.String"/>
+		<field name="Customers_IdentityCard" class="java.lang.String"/>
+		<field name="Rooms_RoomID" class="java.lang.Integer"/>
+		<field name="Rooms_RoomName" class="java.lang.String"/>
+		<field name="Rooms_Floor" class="java.lang.Integer"/>
+		<field name="Rooms_CateID" class="java.lang.Integer"/>
+		<field name="Rooms_Status" class="java.lang.Integer"/>
+		<field name="Rooms_isActive" class="java.lang.Boolean"/>
+		<field name="Services_ServiceID" class="java.lang.Integer"/>
+		<field name="Services_ServiceName" class="java.lang.String"/>
+		<field name="Services_isActive" class="java.lang.Boolean"/>
+		<field name="Services_Price" class="java.math.BigDecimal"/>
+		<field name="Products_ProductID" class="java.lang.Integer"/>
+		<field name="Products_ProductName" class="java.lang.String"/>
+		<field name="Products_Quantity" class="java.lang.Integer"/>
+		<field name="Products_ImportDate" class="java.sql.Timestamp"/>
+		<field name="Products_CateID" class="java.lang.Integer"/>
+		<field name="Products_SupplierID" class="java.lang.Integer"/>
+		<field name="Products_UnitID" class="java.lang.Integer"/>
+		<field name="Products_isActive" class="java.lang.Boolean"/>
+		<field name="Products_Price" class="java.math.BigDecimal"/>
+		<field name="HotelOrderService_ID" class="java.lang.Integer"/>
+		<field name="HotelOrderService_ServiceID" class="java.lang.Integer"/>
+		<field name="HotelOrderService_Quantity" class="java.lang.Integer"/>
+		<field name="HotelOrderService_RoomID" class="java.lang.Integer"/>
+		<field name="HotelOrderDish_ID" class="java.lang.Integer"/>
+		<field name="HotelOrderDish_RoomID" class="java.lang.Integer"/>
+		<field name="HotelOrderDish_ProductID" class="java.lang.Integer"/>
+		<field name="HotelOrderDish_Quantity" class="java.lang.Integer"/>
+		<field name="CategoryOfRoom_ID" class="java.lang.Integer"/>
+		<field name="CategoryOfRoom_CateRoomName" class="java.lang.String"/>
+		<field name="CategoryOfRoom_NumOfBed" class="java.lang.Integer"/>
+		<field name="CategoryOfRoom_Size" class="java.math.BigDecimal"/>
+		<field name="CategoryOfRoom_Price" class="java.math.BigDecimal"/>
+		<field name="CategoryOfRoom_isActive" class="java.lang.Boolean"/>
+		<variable name="TOT3" class="java.lang.Double" calculation="Sum">
+			<variableExpression><![CDATA[$F{Products_Price}.doubleValue()]]></variableExpression>
+		</variable>
+	</subDataset>
+	<parameter name="RoomID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="BKID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     BookingRoom."ID" AS BookingRoom_ID,
+     BookingRoom."SellerID" AS BookingRoom_SellerID,
+     BookingRoom."CustomerID" AS BookingRoom_CustomerID,
+     BookingRoom."NumOfChildren" AS BookingRoom_NumOfChildren,
+     BookingRoom."NumOfAdult" AS BookingRoom_NumOfAdult,
+     BookingRoom."DateIn" AS BookingRoom_DateIn,
+     BookingRoom."DateOut" AS BookingRoom_DateOut,
+     BookingRoom."Advance" AS BookingRoom_Advance,
+     BookedRooms."ID" AS BookedRooms_ID,
+     BookedRooms."BookingID" AS BookedRooms_BookingID,
+     BookedRooms."RoomID" AS BookedRooms_RoomID,
+     Customers."CustomerID" AS Customers_CustomerID,
+     Customers."CustomerName" AS Customers_CustomerName,
+     Customers."CustomerAddress" AS Customers_CustomerAddress,
+     Customers."IdentityCard" AS Customers_IdentityCard,
+     Rooms."RoomID" AS Rooms_RoomID,
+     Rooms."RoomName" AS Rooms_RoomName,
+     Rooms."Floor" AS Rooms_Floor,
+     Rooms."CateID" AS Rooms_CateID,
+     Rooms."Status" AS Rooms_Status,
+     Rooms."isActive" AS Rooms_isActive,
+     Services."ServiceID" AS Services_ServiceID,
+     Services."ServiceName" AS Services_ServiceName,
+     Services."isActive" AS Services_isActive,
+     Services."Price" AS Services_Price,
+     Products."ProductID" AS Products_ProductID,
+     Products."ProductName" AS Products_ProductName,
+     Products."Quantity" AS Products_Quantity,
+     Products."ImportDate" AS Products_ImportDate,
+     Products."CateID" AS Products_CateID,
+     Products."SupplierID" AS Products_SupplierID,
+     Products."UnitID" AS Products_UnitID,
+     Products."isActive" AS Products_isActive,
+     Products."Price" AS Products_Price,
+     HotelOrderService."ID" AS HotelOrderService_ID,
+     HotelOrderService."ServiceID" AS HotelOrderService_ServiceID,
+     HotelOrderService."Quantity" AS HotelOrderService_Quantity,
+     HotelOrderService."RoomID" AS HotelOrderService_RoomID,
+     HotelOrderDish."ID" AS HotelOrderDish_ID,
+     HotelOrderDish."RoomID" AS HotelOrderDish_RoomID,
+     HotelOrderDish."ProductID" AS HotelOrderDish_ProductID,
+     HotelOrderDish."Quantity" AS HotelOrderDish_Quantity,
+     CategoryOfRoom."ID" AS CategoryOfRoom_ID,
+     CategoryOfRoom."CateRoomName" AS CategoryOfRoom_CateRoomName,
+     CategoryOfRoom."NumOfBed" AS CategoryOfRoom_NumOfBed,
+     CategoryOfRoom."Size" AS CategoryOfRoom_Size,
+     CategoryOfRoom."Price" AS CategoryOfRoom_Price,
+     CategoryOfRoom."isActive" AS CategoryOfRoom_isActive
+FROM
+     "dbo"."BookingRoom" BookingRoom INNER JOIN "dbo"."BookedRooms" BookedRooms ON BookingRoom."ID" = BookedRooms."BookingID"
+     INNER JOIN "dbo"."Customers" Customers ON BookingRoom."CustomerID" = Customers."CustomerID"
+     INNER JOIN "dbo"."Rooms" Rooms ON BookedRooms."RoomID" = Rooms."RoomID"
+     INNER JOIN "dbo"."HotelOrderService" HotelOrderService ON Rooms."RoomID" = HotelOrderService."RoomID"
+     INNER JOIN "dbo"."HotelOrderDish" HotelOrderDish ON Rooms."RoomID" = HotelOrderDish."RoomID"
+     INNER JOIN "dbo"."CategoryOfRoom" CategoryOfRoom ON Rooms."CateID" = CategoryOfRoom."ID"
+     INNER JOIN "dbo"."Products" Products ON HotelOrderDish."ProductID" = Products."ProductID"
+     INNER JOIN "dbo"."Services" Services ON HotelOrderService."ServiceID" = Services."ServiceID"
+WHERE
+     (BookedRooms."RoomID" = $P{RoomID}) AND (BookingRoom."ID"=$P{RoomID})]]>
+	</queryString>
+	<field name="BookingRoom_ID" class="java.lang.Integer"/>
+	<field name="BookingRoom_SellerID" class="java.lang.Integer"/>
+	<field name="BookingRoom_CustomerID" class="java.lang.Integer"/>
+	<field name="BookingRoom_NumOfChildren" class="java.lang.Integer"/>
+	<field name="BookingRoom_NumOfAdult" class="java.lang.Integer"/>
+	<field name="BookingRoom_DateIn" class="java.sql.Timestamp"/>
+	<field name="BookingRoom_DateOut" class="java.sql.Timestamp"/>
+	<field name="BookingRoom_Advance" class="java.math.BigDecimal"/>
+	<field name="BookedRooms_ID" class="java.lang.Integer"/>
+	<field name="BookedRooms_BookingID" class="java.lang.Integer"/>
+	<field name="BookedRooms_RoomID" class="java.lang.Integer"/>
+	<field name="Customers_CustomerID" class="java.lang.Integer"/>
+	<field name="Customers_CustomerName" class="java.lang.String"/>
+	<field name="Customers_CustomerAddress" class="java.lang.String"/>
+	<field name="Customers_IdentityCard" class="java.lang.String"/>
+	<field name="Rooms_RoomID" class="java.lang.Integer"/>
+	<field name="Rooms_RoomName" class="java.lang.String"/>
+	<field name="Rooms_Floor" class="java.lang.Integer"/>
+	<field name="Rooms_CateID" class="java.lang.Integer"/>
+	<field name="Rooms_Status" class="java.lang.Integer"/>
+	<field name="Rooms_isActive" class="java.lang.Boolean"/>
+	<field name="Services_ServiceID" class="java.lang.Integer"/>
+	<field name="Services_ServiceName" class="java.lang.String"/>
+	<field name="Services_isActive" class="java.lang.Boolean"/>
+	<field name="Services_Price" class="java.math.BigDecimal"/>
+	<field name="Products_ProductID" class="java.lang.Integer"/>
+	<field name="Products_ProductName" class="java.lang.String"/>
+	<field name="Products_Quantity" class="java.lang.Integer"/>
+	<field name="Products_ImportDate" class="java.sql.Timestamp"/>
+	<field name="Products_CateID" class="java.lang.Integer"/>
+	<field name="Products_SupplierID" class="java.lang.Integer"/>
+	<field name="Products_UnitID" class="java.lang.Integer"/>
+	<field name="Products_isActive" class="java.lang.Boolean"/>
+	<field name="Products_Price" class="java.math.BigDecimal"/>
+	<field name="HotelOrderService_ID" class="java.lang.Integer"/>
+	<field name="HotelOrderService_ServiceID" class="java.lang.Integer"/>
+	<field name="HotelOrderService_Quantity" class="java.lang.Integer"/>
+	<field name="HotelOrderService_RoomID" class="java.lang.Integer"/>
+	<field name="HotelOrderDish_ID" class="java.lang.Integer"/>
+	<field name="HotelOrderDish_RoomID" class="java.lang.Integer"/>
+	<field name="HotelOrderDish_ProductID" class="java.lang.Integer"/>
+	<field name="HotelOrderDish_Quantity" class="java.lang.Integer"/>
+	<field name="CategoryOfRoom_ID" class="java.lang.Integer"/>
+	<field name="CategoryOfRoom_CateRoomName" class="java.lang.String"/>
+	<field name="CategoryOfRoom_NumOfBed" class="java.lang.Integer"/>
+	<field name="CategoryOfRoom_Size" class="java.math.BigDecimal"/>
+	<field name="CategoryOfRoom_Price" class="java.math.BigDecimal"/>
+	<field name="CategoryOfRoom_isActive" class="java.lang.Boolean"/>
+	<variable name="DAYS" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[($F{BookingRoom_DateOut}.getTime()-$F{BookingRoom_DateIn}.getTime())/ (24 * 60 * 60 * 1000) + 1]]></variableExpression>
+	</variable>
+	<variable name="TOT1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{CategoryOfRoom_Price}.doubleValue()*$V{DAYS}]]></variableExpression>
+	</variable>
+	<variable name="vat" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[($V{TOT1}+$V{TOT2}+$V{TOT3})*0.1]]></variableExpression>
+	</variable>
+	<variable name="TOT2" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Services_Price}.doubleValue()]]></variableExpression>
+	</variable>
+	<variable name="TOT3" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{Products_Price}.doubleValue()]]></variableExpression>
+	</variable>
+	<variable name="SUBTOTAL" class="java.lang.String" calculation="Sum">
+		<variableExpression><![CDATA[$V{TOT1}+$V{vat}+$V{TOT3}+$V{TOT2}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement x="117" y="0" width="336" height="44" uuid="59e0b359-74ea-4f67-ad1e-2fe548ee715d"/>
+				<textElement>
+					<font fontName="Georgia" size="30" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INDOCHINE PALACE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="217" y="44" width="144" height="20" uuid="3aa6f833-f9f3-4872-8927-e90d05f753e9"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[HUE CITY - VIETNAM]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="71" splitType="Stretch">
+			<staticText>
+				<reportElement x="36" y="0" width="44" height="20" uuid="15d0e502-9e15-4402-8c2b-18b96fcfbf9c"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[ROOM:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="351" y="20" width="56" height="20" uuid="38acaf9a-d03e-4399-ad5a-ec948d672f31"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[DATE IN:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="351" y="0" width="75" height="20" uuid="3ef92bfb-3ec0-4439-91a7-06bf165bd466"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[DATE OUT:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="36" y="20" width="68" height="20" uuid="597ba602-6863-44a4-883a-91f3be4311bb"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[CUSTOMER:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="36" y="40" width="30" height="20" uuid="9283261c-85f8-41b8-91ba-da25f49cee0d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[PAID:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="405" y="20" width="104" height="20" uuid="8362ed00-587f-43fa-8d99-0105dedd5c6f"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BookingRoom_DateIn}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="426" y="0" width="100" height="20" uuid="c6574dc6-3f82-4a0b-ac77-587e6a89ce72"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BookingRoom_DateOut}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="104" y="20" width="177" height="20" uuid="7e9feac6-d733-4513-9b57-f68dc533f853"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Customers_CustomerName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="66" y="40" width="100" height="20" uuid="ac94754d-16bd-44e7-8934-5a1d3caf3e90"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BookingRoom_Advance}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="42" y="70" width="459" height="1" uuid="748a2362-ce5c-4f9d-9d09-502f0dc0ad7d"/>
+			</line>
+			<textField>
+				<reportElement x="104" y="0" width="100" height="20" uuid="490d7c6b-502b-4afe-8505-55371656dcfd"/>
+				<textFieldExpression><![CDATA[$F{BookedRooms_RoomID}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="571" splitType="Stretch">
+			<staticText>
+				<reportElement x="35" y="15" width="133" height="20" uuid="5568fcd7-fdf4-4d11-9b78-bceb81585a4a"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[CATEGORY OF ROOM:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="281" y="15" width="45" height="20" uuid="ae8b40a1-ed11-44c7-853c-33e170ea1c84"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[PRICE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="281" y="49" width="45" height="20" uuid="e20bb3a6-5801-4023-b16d-be1ea4f40757"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[DAYS:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="269" y="86" width="232" height="1" uuid="0139489e-1ec1-40eb-8824-75c34f3ce391"/>
+			</line>
+			<staticText>
+				<reportElement x="259" y="99" width="67" height="20" uuid="0017e588-7ba4-4d47-a13b-5f04bbe5eafe"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL (1):]]></text>
+			</staticText>
+			<line>
+				<reportElement x="35" y="138" width="459" height="1" uuid="8577b606-8f2a-40d1-b7e1-23fdfea58ceb"/>
+			</line>
+			<staticText>
+				<reportElement x="34" y="154" width="68" height="20" uuid="51855209-e76c-40af-9430-293d1f74d328"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[SERVICES:]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement key="table" style="table" x="80" y="200" width="360" height="80" uuid="377ca7f1-465f-4e31-b53f-8d50a1a032d8"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Table Dataset 1" uuid="d6ffd8be-8285-48a5-aeab-034db1890783">
+						<datasetParameter name="RoomID">
+							<datasetParameterExpression><![CDATA[$P{RoomID}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="4255a4ba-3f8a-4a49-a337-868b6bd39256">
+						<jr:columnHeader style="table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="958c72bb-04cb-45d9-8e50-21060de99edf"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true" isItalic="false"/>
+								</textElement>
+								<text><![CDATA[STT]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="bfc46138-fa54-4511-8ae7-df0dc62036f4"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="3b9adb8b-fa6e-42bd-ab73-af1ea6ed9a5b">
+						<jr:columnHeader style="table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="ae4fd3e9-c87e-4c91-a6d4-ae792f53fad4"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true" isItalic="false"/>
+								</textElement>
+								<text><![CDATA[SERVICE]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30"/>
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="e3ea1e35-f779-438a-b4dd-c22b2b708701"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Services_ServiceName}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="36428fa6-4809-4a58-8f9f-cc08ab035eba">
+						<jr:columnHeader style="table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="5288f9d1-7fb8-4ab2-beda-5f4fbb3d1972"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true" isItalic="false"/>
+								</textElement>
+								<text><![CDATA[QUANTITY]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="5b166589-4c21-4dbe-bc09-86893bdf856c"/>
+								<textElement verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[TOTAL (2):]]></text>
+							</staticText>
+						</jr:columnFooter>
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="bffd27e9-6bb3-4911-9b50-87ac6dc20ff7"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{HotelOrderService_Quantity}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="863205a3-abc0-44a5-839c-6085ef451fd4">
+						<jr:columnHeader style="table_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="e38e4d9d-8616-43d3-b061-2c53d002cb36"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true" isItalic="false"/>
+								</textElement>
+								<text><![CDATA[PRICE]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="30" uuid="36cf2823-dc23-4d97-9d54-b24773a0bc45"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{TOT2}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="94215c02-496f-47fb-ba34-f049f913bbe7"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Services_Price}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement x="35" y="328" width="68" height="20" uuid="6fed4d16-d7a2-49a3-87bb-e023c6d282d6"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[PRODUCTS:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="36" y="312" width="459" height="1" uuid="a909eb58-c1b5-49dc-af6d-f9f9121585cc"/>
+			</line>
+			<componentElement>
+				<reportElement key="table 1" style="table 1" x="80" y="371" width="360" height="81" uuid="d36316da-d3a8-4426-8c7a-71bb29d71c38"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Table Dataset 2" uuid="2f681c96-84cf-47df-8d17-ee96d2cc2a84">
+						<datasetParameter name="RoomID">
+							<datasetParameterExpression><![CDATA[$P{RoomID}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="072cb4b5-2b86-4f5e-b207-e02cfa31f59e">
+						<jr:columnHeader style="table 1_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="8245cf21-ea9e-4b2b-968c-79e1c9d45621"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[STT]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 1_CH" height="30"/>
+						<jr:detailCell style="table 1_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="da8ac3bb-a780-4ae3-a799-0a1d55e8a0b1"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="3f6bc84b-79b1-4555-9f91-a93f0b2cb7b6">
+						<jr:columnHeader style="table 1_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="f82ce885-5f9b-4afb-8229-46da1c049982"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[PRODUCT]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 1_CH" height="30"/>
+						<jr:detailCell style="table 1_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="5737042c-2fac-4e0c-8388-d7c5791b9a93"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Products_ProductName}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="3d9009ae-1474-4525-965d-7e248a11c757">
+						<jr:columnHeader style="table 1_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="6aca5ae1-4c07-4490-806e-42f8e3dbe7a8"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[QUANTITY]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 1_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="3edc6426-3109-47ef-be08-5aed82aebc08"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[TOTAL (3):]]></text>
+							</staticText>
+						</jr:columnFooter>
+						<jr:detailCell style="table 1_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="52401874-e47b-470c-9237-80306ac7dc53"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{HotelOrderDish_Quantity}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="afefeb04-9e57-40f4-88dd-d51719d47110">
+						<jr:columnHeader style="table 1_CH" height="30">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="fc9cdf98-b8da-4f01-aed4-9926892775c9"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[PRICE]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table 1_CH" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="30" uuid="c18b62a3-8b26-4bd9-9814-c84843f308f2"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{TOT3}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table 1_TD" height="20">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="9bbca83a-b592-47b2-a22f-82d23ae9db1f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{Products_Price}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<textField>
+				<reportElement x="169" y="15" width="100" height="20" uuid="0a21f640-638a-4de1-a808-01e58f5f2833"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CategoryOfRoom_CateRoomName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="326" y="15" width="100" height="20" uuid="0a721a85-f184-4720-802f-b47f713a7677"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CategoryOfRoom_Price}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="326" y="49" width="100" height="20" uuid="c59b8153-e26a-439e-b40d-aed58e8408e1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{DAYS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="326" y="99" width="100" height="20" uuid="9095dfa8-df19-43c4-b768-df80f400c0e4"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOT1}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="66" y="493" width="459" height="2" uuid="a79a62e0-58f0-4016-83fa-723808e15829"/>
+			</line>
+			<staticText>
+				<reportElement x="304" y="505" width="57" height="21" uuid="db8a0072-d574-4e3b-bfc8-d4f2e75e79aa"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[VAT (4):]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="375" y="505" width="100" height="21" uuid="6ee8c66b-3a46-4cdf-9c41-306321fec427"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{vat}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="252" y="537" width="109" height="21" uuid="c358482b-cc00-463e-9996-557617e44cd9"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL (1+2+3+4):]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="375" y="537" width="100" height="21" uuid="e72e8052-e7b0-47a2-b6d1-603b534b5620"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SUBTOTAL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="35" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

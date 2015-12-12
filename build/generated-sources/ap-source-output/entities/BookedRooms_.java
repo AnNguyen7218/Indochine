@@ -11,6 +11,7 @@ public abstract class BookedRooms_ {
 	public static volatile SingularAttribute<BookedRooms, BookingRoom> bookingRoom;
 	public static volatile SingularAttribute<BookedRooms, Rooms> rooms;
 	public static volatile SingularAttribute<BookedRooms, Integer> id;
+	public static volatile SingularAttribute<BookedRooms, Boolean> isActive;
 
 }
 

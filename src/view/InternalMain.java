@@ -33,6 +33,7 @@ import models.ActionEntityManager;
 import models.ProductEntityManager;
 import models.RestaurantBillEntityManager;
 import models.RoleEntityManager;
+import models.RoomEntityManager;
 import models.SerEntityManager;
 import utils.Converter;
 
@@ -183,6 +184,9 @@ public final class InternalMain extends javax.swing.JFrame {
             jMenuItem3.setVisible(true);
         }
 
+        if (list.contains(funModel.find(ActionEntityManager.HOTEL_ORDER_SER))) {
+            jMenuItem9.setVisible(true);
+        }
         showGrantedFunctions();
     }
 
@@ -308,7 +312,7 @@ public final class InternalMain extends javax.swing.JFrame {
         mnuExit = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Management Furniture");
+        setTitle("Payment System - Indochine Palace Hotel");
         setIconImages(null);
         setMinimumSize(new java.awt.Dimension(1366, 728));
         setResizable(false);
@@ -601,7 +605,9 @@ public final class InternalMain extends javax.swing.JFrame {
         jMenu1.add(jMenuItem6);
 
         jMenuItem9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Shoppingcart-12-plus-icon.png"))); // NOI18N
         jMenuItem9.setText("Hotel Order Service");
+        jMenuItem9.setVisible(false);
         jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem9ActionPerformed(evt);
@@ -612,7 +618,7 @@ public final class InternalMain extends javax.swing.JFrame {
         mnuCoffe.add(jMenu1);
 
         mnuReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/chart_menu.png"))); // NOI18N
-        mnuReport.setText("Statistics");
+        mnuReport.setText(" Restaurant Statistics");
         mnuReport.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mnuReport.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
@@ -1116,7 +1122,7 @@ public final class InternalMain extends javax.swing.JFrame {
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
         CheckOutHotel cf = CheckOutHotel.getIns();
-
+        RoomEntityManager roomModel = new RoomEntityManager();
         JInternalFrame[] frmList = InternalMain.dtpProgram.getAllFrames();
         boolean found = false;
         for (JInternalFrame fr : frmList) {
@@ -1127,9 +1133,12 @@ public final class InternalMain extends javax.swing.JFrame {
         }
         if (!found) {
             InternalMain.dtpProgram.add(cf);
+            cf.loadProductListToTable(roomModel.getAllBookedRoom());
         }
         InternalMain.dtpProgram.getDesktopManager().maximizeFrame(cf);
-        cf.show();
+        cf.show();cf.loadProductListToTable(roomModel.getAllBookedRoom());
+        
+        
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed

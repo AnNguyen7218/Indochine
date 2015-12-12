@@ -13,9 +13,14 @@ import entities.HotelOrderService;
 import entities.Products;
 import entities.Rooms;
 import entities.Services;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -29,6 +34,7 @@ import models.HotelSerEntityManager;
 import models.OrderEntityManager;
 import models.OrderLineEntityManager;
 import models.ProductEntityManager;
+import models.ReportManager;
 import models.RoomEntityManager;
 import models.SerEntityManager;
 import utils.Converter;
@@ -279,6 +285,7 @@ public class CheckInHotel extends javax.swing.JInternalFrame {
 
         jLabel8.setText("jLabel6");
 
+        setTitle("Check in");
         setPreferredSize(new java.awt.Dimension(0, 0));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
@@ -382,6 +389,7 @@ public class CheckInHotel extends javax.swing.JInternalFrame {
         gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
         jPanel4.add(lblWarn, gridBagConstraints);
 
+        txtNuAdult.setMinimumSize(new java.awt.Dimension(200, 25));
         txtNuAdult.setPreferredSize(new java.awt.Dimension(200, 25));
         txtNuAdult.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -401,6 +409,7 @@ public class CheckInHotel extends javax.swing.JInternalFrame {
         gridBagConstraints.insets = new java.awt.Insets(9, 9, 9, 9);
         jPanel4.add(lblNuChild, gridBagConstraints);
 
+        txtNumChil.setMinimumSize(new java.awt.Dimension(200, 25));
         txtNumChil.setPreferredSize(new java.awt.Dimension(200, 25));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -415,6 +424,7 @@ public class CheckInHotel extends javax.swing.JInternalFrame {
         gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
         jPanel4.add(jLabel5, gridBagConstraints);
 
+        txtTraTruoc.setMinimumSize(new java.awt.Dimension(200, 25));
         txtTraTruoc.setPreferredSize(new java.awt.Dimension(200, 25));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -490,6 +500,12 @@ public class CheckInHotel extends javax.swing.JInternalFrame {
         gridBagConstraints.gridy = 10;
         gridBagConstraints.insets = new java.awt.Insets(11, 11, 11, 11);
         jPanel5.add(jLabel4, gridBagConstraints);
+
+        FromDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FromDateActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(11, 11, 11, 11);
         jPanel5.add(FromDate, gridBagConstraints);
@@ -856,9 +872,35 @@ public class CheckInHotel extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jButton1MouseClicked
 
+    void clearDetails() {
+
+        txtNuAdult.setText("");
+        txtNumChil.setText("");
+        txtResRoom.setText("");
+
+        txtSerQuan.setText("");
+        txtTraTruoc.setText("");
+
+        cbbRoom.removeAllItems();
+        cbbResRoom.removeAllItems();
+        cbbProduct.removeAllItems();
+        cbbSer.removeAllItems();
+
+        dlm.clear();
+        RoomList.setModel(dlm);
+
+        while (dtm.getRowCount() > 0) {
+            dtm.removeRow(0);
+        }
+
+        while (dtm1.getRowCount() > 0) {
+            dtm1.removeRow(0);
+        }
+    }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         //Create bill
+
         BookingRoom bk = new BookingRoom();
         bk.setAccounts(EmployeeEntityManager.currentEmployee);
         bk.setCustomers(cusModel.find(cbbCustomer.getSelectedItem().toString()));
@@ -871,19 +913,44 @@ public class CheckInHotel extends javax.swing.JInternalFrame {
         //Create booked list
         if (bookingModel.addNew(bk)) {
             try {
-                for (Rooms i : RoomForm.selectedList) {
-                    BookedRooms b = new BookedRooms();
-                    b.setRooms(i);
-                    b.setBookingRoom(bk);
-                    bookedModel.insert(b);
-                    //change room status
-                    i.setStatus(3);
-                    roomModel.edit(i);
-                }
-                if (cbGetRoom.isSelected()) { //show bill
+                if (cbGetRoom.isSelected()) {
+                    for (Rooms i : RoomForm.selectedList) {
+                        BookedRooms b = new BookedRooms();
+                        b.setRooms(i);
+                        b.setBookingRoom(bk);
+                        b.setIsActive(true);
+                        bookedModel.insert(b);
+                        //change room status
+                        i.setStatus(2);
+                        roomModel.edit(i);
+                    }
+                    ReportManager rpDAO = new ReportManager();
+                    int re = JOptionPane.showConfirmDialog(rootPane, "Complete! Print Bill? ", "Quesiton", JOptionPane.YES_NO_CANCEL_OPTION);
 
+                    if (re == JOptionPane.YES_OPTION) {
+                        String billId = bk.getId().toString();
+                        Map<String, Object> param = new HashMap<String, Object>();
+                        param.put("ID", billId);
+                        rpDAO.reportCheckinHotel(param);
+                    }
+
+                    clearDetails();
+                    RoomForm.clearSelectedList();
                 } else {
+                    for (Rooms i : RoomForm.selectedList) {
+                        BookedRooms b = new BookedRooms();
+                        b.setRooms(i);
+                        b.setBookingRoom(bk);
+                        b.setIsActive(true);
+                        bookedModel.insert(b);
+                        //change room status
+                        i.setStatus(3);
+                        roomModel.edit(i);
+                    }
                     JOptionPane.showMessageDialog(rootPane, "Successfully", "Success", 1);
+
+                    clearDetails();
+                    RoomForm.clearSelectedList();
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Error in payment: " + ex.getMessage(), "Failed ", JOptionPane.ERROR_MESSAGE);
@@ -951,7 +1018,7 @@ public class CheckInHotel extends javax.swing.JInternalFrame {
                 orderSer.setQuantity(Integer.valueOf(tblSer.getValueAt(i, 2).toString()));
                 orderSer.setRooms(roomModel.find(tblSer.getValueAt(i, 0).toString()));
                 orderSer.setServices(serModel.find(tblSer.getValueAt(i, 1).toString()));
-
+                orderSer.setIsActive(true);
                 hs.addNew(orderSer);
             }
             JOptionPane.showMessageDialog(pnlCustomer, "Completed", "Successfully", 1);
@@ -968,7 +1035,7 @@ public class CheckInHotel extends javax.swing.JInternalFrame {
                 orderSer.setQuantity(Integer.valueOf(tblRes.getValueAt(i, 2).toString()));
                 orderSer.setRooms(roomModel.find(tblRes.getValueAt(i, 0).toString()));
                 orderSer.setProducts(proModel.find(tblRes.getValueAt(i, 1).toString()));
-
+                orderSer.setIsActive(true);
                 hd.addNew(orderSer);
             }
             JOptionPane.showMessageDialog(pnlCustomer, "Completed", "Successfully", 1);
@@ -988,6 +1055,10 @@ public class CheckInHotel extends javax.swing.JInternalFrame {
         ((DefaultTableModel) tblRes.getModel()).removeRow(selectedRow);
 
     }//GEN-LAST:event_btnDelResActionPerformed
+
+    private void FromDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FromDateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FromDateActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

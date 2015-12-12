@@ -19,12 +19,16 @@ import entities.Services;
 //import entities.HamOrderLine;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
@@ -119,7 +123,7 @@ public final class OrderServices extends javax.swing.JInternalFrame {
      */
     void updateTotalLabel() {
         lblTotal.setText("TOTAL: $" + total);
-        btnSubmit.setEnabled(tblCart.getRowCount() > 0);
+        //btnSubmit.setEnabled(tblCart.getRowCount() > 0);
     }
 
     /**
@@ -128,6 +132,14 @@ public final class OrderServices extends javax.swing.JInternalFrame {
     public OrderServices() {
         initComponents();
         setIcon();
+
+        if (orderSerModel.getAll().size() == 0) {
+            txtOrderID.setText("1");
+        } else {
+            OrderedService os = orderSerModel.getAll().get(orderSerModel.getAll().size() - 1);
+            txtOrderID.setText(String.valueOf(os.getOrderId() + 1));
+        }
+
         txtPrice.setVisible(false);
         lblPrice.setVisible(false);
 
@@ -154,8 +166,14 @@ public final class OrderServices extends javax.swing.JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (cbbCustomer.getSelectedItem().equals("Service")) {
+                    if (orderSerModel.getAll().size() == 0) {
+                        txtOrderID.setText("1");
+                    } else {
+                        OrderedService os = orderSerModel.getAll().get(orderSerModel.getAll().size() - 1);
+                        txtOrderID.setText(String.valueOf(os.getOrderId() + 1));
+                    }
                     spnQuantity.setVisible(true);
-                   loadCbbSer();
+                    loadCbbSer();
                     loadSerListToTable(serModel.getAllFromDB());
                     setButonCartSer();
                     //Search box
@@ -178,6 +196,13 @@ public final class OrderServices extends javax.swing.JInternalFrame {
                         }
                     });
                 } else if (cbbCustomer.getSelectedItem().equals("Restaurant")) {
+
+                    if (orderTableModel.getAll().size() == 0) {
+                        txtOrderID.setText("1");
+                    } else {
+                        OrderTable os = orderTableModel.getAll().get(orderTableModel.getAll().size() - 1);
+                        txtOrderID.setText(String.valueOf(os.getOrderID() + 1));
+                    }
 
                     cbbCustomer1.removeAllItems();
                     spnQuantity.setVisible(false);
@@ -212,13 +237,13 @@ public final class OrderServices extends javax.swing.JInternalFrame {
         });
 
     }
-    
-    void loadCbbSer(){
-         cbbCustomer1.removeAllItems();
-                    for (CustomerOrderService cus : serCusModel.getAll()) {
-                        cbbCustomer1.addItem(cus.getCustomerName());
-                    }
-                    customerSerList = serCusModel.getAll();
+
+    void loadCbbSer() {
+        cbbCustomer1.removeAllItems();
+        for (CustomerOrderService cus : serCusModel.getAll()) {
+            cbbCustomer1.addItem(cus.getCustomerName());
+        }
+        customerSerList = serCusModel.getAll();
 
     }
 
@@ -429,6 +454,8 @@ public final class OrderServices extends javax.swing.JInternalFrame {
         txtPrice = new javax.swing.JTextField();
         DateIn = new org.jdesktop.swingx.JXDatePicker();
         jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        txtOrderID = new javax.swing.JTextField();
         pnlCart = new javax.swing.JPanel();
         scrCart = new javax.swing.JScrollPane();
         tblCart = new javax.swing.JTable();
@@ -588,7 +615,7 @@ public final class OrderServices extends javax.swing.JInternalFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridy = 11;
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
         pnlButtons.add(btnClearCart, gridBagConstraints);
 
@@ -641,6 +668,22 @@ public final class OrderServices extends javax.swing.JInternalFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 8;
         pnlButtons.add(jLabel2, gridBagConstraints);
+
+        jLabel1.setText("ID:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 6);
+        pnlButtons.add(jLabel1, gridBagConstraints);
+
+        txtOrderID.setEditable(false);
+        txtOrderID.setMinimumSize(new java.awt.Dimension(105, 23));
+        txtOrderID.setPreferredSize(new java.awt.Dimension(105, 23));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 6);
+        pnlButtons.add(txtOrderID, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -862,10 +905,12 @@ public final class OrderServices extends javax.swing.JInternalFrame {
             for (int i = 0; i < tblCart.getRowCount(); i++) {
                 RestaurantTable orderedTable = new RestaurantTable();
                 orderedTable = tableModel.find(Integer.valueOf(tblProduct.getValueAt(i, 0).toString()));
+
                 OrderTable bill = new OrderTable();
                 bill.setRestaurantTable(orderedTable);
                 bill.setDateOrder(new Date());
                 bill.setDateIn(DateIn.getDate());
+                bill.setOrderID(Integer.valueOf(txtOrderID.getText()));
                 bill.setCustomerOrderTable(rescCusModel.find(cbbCustomer1.getSelectedItem().toString()));
                 bill.setAccounts(EmployeeEntityManager.currentEmployee);
 
@@ -883,8 +928,16 @@ public final class OrderServices extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, "Can not make bill.", "Failed", JOptionPane.ERROR_MESSAGE);
                 }
             }
+            int re = 0;
+            re = JOptionPane.showConfirmDialog(rootPane, "Payment completed! You may want to print the Bill", "Completed", 1);
+            if (re == JOptionPane.YES_OPTION) {
 
-            int re = JOptionPane.showConfirmDialog(rootPane, "Payment completed! You may want to print the Bill", "Completed", 1);
+                String billId = txtOrderID.getText();
+                System.out.println(billId);
+                Map<String, Object> param = new HashMap<String, Object>();
+                param.put("ID", billId);
+                rpDAO.reportCheckoutOrderTable(param);
+            }
             btnClearCartActionPerformed(evt);
         } else {
             for (int i = 0; i < tblCart.getRowCount(); i++) {
@@ -892,9 +945,11 @@ public final class OrderServices extends javax.swing.JInternalFrame {
                 billSer.setAccounts(EmployeeEntityManager.currentEmployee);
                 billSer.setCustomerOrderService(serCusModel.find(cbbCustomer1.getSelectedItem().toString()));
                 billSer.setDateOrder(DateIn.getDate());
+                billSer.setOrderId(Integer.valueOf(txtOrderID.getText()));
                 billSer.setServices(serModel.find(Integer.valueOf(cartModel.getValueAt(i, 0).toString())));
                 billSer.setQuantity(Integer.valueOf(cartModel.getValueAt(i, 2).toString()));
                 if (orderSerModel.addNew(billSer)) {
+
                     try {
 
                     } catch (Exception ex) {
@@ -903,8 +958,17 @@ public final class OrderServices extends javax.swing.JInternalFrame {
                     }
                 }
             }
-            btnClearCartActionPerformed(evt);
+
             int re = JOptionPane.showConfirmDialog(rootPane, "Payment completed! You may want to print the Bill", "Completed", 1);
+            if (re == JOptionPane.YES_OPTION) {
+
+                String billId =txtOrderID.getText();
+                System.out.println(billId);
+                Map<String, Object> param = new HashMap<String, Object>();
+                param.put("ID", billId);
+                rpDAO.reportCheckoutOrderService(param);
+            }
+            btnClearCartActionPerformed(evt);
         }
     }//GEN-LAST:event_btnSubmitActionPerformed
 
@@ -942,6 +1006,7 @@ public final class OrderServices extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnSubmit;
     private javax.swing.JComboBox cbbCustomer;
     private javax.swing.JComboBox cbbCustomer1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblCustomer;
     private javax.swing.JLabel lblCustomer1;
@@ -969,6 +1034,7 @@ public final class OrderServices extends javax.swing.JInternalFrame {
     private javax.swing.JTable tblCart;
     private javax.swing.JTable tblProduct;
     private javax.swing.JTable tblProduct1;
+    private javax.swing.JTextField txtOrderID;
     private javax.swing.JTextField txtPrice;
     private javax.swing.JTextField txtSearch;
     private javax.swing.JTextField txtSearch1;

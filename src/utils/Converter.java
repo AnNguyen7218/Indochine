@@ -7,6 +7,8 @@ package utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +25,7 @@ public class Converter {
 
     /**
      * Change a string into date format.
+     *
      * @param a date string
      * @return a date
      */
@@ -36,35 +39,37 @@ public class Converter {
         return null;
     }
 
-    
     /**
      * Convert a date into string format.
+     *
      * @param date
-     * @param a date 
+     * @param a date
      * @return a date string
      */
     public static String dateToString(Date date) {
-        if (date == null){
+        if (date == null) {
             return null;
         }
         return dateFormatter.format(date);
     }
-    
+
     /**
      * Convert a date to time string
+     *
      * @param date
      * @return time string
      */
-    public static String dateToTime(Date date){
+    public static String dateToTime(Date date) {
         SimpleDateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
-         if (date == null){
+        if (date == null) {
             return null;
         }
         return timeFormatter.format(date);
     }
-    
+
     /**
      * Divine a string data into each line
+     *
      * @param String data
      * @return List<String> of line
      */
@@ -75,7 +80,7 @@ public class Converter {
         List<String> resultList = new ArrayList<>();
         try {
             String[] s = data.split(";");
-            for(int i=0;i<s.length;i++){
+            for (int i = 0; i < s.length; i++) {
                 resultList.add(s[i]);
             }
             return resultList;
@@ -83,6 +88,21 @@ public class Converter {
             System.err.print("Divine into line error: " + ex.getMessage());
             return null;
         }
+
+    }
+ /**
+     * Diff day
+     *
+     * @param Date first, Date last
+     * @return num of day
+     */
+    public static int DiffDay(Date first, Date last) {
+
+        int daysdiff = 0;
+        long diff = last.getTime() - first.getTime();
+        long diffDays = diff / (24 * 60 * 60 * 1000) + 1;
+        daysdiff = (int) diffDays;
+        return daysdiff;
 
     }
 }

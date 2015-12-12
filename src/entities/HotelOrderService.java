@@ -27,7 +27,7 @@ public class HotelOrderService  implements java.io.Serializable {
      private Rooms rooms;
      private Services services;
      private Integer quantity;
-
+     private Boolean isActive;
     public HotelOrderService() {
     }
 
@@ -39,10 +39,19 @@ public class HotelOrderService  implements java.io.Serializable {
    
      @Id @GeneratedValue(strategy=IDENTITY)
 
+     
     
     @Column(name="ID", unique=true, nullable=false)
     public Integer getId() {
         return this.id;
+    }
+
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
     }
     
     public void setId(Integer id) {

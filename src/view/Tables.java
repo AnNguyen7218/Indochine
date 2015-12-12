@@ -138,6 +138,7 @@ public class Tables extends javax.swing.JInternalFrame {
         btnCancel = new javax.swing.JButton();
         btnSetAvai = new javax.swing.JButton();
 
+        setTitle("Tables");
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         pnlCover.setLayout(new java.awt.GridBagLayout());
@@ -161,7 +162,7 @@ public class Tables extends javax.swing.JInternalFrame {
         });
         tbl1.setLayout(new java.awt.GridBagLayout());
 
-        lblAcc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/account.png"))); // NOI18N
+        lblAcc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Household-Table-icon.png"))); // NOI18N
         lblAcc.setToolTipText("Account Management");
         lblAcc.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -197,7 +198,7 @@ public class Tables extends javax.swing.JInternalFrame {
         });
         tbl2.setLayout(new java.awt.GridBagLayout());
 
-        lblPermission7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/permission.png"))); // NOI18N
+        lblPermission7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Household-Table-icon.png"))); // NOI18N
         lblPermission7.setToolTipText("Permission Management");
         lblPermission7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -236,7 +237,7 @@ public class Tables extends javax.swing.JInternalFrame {
         });
         tbl5.setLayout(new java.awt.GridBagLayout());
 
-        lblAcc10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/account.png"))); // NOI18N
+        lblAcc10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Household-Table-icon.png"))); // NOI18N
         lblAcc10.setToolTipText("Account Management");
         lblAcc10.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -275,7 +276,7 @@ public class Tables extends javax.swing.JInternalFrame {
         });
         tbl4.setLayout(new java.awt.GridBagLayout());
 
-        lblAcc3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/account.png"))); // NOI18N
+        lblAcc3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Household-Table-icon.png"))); // NOI18N
         lblAcc3.setToolTipText("Account Management");
         lblAcc3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -311,7 +312,7 @@ public class Tables extends javax.swing.JInternalFrame {
         });
         tbl8.setLayout(new java.awt.GridBagLayout());
 
-        lblPermission8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/permission.png"))); // NOI18N
+        lblPermission8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Household-Table-icon.png"))); // NOI18N
         lblPermission8.setToolTipText("Permission Management");
         lblPermission8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -350,7 +351,7 @@ public class Tables extends javax.swing.JInternalFrame {
         });
         tbl7.setLayout(new java.awt.GridBagLayout());
 
-        lblPermission1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/permission.png"))); // NOI18N
+        lblPermission1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Household-Table-icon.png"))); // NOI18N
         lblPermission1.setToolTipText("Permission Management");
         lblPermission1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -386,7 +387,7 @@ public class Tables extends javax.swing.JInternalFrame {
         });
         tbl6.setLayout(new java.awt.GridBagLayout());
 
-        lblPermission4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/permission.png"))); // NOI18N
+        lblPermission4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Household-Table-icon.png"))); // NOI18N
         lblPermission4.setToolTipText("Permission Management");
         lblPermission4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -425,7 +426,7 @@ public class Tables extends javax.swing.JInternalFrame {
         });
         tbl9.setLayout(new java.awt.GridBagLayout());
 
-        lblAcc15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/account.png"))); // NOI18N
+        lblAcc15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Household-Table-icon.png"))); // NOI18N
         lblAcc15.setToolTipText("Account Management");
         lblAcc15.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -464,7 +465,7 @@ public class Tables extends javax.swing.JInternalFrame {
         });
         tbl3.setLayout(new java.awt.GridBagLayout());
 
-        lblAcc14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/account.png"))); // NOI18N
+        lblAcc14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Household-Table-icon.png"))); // NOI18N
         lblAcc14.setToolTipText("Account Management");
         lblAcc14.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -503,7 +504,7 @@ public class Tables extends javax.swing.JInternalFrame {
         });
         tbl10.setLayout(new java.awt.GridBagLayout());
 
-        lblPermission10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/permission.png"))); // NOI18N
+        lblPermission10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Household-Table-icon.png"))); // NOI18N
         lblPermission10.setToolTipText("Permission Management");
         lblPermission10.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -539,7 +540,7 @@ public class Tables extends javax.swing.JInternalFrame {
         });
         tbl12.setLayout(new java.awt.GridBagLayout());
 
-        lblPermission6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/permission.png"))); // NOI18N
+        lblPermission6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Household-Table-icon.png"))); // NOI18N
         lblPermission6.setToolTipText("Permission Management");
         lblPermission6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -578,7 +579,7 @@ public class Tables extends javax.swing.JInternalFrame {
         });
         tbl11.setLayout(new java.awt.GridBagLayout());
 
-        lblAcc4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/account.png"))); // NOI18N
+        lblAcc4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Household-Table-icon.png"))); // NOI18N
         lblAcc4.setToolTipText("Account Management");
         lblAcc4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

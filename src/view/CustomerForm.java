@@ -472,9 +472,7 @@ public final class CustomerForm extends javax.swing.JInternalFrame {
         gridBagConstraints.gridy = 1;
         pnlOutput.add(srcCustomer, gridBagConstraints);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
-        getContentPane().add(pnlOutput, gridBagConstraints);
+        getContentPane().add(pnlOutput, new java.awt.GridBagConstraints());
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

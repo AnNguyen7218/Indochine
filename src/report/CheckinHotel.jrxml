@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="942dc92c-e201-4bf0-9ae1-c6df23e4c995">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="9599ac7d-3f86-416d-b6f4-da2cc274ddef">
+		<parameter name="ID" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT
+     BookingRoom."ID" AS BookingRoom_ID,
+     BookingRoom."SellerID" AS BookingRoom_SellerID,
+     BookingRoom."CustomerID" AS BookingRoom_CustomerID,
+     BookingRoom."NumOfChildren" AS BookingRoom_NumOfChildren,
+     BookingRoom."NumOfAdult" AS BookingRoom_NumOfAdult,
+     BookingRoom."DateIn" AS BookingRoom_DateIn,
+     BookingRoom."DateOut" AS BookingRoom_DateOut,
+     BookingRoom."Advance" AS BookingRoom_Advance,
+     BookedRooms."ID" AS BookedRooms_ID,
+     BookedRooms."BookingID" AS BookedRooms_BookingID,
+     BookedRooms."RoomID" AS BookedRooms_RoomID,
+     Customers."CustomerID" AS Customers_CustomerID,
+     Customers."CustomerName" AS Customers_CustomerName,
+     Customers."CustomerAddress" AS Customers_CustomerAddress,
+     Customers."IdentityCard" AS Customers_IdentityCard,
+     Rooms."RoomID" AS Rooms_RoomID,
+     Rooms."RoomName" AS Rooms_RoomName,
+     Rooms."Floor" AS Rooms_Floor,
+     Rooms."CateID" AS Rooms_CateID,
+     Rooms."Status" AS Rooms_Status,
+     Rooms."isActive" AS Rooms_isActive
+FROM
+     "dbo"."BookingRoom" BookingRoom INNER JOIN "dbo"."BookedRooms" BookedRooms ON BookingRoom."ID" = BookedRooms."BookingID"
+     INNER JOIN "dbo"."Customers" Customers ON BookingRoom."CustomerID" = Customers."CustomerID"
+     INNER JOIN "dbo"."Rooms" Rooms ON BookedRooms."RoomID" = Rooms."RoomID"
+WHERE
+     BookingRoom."ID" =$P{ID}]]>
+		</queryString>
+		<field name="BookingRoom_ID" class="java.lang.Integer"/>
+		<field name="BookingRoom_SellerID" class="java.lang.Integer"/>
+		<field name="BookingRoom_CustomerID" class="java.lang.Integer"/>
+		<field name="BookingRoom_NumOfChildren" class="java.lang.Integer"/>
+		<field name="BookingRoom_NumOfAdult" class="java.lang.Integer"/>
+		<field name="BookingRoom_DateIn" class="java.sql.Timestamp"/>
+		<field name="BookingRoom_DateOut" class="java.sql.Timestamp"/>
+		<field name="BookingRoom_Advance" class="java.math.BigDecimal"/>
+		<field name="BookedRooms_ID" class="java.lang.Integer"/>
+		<field name="BookedRooms_BookingID" class="java.lang.Integer"/>
+		<field name="BookedRooms_RoomID" class="java.lang.Integer"/>
+		<field name="Customers_CustomerID" class="java.lang.Integer"/>
+		<field name="Customers_CustomerName" class="java.lang.String"/>
+		<field name="Customers_CustomerAddress" class="java.lang.String"/>
+		<field name="Customers_IdentityCard" class="java.lang.String"/>
+		<field name="Rooms_RoomID" class="java.lang.Integer"/>
+		<field name="Rooms_RoomName" class="java.lang.String"/>
+		<field name="Rooms_Floor" class="java.lang.Integer"/>
+		<field name="Rooms_CateID" class="java.lang.Integer"/>
+		<field name="Rooms_Status" class="java.lang.Integer"/>
+		<field name="Rooms_isActive" class="java.lang.Boolean"/>
+	</subDataset>
+	<parameter name="ID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     BookingRoom."ID" AS BookingRoom_ID,
+     BookingRoom."SellerID" AS BookingRoom_SellerID,
+     BookingRoom."CustomerID" AS BookingRoom_CustomerID,
+     BookingRoom."NumOfChildren" AS BookingRoom_NumOfChildren,
+     BookingRoom."NumOfAdult" AS BookingRoom_NumOfAdult,
+     BookingRoom."DateIn" AS BookingRoom_DateIn,
+     BookingRoom."DateOut" AS BookingRoom_DateOut,
+     BookingRoom."Advance" AS BookingRoom_Advance,
+     BookedRooms."ID" AS BookedRooms_ID,
+     BookedRooms."BookingID" AS BookedRooms_BookingID,
+     BookedRooms."RoomID" AS BookedRooms_RoomID,
+     Customers."CustomerID" AS Customers_CustomerID,
+     Customers."CustomerName" AS Customers_CustomerName,
+     Customers."CustomerAddress" AS Customers_CustomerAddress,
+     Customers."IdentityCard" AS Customers_IdentityCard,
+     Rooms."RoomID" AS Rooms_RoomID,
+     Rooms."RoomName" AS Rooms_RoomName,
+     Rooms."Floor" AS Rooms_Floor,
+     Rooms."CateID" AS Rooms_CateID,
+     Rooms."Status" AS Rooms_Status,
+     Rooms."isActive" AS Rooms_isActive
+FROM
+     "dbo"."BookingRoom" BookingRoom INNER JOIN "dbo"."BookedRooms" BookedRooms ON BookingRoom."ID" = BookedRooms."BookingID"
+     INNER JOIN "dbo"."Customers" Customers ON BookingRoom."CustomerID" = Customers."CustomerID"
+     INNER JOIN "dbo"."Rooms" Rooms ON BookedRooms."RoomID" = Rooms."RoomID"
+WHERE
+     BookingRoom."ID" =$P{ID}]]>
+	</queryString>
+	<field name="BookingRoom_ID" class="java.lang.Integer"/>
+	<field name="BookingRoom_SellerID" class="java.lang.Integer"/>
+	<field name="BookingRoom_CustomerID" class="java.lang.Integer"/>
+	<field name="BookingRoom_NumOfChildren" class="java.lang.Integer"/>
+	<field name="BookingRoom_NumOfAdult" class="java.lang.Integer"/>
+	<field name="BookingRoom_DateIn" class="java.sql.Timestamp"/>
+	<field name="BookingRoom_DateOut" class="java.sql.Timestamp"/>
+	<field name="BookingRoom_Advance" class="java.math.BigDecimal"/>
+	<field name="BookedRooms_ID" class="java.lang.Integer"/>
+	<field name="BookedRooms_BookingID" class="java.lang.Integer"/>
+	<field name="BookedRooms_RoomID" class="java.lang.Integer"/>
+	<field name="Customers_CustomerID" class="java.lang.Integer"/>
+	<field name="Customers_CustomerName" class="java.lang.String"/>
+	<field name="Customers_CustomerAddress" class="java.lang.String"/>
+	<field name="Customers_IdentityCard" class="java.lang.String"/>
+	<field name="Rooms_RoomID" class="java.lang.Integer"/>
+	<field name="Rooms_RoomName" class="java.lang.String"/>
+	<field name="Rooms_Floor" class="java.lang.Integer"/>
+	<field name="Rooms_CateID" class="java.lang.Integer"/>
+	<field name="Rooms_Status" class="java.lang.Integer"/>
+	<field name="Rooms_isActive" class="java.lang.Boolean"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="74" splitType="Stretch">
+			<staticText>
+				<reportElement x="91" y="10" width="336" height="44" uuid="d392425b-c1eb-4335-aed3-522e074085b6"/>
+				<textElement>
+					<font fontName="Georgia" size="30" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INDOCHINE PALACE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="191" y="54" width="144" height="20" uuid="d662e92c-fc8f-41d5-b337-4b0b676abc88"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[HUE CITY - VIETNAM]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="140" splitType="Stretch">
+			<staticText>
+				<reportElement x="47" y="8" width="73" height="20" uuid="64fe5540-de94-4da5-a8f1-3e837c0ac0e1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[CUSTOMER:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="40" width="75" height="20" uuid="b9354744-2f6c-4da8-a7b9-dc8c12785ee7"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[DATE OUT:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="305" y="40" width="56" height="20" uuid="7dd96a51-caeb-4d44-a2d0-ca615357021b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[DATE IN:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="98" width="44" height="20" uuid="d9f35d33-9817-458c-920c-ac653d497945"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[ADULT:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="70" width="42" height="20" uuid="ee7ad517-cf15-4643-a431-3da665a186c4"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[PAID:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="305" y="98" width="71" height="20" uuid="d6cbd634-74cd-4b64-b4eb-d573b58e1529"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[CHILDREN:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="122" y="8" width="239" height="20" uuid="c2f5467e-4b35-4517-a1e8-cfb443e014d3"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Customers_CustomerName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="40" width="100" height="20" uuid="3261c8e4-6c5d-4597-b16e-e29cdc9455f8"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BookingRoom_DateIn}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="361" y="40" width="100" height="20" uuid="714505c2-fbe8-46f7-83f6-f6e310079dea"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BookingRoom_DateIn}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="70" width="100" height="20" uuid="b0bc0b2e-c4b2-4f49-b788-8a624a95ace9"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BookingRoom_Advance}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="98" width="100" height="20" uuid="48642dd3-d6ba-4773-add5-157d7dcf11c0"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BookingRoom_NumOfAdult}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="376" y="98" width="100" height="20" uuid="53bb574d-cebf-45c4-bb6d-f9d26ffa2619"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BookingRoom_NumOfChildren}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="122" splitType="Stretch">
+			<componentElement>
+				<reportElement key="table" style="table" x="97" y="27" width="360" height="80" uuid="3413ff1c-1df8-4f57-9039-2356c088683e"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Table Dataset 1" uuid="07fbd2fb-8c20-4596-b357-68aa8b056117">
+						<datasetParameter name="ID">
+							<datasetParameterExpression><![CDATA[$P{ID}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="efad2a3b-c4bc-420d-8fe7-3e418b33ef8c">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="637cd288-64c0-424a-9359-af55d2f85223"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="14" isBold="true"/>
+								</textElement>
+								<text><![CDATA[NO.]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="1a8797df-3045-4576-a51c-ba9384277ea3"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="14" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total room:]]></text>
+							</staticText>
+						</jr:columnFooter>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="f174050a-c952-4de5-be7b-737d94a6f1ea"/>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="bbf5ce23-ce9d-48c4-91e4-78dd4659520b">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="3a8045ea-a778-40d3-adff-20c7b982f21b"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="14" isBold="true"/>
+								</textElement>
+								<text><![CDATA[ROOM]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="30" uuid="2c245a60-0998-4875-873d-461c40fdf17a"/>
+								<textFieldExpression><![CDATA[$V{COLUMN_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table_TD" height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="20" uuid="31373bc1-6cab-4728-9598-6c7296967261"/>
+								<textFieldExpression><![CDATA[$F{Rooms_RoomName}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -32,9 +32,24 @@ public class HotelDishEntityManager extends AbstractEntityManager<HotelOrderDish
 
     public List<HotelOrderDish> getByRoomId(int RoomId) {
         ArrayList<HotelOrderDish> list = new ArrayList<>();
-        for (HotelOrderDish a : getAllFromDB()) {
+        for (HotelOrderDish a : getAllActive()) {
             if (a.getRooms().getRoomId() == RoomId) {
                 list.add(a);
+            }
+        }
+        return list;
+    }
+
+    /**
+     * Get all active object
+     *
+     * @return List<OrderLine> : list of HotelOrderService object
+     */
+    public List<HotelOrderDish> getAllActive() {
+        List<HotelOrderDish> list = new ArrayList<>();
+        for (HotelOrderDish hs : getAllFromDB()) {
+            if (hs.getIsActive() == true) {
+                list.add(hs);
             }
         }
         return list;

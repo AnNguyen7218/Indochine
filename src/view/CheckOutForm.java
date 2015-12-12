@@ -315,7 +315,6 @@ public final class CheckOutForm extends javax.swing.JInternalFrame {
 
         btnSubmit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/submit.png"))); // NOI18N
         btnSubmit.setText("Submit");
-        btnSubmit.setEnabled(false);
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSubmitActionPerformed(evt);
@@ -743,8 +742,8 @@ public final class CheckOutForm extends javax.swing.JInternalFrame {
                         throw new Exception();
                     }
                 }
-                JOptionPane.showConfirmDialog(pnlCustomer, "Complete! Print Bill? ", "Quesiton", JOptionPane.YES_NO_CANCEL_OPTION);
-                int re = 0;
+                int re = JOptionPane.showConfirmDialog(pnlCustomer, "Complete! Print Bill? ", "Quesiton", JOptionPane.YES_NO_CANCEL_OPTION);
+                
                 if ( re == JOptionPane.YES_OPTION) {
                     String billId = bill.getId().toString();
 //                    String seller = txtSeller.getText();

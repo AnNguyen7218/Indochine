@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ce0ac291-7a66-4a73-bcdc-abe7f8baaac9">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ce0ac291-7a66-4a73-bcdc-abe7f8baaac9">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="19"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -81,8 +81,8 @@ WHERE
 		<field name="RestaurantBill_Total" class="java.math.BigDecimal"/>
 		<field name="Products_ProductName" class="java.lang.String"/>
 		<field name="Products_Price" class="java.math.BigDecimal"/>
-		<variable name="variable1" class="java.lang.String" calculation="Sum">
-			<variableExpression><![CDATA[$F{Price}]]></variableExpression>
+		<variable name="variable1" class="java.lang.Double" calculation="Sum">
+			<variableExpression><![CDATA[$F{Price}.doubleValue()]]></variableExpression>
 		</variable>
 	</subDataset>
 	<parameter name="billID" class="java.lang.String">
@@ -153,14 +153,14 @@ WHERE
 				<text><![CDATA[Table:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="40" y="65" width="38" height="20" uuid="56f4fc8f-b670-475f-b39c-d037808e1e96"/>
+				<reportElement x="40" y="54" width="38" height="20" uuid="56f4fc8f-b670-475f-b39c-d037808e1e96"/>
 				<textElement>
 					<font size="14" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Date:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="107" y="65" width="100" height="20" uuid="7d303be4-00b4-42d3-b446-37a9ffefcd67"/>
+				<reportElement x="107" y="54" width="100" height="20" uuid="7d303be4-00b4-42d3-b446-37a9ffefcd67"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
@@ -187,7 +187,7 @@ WHERE
 			<componentElement>
 				<reportElement key="table 1" style="table 1" x="84" y="42" width="360" height="140" uuid="b6385274-53ed-4f46-90b7-c64c78cf581b"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Table Dataset 2" uuid="467b6dfb-6f22-43fc-bc7e-f95f0ff1f586">
+					<datasetRun subDataset="Table Dataset 2" uuid="2ff791d3-4e1d-4d01-a3ca-d5c5344c8d5e">
 						<datasetParameter name="billID">
 							<datasetParameterExpression><![CDATA[$P{billID}]]></datasetParameterExpression>
 						</datasetParameter>
@@ -297,8 +297,7 @@ WHERE
 						</jr:columnHeader>
 						<jr:columnFooter style="table 1_CH" height="37" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="90" height="37" uuid="2782e1d0-13e4-4ccd-b4e2-ba9f2b1b38a6"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<reportElement x="0" y="0" width="90" height="37" uuid="52e3d8d3-e185-4f5d-b757-c33094a15ba2"/>
 								<textFieldExpression><![CDATA[$V{variable1}]]></textFieldExpression>
 							</textField>
 						</jr:columnFooter>

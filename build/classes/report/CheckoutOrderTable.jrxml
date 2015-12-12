@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1b352fff-1625-455e-8db7-80bdc54728c8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="47d9e866-57ab-4272-a233-b1ff7b656e69">
+		<parameter name="ID" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT
+     CustomerOrderTable."ID" AS CustomerOrderTable_ID,
+     CustomerOrderTable."CustomerName" AS CustomerOrderTable_CustomerName,
+     CustomerOrderTable."CustomerNumber" AS CustomerOrderTable_CustomerNumber,
+     OrderTable."ID" AS OrderTable_ID,
+     OrderTable."TableID" AS OrderTable_TableID,
+     OrderTable."StaffID" AS OrderTable_StaffID,
+     OrderTable."DateOrder" AS OrderTable_DateOrder,
+     OrderTable."DateIn" AS OrderTable_DateIn,
+     OrderTable."CustomerID" AS OrderTable_CustomerID,
+     RestaurantTable."TableID" AS RestaurantTable_TableID,
+     RestaurantTable."Status" AS RestaurantTable_Status,
+     RestaurantTable."isActive" AS RestaurantTable_isActive,
+     RestaurantTable."NumOfChairs" AS RestaurantTable_NumOfChairs,
+     RestaurantTable."Description" AS RestaurantTable_Description,
+     OrderTable."orderID" AS OrderTable_orderID
+FROM
+     "dbo"."CustomerOrderTable" CustomerOrderTable INNER JOIN "dbo"."OrderTable" OrderTable ON CustomerOrderTable."ID" = OrderTable."CustomerID"
+     INNER JOIN "dbo"."RestaurantTable" RestaurantTable ON OrderTable."TableID" = RestaurantTable."TableID"
+WHERE
+     OrderTable."orderID" = $P{ID}]]>
+		</queryString>
+		<field name="CustomerOrderTable_ID" class="java.lang.Integer"/>
+		<field name="CustomerOrderTable_CustomerName" class="java.lang.String"/>
+		<field name="CustomerOrderTable_CustomerNumber" class="java.lang.String"/>
+		<field name="OrderTable_ID" class="java.lang.Integer"/>
+		<field name="OrderTable_TableID" class="java.lang.Integer"/>
+		<field name="OrderTable_StaffID" class="java.lang.Integer"/>
+		<field name="OrderTable_DateOrder" class="java.sql.Timestamp"/>
+		<field name="OrderTable_DateIn" class="java.sql.Timestamp"/>
+		<field name="OrderTable_CustomerID" class="java.lang.Integer"/>
+		<field name="RestaurantTable_TableID" class="java.lang.Integer"/>
+		<field name="RestaurantTable_Status" class="java.lang.Integer"/>
+		<field name="RestaurantTable_isActive" class="java.lang.Boolean"/>
+		<field name="RestaurantTable_NumOfChairs" class="java.lang.Integer"/>
+		<field name="RestaurantTable_Description" class="java.lang.String"/>
+		<field name="OrderTable_orderID" class="java.lang.Integer"/>
+	</subDataset>
+	<parameter name="ID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     CustomerOrderTable."ID" AS CustomerOrderTable_ID,
+     CustomerOrderTable."CustomerName" AS CustomerOrderTable_CustomerName,
+     CustomerOrderTable."CustomerNumber" AS CustomerOrderTable_CustomerNumber,
+     OrderTable."ID" AS OrderTable_ID,
+     OrderTable."TableID" AS OrderTable_TableID,
+     OrderTable."StaffID" AS OrderTable_StaffID,
+     OrderTable."DateOrder" AS OrderTable_DateOrder,
+     OrderTable."DateIn" AS OrderTable_DateIn,
+     OrderTable."CustomerID" AS OrderTable_CustomerID,
+     RestaurantTable."TableID" AS RestaurantTable_TableID,
+     RestaurantTable."Status" AS RestaurantTable_Status,
+     RestaurantTable."isActive" AS RestaurantTable_isActive,
+     RestaurantTable."NumOfChairs" AS RestaurantTable_NumOfChairs,
+     RestaurantTable."Description" AS RestaurantTable_Description,
+     OrderTable."orderID" AS OrderTable_orderID
+FROM
+     "dbo"."CustomerOrderTable" CustomerOrderTable INNER JOIN "dbo"."OrderTable" OrderTable ON CustomerOrderTable."ID" = OrderTable."CustomerID"
+     INNER JOIN "dbo"."RestaurantTable" RestaurantTable ON OrderTable."TableID" = RestaurantTable."TableID"
+WHERE
+     OrderTable."orderID" = $P{ID}]]>
+	</queryString>
+	<field name="CustomerOrderTable_ID" class="java.lang.Integer"/>
+	<field name="CustomerOrderTable_CustomerName" class="java.lang.String"/>
+	<field name="CustomerOrderTable_CustomerNumber" class="java.lang.String"/>
+	<field name="OrderTable_ID" class="java.lang.Integer"/>
+	<field name="OrderTable_TableID" class="java.lang.Integer"/>
+	<field name="OrderTable_StaffID" class="java.lang.Integer"/>
+	<field name="OrderTable_DateOrder" class="java.sql.Timestamp"/>
+	<field name="OrderTable_DateIn" class="java.sql.Timestamp"/>
+	<field name="OrderTable_CustomerID" class="java.lang.Integer"/>
+	<field name="RestaurantTable_TableID" class="java.lang.Integer"/>
+	<field name="RestaurantTable_Status" class="java.lang.Integer"/>
+	<field name="RestaurantTable_isActive" class="java.lang.Boolean"/>
+	<field name="RestaurantTable_NumOfChairs" class="java.lang.Integer"/>
+	<field name="RestaurantTable_Description" class="java.lang.String"/>
+	<field name="OrderTable_orderID" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="21" y="11" width="506" height="57" uuid="5e8b7ea2-049b-4b3b-9b78-e99f0d7090c6"/>
+				<textElement textAlignment="Center">
+					<font fontName="Georgia" size="36" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BWP INDOCHINE PALACE]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="68" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="10" width="79" height="20" uuid="7138a038-8d4e-4c6c-bfcd-97b60bf139e0"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[CUSTOMER:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="319" y="10" width="79" height="20" uuid="2f4f7816-b332-487e-b6d9-e727f948821b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[DATE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="10" width="194" height="20" uuid="ec16ccd1-6951-43d4-9ce1-4c02f99b8dc3"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CustomerOrderTable_CustomerName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="409" y="10" width="100" height="20" uuid="f265ccd0-f28d-4b37-9adc-834404053deb"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OrderTable_DateOrder}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="34" width="79" height="20" uuid="d2f1fc6e-765c-4191-890d-3347eafc6edb"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[BILL ID:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="34" width="100" height="20" uuid="42a52309-3f95-48eb-9276-32dc74537350"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OrderTable_orderID}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="182" splitType="Stretch">
+			<componentElement>
+				<reportElement key="table" style="table" x="89" y="22" width="360" height="127" uuid="6cf0726e-253b-49e8-975e-ba6c17429ea2"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="Table Dataset 1" uuid="9ca40cda-e708-48a7-9957-2f3439f3ef02">
+						<datasetParameter name="ID">
+							<datasetParameterExpression><![CDATA[$P{ID}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="a61b3117-87ea-4cac-9f3a-4c31849d4a2b">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="f6b69112-9dd9-46f7-acfa-50ef157c1654"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[STT]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="30" uuid="a284f104-2a87-4f99-96cd-f2a4c98c5bbd"/>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="9716c1f9-2ef6-40a3-8a23-eb8d5ab4353c">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="1f84e2c3-2710-4e30-8966-96666397a0fa"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[TABLE]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="30" uuid="8747fc3b-db8d-4c46-8885-2d3c16b75db0"/>
+								<textFieldExpression><![CDATA[$F{RestaurantTable_TableID}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="69c926f5-9d71-423b-b922-c6aadc50785f">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="c4636837-698a-40fc-9ee4-88a822d3c936"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[DESCRIPTION]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="30" uuid="39cf376c-3369-42d5-b80c-547f533af515"/>
+								<textFieldExpression><![CDATA[$F{RestaurantTable_Description}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="3088cd33-f5fd-41c4-a559-56931ae0a62d">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="30" uuid="1c132adf-ce9b-4d4c-b910-08832f5ed088"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[CHAIRS]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="30" rowSpan="1"/>
+						<jr:detailCell height="30" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="90" height="30" uuid="da6c5ac7-f3f5-4565-8e81-ab580248952f"/>
+								<textFieldExpression><![CDATA[$F{RestaurantTable_NumOfChairs}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

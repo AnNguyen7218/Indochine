@@ -9,6 +9,8 @@ import entities.Accounts;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -24,12 +26,13 @@ public class LoginForm extends javax.swing.JFrame {
     //Signup label original font
     Font originalFont;
     EmployeeEntityManager accModel = new EmployeeEntityManager();
+
     /**
      * Creates new form LoginForm
      */
     public LoginForm() {
         initComponents();
-        for(Accounts ac:accModel.getAccFromDB()){
+        for (Accounts ac : accModel.getAccFromDB()) {
             cbbName.addItem(ac.getAccountName());
         }
         setIcon();
@@ -255,6 +258,12 @@ public class LoginForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                try {
+                    Thread.sleep(3000);
+
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 new LoginForm().setVisible(true);
             }
         });

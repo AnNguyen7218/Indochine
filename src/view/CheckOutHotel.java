@@ -5,14 +5,22 @@
  */
 package view;
 
+import entities.BookedRooms;
 import entities.BookingRoom;
 import entities.Customers;
 import entities.HotelOrderDish;
 import entities.HotelOrderService;
 import entities.Products;
 import entities.Rooms;
+import static java.awt.image.ImageObserver.WIDTH;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -23,6 +31,8 @@ import models.CustomerEntityManager;
 import models.HotelDishEntityManager;
 import models.HotelSerEntityManager;
 import models.OrderEntityManager;
+import models.OrderLineEntityManager;
+import models.ReportManager;
 import models.RoomEntityManager;
 import utils.Converter;
 
@@ -38,7 +48,8 @@ public class CheckOutHotel extends javax.swing.JInternalFrame {
     HotelSerEntityManager hsModel = new HotelSerEntityManager();
     CustomerEntityManager cusModel = new CustomerEntityManager();
     OrderEntityManager bookingModel = new OrderEntityManager();
-
+    OrderLineEntityManager bkedModel = new OrderLineEntityManager();
+    
     Rooms selectedRoom = new Rooms();
 
     Double serTotal, resTotal, vat, finalTot;
@@ -76,28 +87,37 @@ public class CheckOutHotel extends javax.swing.JInternalFrame {
 
             @Override
             public void valueChanged(ListSelectionEvent e) {
+
                 int selectedIndex = tblProduct.getSelectedRow();
-                if (selectedIndex != -1) {
+
+                if (selectedIndex != -1 && tblProduct.getValueAt(selectedIndex, 1) != null) {
+
                     selectedRoom = roomModel.find(tblProduct.getValueAt(selectedIndex, 1).toString());
+                    loadDetailsSerListToTable(hsModel.getByRoomID(selectedRoom.getRoomId()));
+                    loadDetailsResListToTable(hdModel.getByRoomId(selectedRoom.getRoomId()));
+                    filterCustomerInfo(selectedRoom);
+                    updateLabel();
                 }
-                loadDetailsSerListToTable(hsModel.getByRoomID(selectedRoom.getRoomId()));
-                loadDetailsResListToTable(hdModel.getByRoomId(selectedRoom.getRoomId()));
-                updateLabel();
-                filterCustomerInfo(selectedRoom);
+
             }
         });
     }
 
-    void updateLabel(){
+    void updateLabel() {
         lblResTot.setText(resTotal.toString());
         lblSerTot.setText(serTotal.toString());
-        double vat = (resTotal+serTotal)*0.1;
+        double vat = (resTotal + serTotal) * 0.1;
         lblVATTot.setText(String.valueOf(vat));
-        double finalT = (resTotal+serTotal+vat) ;
+
+        double room = Double.parseDouble(lblRoomPrice.getText());
+        double paid = Double.parseDouble(txtPaid.getText());
+        double finalT = (resTotal + serTotal + vat + room - paid);
         lblTotAll.setText(String.valueOf(finalT));
-        
+
     }
+
     void filterCustomerInfo(Rooms r) {
+        
         BookingRoom bk = bookingModel.find(r);
         Customers currentCustomer = cusModel.find(bk.getCustomers().getCustomerId());
 
@@ -107,7 +127,16 @@ public class CheckOutHotel extends javax.swing.JInternalFrame {
 
         txtDateTo.setText(Converter.dateToString(bk.getDateOut()));
         txtFrom.setText(Converter.dateToString(bk.getDateIn()));
-        txtPaid.setText(bk.getAdvance().toString());
+        if (bk.getAdvance() == null) {
+            txtPaid.setText("0");
+        } else {
+            txtPaid.setText(bk.getAdvance().toString());
+        }
+
+        //  Converter.DiffDay(bk.getDateIn(), bk.getDateOut())
+        txtCate.setText(r.getCategoryOfRoom().getCateRoomName());
+        txtPrice.setText(r.getCategoryOfRoom().getPrice().toString());
+        lblRoomPrice.setText(String.valueOf(Converter.DiffDay(bk.getDateIn(), bk.getDateOut()) * r.getCategoryOfRoom().getPrice()));
     }
 
     void filterProductList() {
@@ -260,6 +289,10 @@ public class CheckOutHotel extends javax.swing.JInternalFrame {
         txtFrom = new javax.swing.JTextField();
         txtIDCard = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        txtPrice = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        txtCate = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblSer = new javax.swing.JTable();
@@ -282,8 +315,11 @@ public class CheckOutHotel extends javax.swing.JInternalFrame {
         lblTotAll = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         lblResTot = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        lblRoomPrice = new javax.swing.JLabel();
         btnSubmit = new javax.swing.JButton();
 
+        setTitle("Check out");
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         view.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "View Details"));
@@ -297,7 +333,7 @@ public class CheckOutHotel extends javax.swing.JInternalFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(500, 150));
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        jLabel1.setText("Customer Name:");
+        jLabel1.setText("Full Name:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         jPanel1.add(jLabel1, gridBagConstraints);
@@ -323,7 +359,7 @@ public class CheckOutHotel extends javax.swing.JInternalFrame {
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         jPanel1.add(txtDateTo, gridBagConstraints);
 
-        jLabel3.setText("Customer Address:");
+        jLabel3.setText("Address:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         jPanel1.add(jLabel3, gridBagConstraints);
@@ -334,10 +370,10 @@ public class CheckOutHotel extends javax.swing.JInternalFrame {
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         jPanel1.add(txtAdd, gridBagConstraints);
 
-        jLabel4.setText("Paid:");
+        jLabel4.setText("Category:");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         jPanel1.add(jLabel4, gridBagConstraints);
 
@@ -378,6 +414,36 @@ public class CheckOutHotel extends javax.swing.JInternalFrame {
         gridBagConstraints.gridy = 2;
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         jPanel1.add(jLabel6, gridBagConstraints);
+
+        txtPrice.setMinimumSize(new java.awt.Dimension(120, 20));
+        txtPrice.setPreferredSize(new java.awt.Dimension(120, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        jPanel1.add(txtPrice, gridBagConstraints);
+
+        jLabel11.setText("Price:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        jPanel1.add(jLabel11, gridBagConstraints);
+
+        txtCate.setMinimumSize(new java.awt.Dimension(120, 20));
+        txtCate.setPreferredSize(new java.awt.Dimension(120, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        jPanel1.add(txtCate, gridBagConstraints);
+
+        jLabel12.setText("Paid:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
+        jPanel1.add(jLabel12, gridBagConstraints);
 
         view.add(jPanel1, new java.awt.GridBagConstraints());
 
@@ -486,61 +552,79 @@ public class CheckOutHotel extends javax.swing.JInternalFrame {
         jSeparator1.setPreferredSize(new java.awt.Dimension(150, 5));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 17;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
         jPanel4.add(jSeparator1, gridBagConstraints);
 
         jLabel7.setText("Service total:");
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 10;
         gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
         jPanel4.add(jLabel7, gridBagConstraints);
 
         jLabel8.setText("V.A.T (10%):");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 16;
         jPanel4.add(jLabel8, gridBagConstraints);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel9.setText("TOTAL:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridy = 18;
         gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
         jPanel4.add(jLabel9, gridBagConstraints);
 
         lblSerTot.setText("0");
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 10;
         gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
         jPanel4.add(lblSerTot, gridBagConstraints);
 
         lblVATTot.setText("0");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 16;
         gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
         jPanel4.add(lblVATTot, gridBagConstraints);
 
         lblTotAll.setText("0");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridy = 18;
         gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
         jPanel4.add(lblTotAll, gridBagConstraints);
 
         jLabel13.setText("Restaurant total:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 11;
         jPanel4.add(jLabel13, gridBagConstraints);
 
         lblResTot.setText("0");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 11;
         gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
         jPanel4.add(lblResTot, gridBagConstraints);
+
+        jLabel10.setText("Room:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
+        jPanel4.add(jLabel10, gridBagConstraints);
+
+        lblRoomPrice.setText("0");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
+        jPanel4.add(lblRoomPrice, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -553,6 +637,11 @@ public class CheckOutHotel extends javax.swing.JInternalFrame {
         btnSubmit.setMaximumSize(new java.awt.Dimension(100, 25));
         btnSubmit.setMinimumSize(new java.awt.Dimension(100, 25));
         btnSubmit.setPreferredSize(new java.awt.Dimension(100, 25));
+        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -584,10 +673,50 @@ public class CheckOutHotel extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txtSearchFocusLost
 
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+        // xuat bill
+        //ReportManager rpDAO = new ReportManager();
+//        int re = JOptionPane.showConfirmDialog(rootPane, "Complete! Print Bill? ", "Quesiton", JOptionPane.YES_NO_CANCEL_OPTION);
+//
+//        if (re == JOptionPane.YES_OPTION) {
+//            try {
+//                String billId = selectedRoom.getRoomId().toString();
+//                BookingRoom bk = bookingModel.find(selectedRoom);
+//                String bkid = bk.getId().toString();
+//                Map<String, Object> param = new HashMap<String, Object>();
+//                param.put("RoomID", billId);
+//                param.put("BKID",bkid);
+//                rpDAO.reportCheckoutHotel(param);
+//            } catch (IOException ex) {
+//                Logger.getLogger(CheckOutHotel.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+
+        //cap nhat lai tinh trang phong và du lieu
+        for (HotelOrderService s : hsModel.getByRoomID(selectedRoom.getRoomId())) {
+            s.setIsActive(false);
+        }
+        for (HotelOrderDish s : hdModel.getByRoomId(selectedRoom.getRoomId())) {
+            s.setIsActive(false);
+        }
+        BookedRooms br = bkedModel.getByRoomID(selectedRoom.getRoomId());
+        br.setIsActive(false);
+        bkedModel.update(br);
+
+        selectedRoom.setStatus(1);
+        roomModel.edit(selectedRoom);
+        loadProductListToTable(roomModel.getAllBookedRoom());
+        
+        JOptionPane.showMessageDialog(rootPane, "Completed !");
+    }//GEN-LAST:event_btnSubmitActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSubmit;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -605,6 +734,7 @@ public class CheckOutHotel extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblResTot;
+    private javax.swing.JLabel lblRoomPrice;
     private javax.swing.JLabel lblSearch;
     private javax.swing.JLabel lblSerTot;
     private javax.swing.JLabel lblTotAll;
@@ -616,11 +746,13 @@ public class CheckOutHotel extends javax.swing.JInternalFrame {
     private javax.swing.JTable tblRes;
     private javax.swing.JTable tblSer;
     private javax.swing.JTextField txtAdd;
+    private javax.swing.JTextField txtCate;
     private javax.swing.JTextField txtDateTo;
     private javax.swing.JTextField txtFrom;
     private javax.swing.JTextField txtIDCard;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPaid;
+    private javax.swing.JTextField txtPrice;
     private javax.swing.JTextField txtSearch;
     private javax.swing.JPanel view;
     // End of variables declaration//GEN-END:variables

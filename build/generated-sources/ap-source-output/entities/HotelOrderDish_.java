@@ -11,6 +11,7 @@ public abstract class HotelOrderDish_ {
 	public static volatile SingularAttribute<HotelOrderDish, Rooms> rooms;
 	public static volatile SingularAttribute<HotelOrderDish, Integer> quantity;
 	public static volatile SingularAttribute<HotelOrderDish, Integer> id;
+	public static volatile SingularAttribute<HotelOrderDish, Boolean> isActive;
 	public static volatile SingularAttribute<HotelOrderDish, Products> products;
 
 }

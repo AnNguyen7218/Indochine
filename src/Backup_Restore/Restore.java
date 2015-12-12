@@ -42,7 +42,7 @@ public class Restore {
     /**
      * Excute all sql query in file.
      *
-     * @param pathIn of file.
+      * @param pathIn of file.
      */
     public static void RecoveryDatabase(String pathIn) {
 

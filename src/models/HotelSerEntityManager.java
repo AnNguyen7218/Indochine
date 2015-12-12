@@ -31,10 +31,22 @@ public class HotelSerEntityManager extends AbstractEntityManager<HotelOrderServi
     }
 
    
+    /**
+     * Get all active object
+     *
+     * @return List<OrderLine> : list of HotelOrderService object
+     */
+    public List<HotelOrderService> getAllActive() {
+        List<HotelOrderService> list = new ArrayList<>();
+        for(HotelOrderService hs:getAllFromDB()){
+            if(hs.getIsActive()==true) list.add(hs);
+        }
+        return list;
+    }
     
       public List<HotelOrderService> getByRoomID(int RoomId) {
         ArrayList<HotelOrderService> list = new ArrayList<>();
-        for (HotelOrderService a : getAllFromDB()) {
+        for (HotelOrderService a : getAllActive()) {
             if (a.getRooms().getRoomId() == RoomId) {
                 list.add(a);
             }

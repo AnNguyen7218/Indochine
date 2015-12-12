@@ -468,6 +468,7 @@ public class HotelOrderServices extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblDetails = new javax.swing.JTable();
 
+        setTitle("Order From Hotel");
         setMaximumSize(new java.awt.Dimension(100, 25));
         setMinimumSize(new java.awt.Dimension(100, 25));
         setPreferredSize(new java.awt.Dimension(100, 25));
@@ -634,8 +635,6 @@ public class HotelOrderServices extends javax.swing.JInternalFrame {
 
             }
         ));
-        tblDefault.setCellSelectionEnabled(false);
-        tblDefault.setRowSelectionAllowed(true);
         jScrollPane1.setViewportView(tblDefault);
 
         pnlShowDetails.add(jScrollPane1, new java.awt.GridBagConstraints());

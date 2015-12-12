@@ -26,7 +26,7 @@ public class BookedRooms  implements java.io.Serializable {
      private Integer id;
      private BookingRoom bookingRoom;
      private Rooms rooms;
-
+     private Boolean isActive;
     public BookedRooms() {
     }
 
@@ -41,6 +41,14 @@ public class BookedRooms  implements java.io.Serializable {
     @Column(name="ID", unique=true, nullable=false)
     public Integer getId() {
         return this.id;
+    }
+
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
     }
     
     public void setId(Integer id) {

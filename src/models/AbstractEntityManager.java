@@ -24,6 +24,10 @@ import org.hibernate.*;
 public class AbstractEntityManager<T> {
 
     private final Class<T> entityClass;
+    //tạo 1 session, làm liên kết vật lý đên db, session obj liên tục lưu lại và
+    //lấy thông tin của đối tượng cần
+    
+    
     protected final SessionFactory sessionFactory = HibernateUtil
             .getSessionFactory();
 
@@ -33,9 +37,12 @@ public class AbstractEntityManager<T> {
 
     public List<T> getAll() {
         try {
+            //khởi tạo ss khi tương tác cần thiết
             if (!sessionFactory.getCurrentSession().getTransaction().isActive()) {
                 sessionFactory.getCurrentSession().getTransaction().begin();
             }
+            
+            //from + table name (ten bang trung ten class nen getName())
             return sessionFactory.getCurrentSession()
                     .createQuery("from " + entityClass.getName()).list();
         } catch (RuntimeException re) {

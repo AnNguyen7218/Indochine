@@ -16,7 +16,7 @@
 
   <!-- views -->
   <view>
-    <name>TOC</name>
+    <name>TOC </name>
     <label>Table Of Contents</label>
     <type>javax.help.TOCView</type>
     <data>SampleTOC.xml</data>
